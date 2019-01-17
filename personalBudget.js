@@ -8,6 +8,19 @@ $(function(){
        }
 	});
 	
+	$('#showPassword').on('click', function() {
+		var $password = $('.password');
+		var typePassword = $password.attr('type');
+		if(typePassword == 'password'){
+			$password.attr('type', 'text')
+		} else {
+			$password.attr('type', 'password')
+		}
+	});
+	
+	
+	
+	
 	
 	/*$(window).on('scroll', function() {
 		if(animateButtons == false){
