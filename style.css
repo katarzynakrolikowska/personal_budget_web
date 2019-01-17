@@ -2,6 +2,7 @@ body{
 	position:relative;
 }
 
+#containerLogin,
 #containerStartPage,
 #containerRegistration{
 	background:white;
@@ -13,12 +14,17 @@ body{
 	background:#FAFAFA;
 }
 
-#linkR{
+#containerRegistration #linkR{
 	background:white;
 	padding:3px;
 	border-bottom:2px solid #585858;
 }
 
+#containerLogin #linkL{
+	background:white;
+	padding:3px;
+	border-bottom:2px solid #585858;
+}
 
 header a{
 	color:#FE2E2E;
@@ -33,7 +39,7 @@ header a:hover{
 	text-decoration:none;
 }
 
-
+.footerLogin,
 .footerRegister,
 .footer{
 	background:#F2F2F2;
@@ -41,15 +47,23 @@ header a:hover{
 	font-family:'Varela Round', sans-serif;
 }
 
-
+.footerLogin{
+	position:absolute;
+	bottom:0;
+}
 
 img{
 	position:relative;
 	width:100%;
 }
 
+
 .registration img{
 	height:443px;
+}
+
+.login img{
+	height:360px;
 }
 
 #textRight{
@@ -130,6 +144,7 @@ img{
 }
 
 @media (max-width: 575.98px) {
+	.login img,
 	.registration img{
 		display:none;
 	}
@@ -165,7 +180,7 @@ img{
 }
 
 
-
+.login .sideBg,
 .registration .sideBg{
 	background:#01A9DB;
 	opacity:0.8;
