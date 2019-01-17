@@ -1,11 +1,31 @@
+body{
+	position:relative;
+}
+
+#containerStartPage,
 #containerRegistration{
 	background:white;
 	font-family:'Varela Round', sans-serif;
 }
 
+.containerHeader {
+	border-bottom:2px solid #F2F2F2;
+	background:#FAFAFA;
+}
+
+#linkR{
+	background:white;
+	padding:3px;
+	border-bottom:2px solid #585858;
+}
+
 
 header a{
 	color:#FE2E2E;
+	background:white;
+	padding:10px;
+	border: 1px solid #F2F2F2;
+	border-radius:5px;
 }
 
 header a:hover{
@@ -14,7 +34,7 @@ header a:hover{
 }
 
 
-
+.footerRegister,
 .footer{
 	background:#F2F2F2;
 	color:#6E6E6E;
@@ -22,8 +42,14 @@ header a:hover{
 }
 
 
+
 img{
 	position:relative;
+	width:100%;
+}
+
+.registration img{
+	height:443px;
 }
 
 #textRight{
@@ -89,7 +115,7 @@ img{
 .headerLink{
 	color:#6E6E6E;
 	font-weight:bold;
-	
+
 }
 
 .headerLink:hover{
@@ -99,10 +125,21 @@ img{
 
 @media (max-width: 767.98px) {
 	.headerLink span{
-	display:none;
-	}
-	
+		display:none;
+	}		
 }
+
+@media (max-width: 575.98px) {
+	.registration img{
+		display:none;
+	}
+	header a{
+		font-size:26px;		
+	}
+}
+
+
+
 
 #startButtons .btn{
 	width:60%;
@@ -127,4 +164,33 @@ img{
 	background:#FF0000;
 }
 
+
+
+.registration .sideBg{
+	background:#01A9DB;
+	opacity:0.8;
+	position:absolute;
+	top:0;
+	height:100%;
+	width:100%;
+}
+
+h3{
+	font-family:'Varela Round', sans-serif;
+	padding-bottom:20px;
+	color:#585858;
+}
+
+#userEmail i{
+	width:14px;
+}
+
+form .btn{
+	width:100%;
+	background:#01A9DB;
+}
+
+label {
+	color:#585858;
+}
 
