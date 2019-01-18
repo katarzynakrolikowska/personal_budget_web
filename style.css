@@ -2,6 +2,7 @@ body{
 	position:relative;
 }
 
+#containerMenu,
 #containerLogin,
 #containerStartPage,
 #containerRegistration{
@@ -9,6 +10,7 @@ body{
 	font-family:'Varela Round', sans-serif;
 }
 
+.containerHeaderMenu,
 .containerHeader {
 	border-bottom:2px solid #F2F2F2;
 	background:#FAFAFA;
@@ -20,25 +22,37 @@ body{
 	border-bottom:2px solid #585858;
 }
 
+
 #containerLogin #linkL{
 	background:white;
 	padding:3px;
 	border-bottom:2px solid #585858;
 }
 
-header a{
+
+	
+
+.containerHeaderMenu header a{
+	font-size:25px;
+}
+
+.containerHeaderMenu header a,
+.containerHeader header a{
 	color:#FE2E2E;
+	opacity:0.9;
 	background:white;
 	padding:10px;
 	border: 1px solid #F2F2F2;
 	border-radius:5px;
 }
 
-header a:hover{
+.containerHeaderMenu header a:hover,
+.containerHeader header a:hover{
 	color:#DF0101;
 	text-decoration:none;
 }
 
+.footerMenu,
 .footerLogin,
 .footerRegister,
 .footer{
@@ -47,9 +61,11 @@ header a:hover{
 	font-family:'Varela Round', sans-serif;
 }
 
+
 .footerLogin{
 	position:absolute;
 	bottom:0;
+	left:0;
 }
 
 img{
@@ -66,43 +82,49 @@ img{
 	height:360px;
 }
 
-#textRight{
+#textRightBg{
 	position:absolute;
 	top:0;
 	background:#01A9DB;
 	opacity:0.93;
-	color:white;
-	font-family:'Varela Round', sans-serif;
-	font-size:23px;
+	
+	
 	width:100%;
 	height:100%;
-	text-align:center;
-	padding:15px;
-	
-	
 }
 
 
 
-#textLeft{
+#textLeftBg{
 	position:absolute;
 	top:0;
 	background:#FE2E2E;
 	opacity:0.93;
+	width:100%;
+	height:100%;
+	
+	
+}
+
+.textL,
+.textR{
+	position:absolute;
+	top:0;
 	color:white;
 	font-family:'Varela Round', sans-serif;
 	font-size:23px;
-	width:100%;
-	height:100%;
-	text-align:center;
 	padding:15px;
+	text-align:center;
+	height:100%;
+	
+	
 }
 
 #startButtons p,
 #textCenter{
 	color:#6E6E6E;
 	font-family:'Varela Round', sans-serif;
-	font-size:26px;
+	font-size:30px;
 	background:white;
 	text-align:center;	
 }
@@ -121,10 +143,6 @@ img{
 	margin-bottom:5px;
 }
 
-#textRight:hover,
-#textLeft:hover{
-	opacity:0.83;	
-}
 
 .headerLink{
 	color:#6E6E6E;
@@ -140,7 +158,23 @@ img{
 @media (max-width: 767.98px) {
 	.headerLink span{
 		display:none;
-	}		
+	}
+	.footerMenuSticky{
+		position:absolute;
+		bottom:0;
+		left:0;
+	}
+	
+	.containerHeaderMenu{
+		display:none;
+	}
+
+}
+
+@media (min-width: 767.98px) {
+	.navbar header h2 a{
+		display:none;
+	}
 }
 
 @media (max-width: 575.98px) {
@@ -153,7 +187,12 @@ img{
 	}
 }
 
-
+@media (min-width: 767.98px) {
+	#logOutItemNav{
+		display:none;
+	}
+	
+}
 
 
 #startButtons .btn{
@@ -183,7 +222,7 @@ img{
 .login .sideBg,
 .registration .sideBg{
 	background:#01A9DB;
-	opacity:0.8;
+	opacity:0.7;
 	position:absolute;
 	top:0;
 	height:100%;
@@ -194,6 +233,10 @@ h3{
 	font-family:'Varela Round', sans-serif;
 	padding-bottom:20px;
 	color:#585858;
+}
+
+h2{
+	margin-bottom:0;
 }
 
 #userEmail i{
@@ -209,3 +252,140 @@ label {
 	color:#585858;
 }
 
+.navbar {
+	opacity:0.85;
+	background:#01A9DB;
+}
+
+
+.nav-link{
+	color:#FAFAFA;
+	margin-left:10px;
+	margin-right:10px;
+	font-size:17px;
+	margin-bottom:3px;
+	margin-top:3px;	
+}
+
+.dropdown-item{
+	
+	font-size:17px;
+}
+
+.navbar-toggler-icon{
+	color:white;
+	font-size:27px;
+	padding-top:7px;
+}
+
+.navbar-toggler{
+	
+	padding:0;
+}
+
+.navbar header h2 a{
+	font-size:22px;
+	color:#FE2E2E;
+	transition:all 0.3s ease-out;
+	background:white;
+	padding:5px;
+	border: 1px solid #F2F2F2;
+	border-radius:5px;
+}
+
+
+
+.navbar header h2 a:hover{
+	text-decoration:none;
+	font-size:24px;
+	transition:all 0.3s ease-out;
+}
+
+
+
+.dropdown-item:hover,
+.nav-link:hover{
+	color:white;
+	background:#0489B1;
+	border-radius:3px;
+}
+
+.active .nav-link{
+	background:#0489B1;
+	border-radius:3px;
+}
+
+.dropdown-menu{
+	background:#FAFAFA;
+	
+	
+}
+
+.dropdown-divider{
+	border-color:#D8D8D8;
+}
+
+.contentBg{
+	position:absolute;
+	background:#FE2E2E;
+	opacity:0.86;
+	border-radius:3px;
+	
+}
+
+.contentBgHover{
+	top:12%;
+	left:12%;
+	height:76%;
+	width:76%;
+	transition:all 0.4s ease-out;
+}
+
+.contentBgBlur{
+	top:15%;
+	left:15%;
+	height:70%;
+	width:70%;
+	transition:all 0.4s ease-out;
+}
+
+.contentText{
+	position:absolute;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	font-size:28px;
+	z-index:10;
+	
+}
+
+.contentTextBlur{
+	top:15%;
+	left:15%;
+	height:70%;
+	width:70%;
+	padding:20px;
+	transition:all 0.4s ease-out;
+}
+
+.contentTextHover{
+	top:12%;
+	left:12%;
+	height:76%;
+	width:76%;
+	padding:40px;
+	transition:all 0.4s ease-out;
+}
+
+.modal-footer{
+	justify-content:space-around;
+}
+
+.modal-footer a{
+	width:40%;
+}
+
+.modal-dialog{
+	top:20%;
+	
+}
