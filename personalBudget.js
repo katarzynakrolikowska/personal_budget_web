@@ -4,15 +4,15 @@ $(function(){
 	if ($(window).width() <= 768) {  
 		$('.containerHeader .headerLink i:eq(0)').attr('title', 'Rejestracja');
 		$('.containerHeader .headerLink i:eq(1)').attr('title', 'Logowanie');
-		$('.containerHeaderMenu .headerLink i:eq(0)').attr('title', 'Twoje konto');
-		$('.containerHeaderMenu .headerLink i:eq(1)').attr('title', 'Wyloguj się');
+		//$('.containerHeaderMenu .headerLink i:eq(0)').attr('title', 'Twoje konto');
+		//$('.containerHeaderMenu .headerLink i:eq(1)').attr('title', 'Wyloguj się');
       }
 	$(window).resize(function() {
        if ($(window).width() <= 768) {  
             $('.containerHeader .headerLink i:eq(0)').attr('title', 'Rejestracja');
 			$('.containerHeader .headerLink i:eq(1)').attr('title', 'Logowanie');
-			$('.containerHeaderMenu .headerLink i:eq(0)').attr('title', 'Twoje konto');
-			$('.containerHeaderMenu .headerLink i:eq(1)').attr('title', 'Wyloguj się');
+			//$('.containerHeaderMenu .headerLink i:eq(0)').attr('title', 'Twoje konto');
+			//$('.containerHeaderMenu .headerLink i:eq(1)').attr('title', 'Wyloguj się');
        }
 	});
 	
@@ -71,6 +71,31 @@ $(function(){
 			'transition' : 'all 0.3s ease-out'
 		});
 	});
+	
+	$('.formAddIncome select').focus(function() {
+		$(this).next().addClass('inputGroupPrependFocus');
+		$(this).next().children().addClass('inputGroupTextFocus');
+	});
+		
+	$('.formAddIncome select').blur(function() {
+		$(this).next().removeClass('inputGroupPrependFocus');
+		$(this).next().children().removeClass('inputGroupTextFocus');
+	});
+	
+	
+	$('.formAddIncome input').focus(function() {
+		$(this).next().addClass('inputGroupPrependFocus');
+		$(this).next().children().addClass('inputGroupTextFocus');
+	});
+		
+	$('.formAddIncome input').blur(function() {
+		$(this).next().removeClass('inputGroupPrependFocus');
+		$(this).next().children().removeClass('inputGroupTextFocus');
+	});
+	
+	
+	
+	
 	/*$('.navbar-toggler-icon').on('click', function() {
 		
 		var $photo = $('.photo');
