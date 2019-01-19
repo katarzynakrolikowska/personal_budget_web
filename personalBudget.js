@@ -1,4 +1,15 @@
 //var animateButtons = false;
+var today = new Date();
+var currentYear = today.getFullYear();
+var currentMonth = today.getMonth() + 1;
+var currentDay = today.getDate();
+if(currentDay < 10)
+	currentDay = "0" + currentDay;
+	
+if(currentMonth < 10)
+	currentMonth = "0" + currentMonth;
+
+var currentDate = currentYear + "-" + currentMonth + "-" + currentDay;
 
 $(function(){
 	if ($(window).width() <= 768) {  
@@ -26,6 +37,8 @@ $(function(){
 		}
 	});
 	
+	//set current date formAddIncome
+	$('.formAddData #date').val(currentDate);
 	
 	/*$('#contentText').mouseenter(function() {
 		$('#contentBg').removeClass('contentBgBlur').addClass('contentBgHover');
@@ -72,29 +85,37 @@ $(function(){
 		});
 	});
 	
-	$('.formAddIncome select').focus(function() {
+	$('.formAddData select').focus(function() {
 		$(this).next().addClass('inputGroupPrependFocus');
 		$(this).next().children().addClass('inputGroupTextFocus');
 	});
 		
-	$('.formAddIncome select').blur(function() {
+	$('.formAddData select').blur(function() {
 		$(this).next().removeClass('inputGroupPrependFocus');
 		$(this).next().children().removeClass('inputGroupTextFocus');
 	});
 	
 	
-	$('.formAddIncome input').focus(function() {
+	$('.formAddData input').focus(function() {
 		$(this).next().addClass('inputGroupPrependFocus');
 		$(this).next().children().addClass('inputGroupTextFocus');
 	});
 		
-	$('.formAddIncome input').blur(function() {
+	$('.formAddData input').blur(function() {
 		$(this).next().removeClass('inputGroupPrependFocus');
 		$(this).next().children().removeClass('inputGroupTextFocus');
 	});
 	
 	
 	
+	
+	/*$('.formAddData select').focus(function() {
+		$(this).attr('size', '5');
+	});
+	
+	$('.formAddData select').change(function() {
+		$(this).attr('size', '1');
+	});
 	
 	/*$('.navbar-toggler-icon').on('click', function() {
 		

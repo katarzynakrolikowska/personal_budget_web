@@ -2,6 +2,7 @@ body{
 	position:relative;
 }
 
+#containerExpense,
 #containerIncome,
 #containerMenu,
 #containerLogin,
@@ -10,9 +11,7 @@ body{
 	background:white;
 	font-family:'Varela Round', sans-serif;
 }
-#containerIncome{
-	
-}
+
 
 .containerHeaderMenu,
 .containerHeader {
@@ -417,7 +416,7 @@ label {
 	top:20%;	
 }
 
-.addIncomeRow{
+.addDataRow{
 	padding:0;
 
 	
@@ -428,7 +427,7 @@ label {
 	padding:0 0 0 0;
 }
 
-.formAddIncome{
+.formAddData{
 	background:#F7F9F9;
 	padding:8% 0 0 0;
 	margin-top:0;
@@ -436,28 +435,28 @@ label {
 	font-family:'Varela Round', sans-serif;
 }
 
-.formAddIncome h3{
+.formAddData h3{
 	margin-left:10%;
 }
 
-.formAddIncome .input-group{
+.formAddData .input-group{
 	width:80%;
 	margin-left:auto;
 	margin-right:auto;
 	margin-bottom:5%;
 }
 
-.formAddIncome .input-group-text,
-.formAddIncome select,
-.formAddIncome input{
+.formAddData .input-group-text,
+.formAddData select,
+.formAddData input{
 	border:none;
 	border-bottom: 1px solid #6E6E6E;
 	border-radius:0;
 	background:white;
 }
 
-.formAddIncome select:focus,
-.formAddIncome input:focus{
+.formAddData select:focus,
+.formAddData input:focus{
 	box-shadow:none;
 	border-bottom: 2px solid #0B3861;
 	background:white;
@@ -472,22 +471,22 @@ label {
 	background:white !important;
 }
 
-.formAddIncome button{
+.formAddData button{
 	width:100%;	
 	font-size:20px;
 	border-radius:0;
 	
 }
 
-.formAddIncome [type="reset"]:hover{
+.formAddData [type="reset"]:hover{
 	background:#FF0000;
 }
 
-.formAddIncome [type="reset"]{
+.formAddData [type="reset"]{
 	background:#FE2E2E;
 }
 
-.formAddIncome [type="submit"]{
+.formAddData [type="submit"]{
 	background:#01A9DB;
 }
 

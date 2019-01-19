@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatiable" content="IE-edge,chrome=1" />
-	<title>Menu</title>
+	<title>Dodaj wydatek</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="container-fluid p-0" id="containerMenu" >
+	<div class="container-fluid p-0" id="containerExpense" >
 		<div class="row pl-3 m-0 containerHeaderMenu">
 			<div class="col py-3 my-2">
 				<header><h2><b><a href="menu.html" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
@@ -30,8 +30,8 @@
 			</div>
 		</div>
 		
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+		<div class="modal fade my-2" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+			<div class="modal-dialog mr-0" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="logoutModalLabel">Czy na pewno chcesz się wylogować?</h5>
@@ -58,7 +58,7 @@
 
 			<div class="collapse navbar-collapse " id="menu">
 				<ul class="navbar-nav m-auto ">
-				    <li class="nav-item active">
+				    <li class="nav-item">
 						<a class="nav-link" href="menu.html"><i class="icon-home"></i> Strona główna<span class="sr-only">(current)</span></a>
 				    </li>
 					
@@ -66,12 +66,12 @@
 						<a class="nav-link" href="income.html"><i class="icon-dollar"></i> Dodaj przychód</a>
 					</li>
 					
-					<li class="nav-item">
-						<a class="nav-link " href="expense.html"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
+					<li class="nav-item active">
+						<a class="nav-link" href="expense.html"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link " href="#"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
+						<a class="nav-link" href="#"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
 					</li>
 					
 					<li class="nav-item dropdown">
@@ -92,19 +92,85 @@
 			</div>
 		</nav>
 		
-		
-		<div class="row mx-0 mb-5 justify-content-center">
-			<div class="col-12 col-md-auto px-0 mt-5 mt-sm-0 photo" >
-				<!--Photo by rawpixel.com from Pexels-->
-				<img src="img/pexels-photo-908288.jpeg" >
-				<div class="contentBg contentBgBlur" id="contentBg">
-
-				</div>
-				<div class="contentText contentTextBlur" id="contentText">
-					Dzień dobry Ania! <br />
-					Co mogę dzisiaj dla Ciebie zrobić?
-				</div>
+		<div class="row  justify-content-center addDataRow mx-0">
+			
+			
+			<div class="col-12 col-sm-10 col-md-8 col-lg-6 containerAddIncome">
+				<form class="formAddData">
+					<h3>Wprowadź wydatek</h3>
+					<div class="input-group ">
+						<input type="number" class="form-control" placeholder="Kwota" required>
+						<div class="input-group-prepend ">
+							<span class="input-group-text " id="amountExpense"><i class="fas fa-pen-alt"></i></span>
+						</div>
+					</div>
+										
+					<div class="input-group ">	
+						<input type="date" class="form-control" id="date" placeholder="Data" required>
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
+						</div>
+					</div>
+					
+					<div class="input-group ">
+						<select class="custom-select" id="paymentMethod" required>
+							<option value="" disabled selected>Sposób płatności</option>
+							<option value="1">Gotówka</option>
+							<option value="2">Karta debetowa</option>
+							<option value="3">Karta kredytowa</option>
+						</select>
+						<div class="input-group-prepend ">
+							<span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
+						</div>
+					</div>
+					
+					<div class="input-group ">
+						<select class="custom-select" id="category" required>
+							<option value="" disabled selected>Kategoria</option>
+							<option value="1">Jedzenie</option>
+							<option value="2">Mieszkanie</option>
+							<option value="3">Transport</option>
+							<option value="4">Telekomunikacja</option>
+							<option value="5">Opieka zdrowotna</option>
+							<option value="6">Ubranie</option>
+							<option value="7">Higiena</option>
+							<option value="8">Dzieci</option>
+							<option value="9">Rozrywka</option>
+							<option value="10">Wycieczka</option>
+							<option value="11">Szkolenia</option>
+							<option value="12">Książki</option>
+							<option value="13">Oszczędności</option>
+							<option value="14">Na złotą jesień, czyli emeryturę</option>
+							<option value="15">Spłata długów</option>
+							<option value="16">Darowizna</option>
+							<option value="17">Inne wydatki</option>
+						</select>
+						<div class="input-group-prepend ">
+							<span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
+						</div>
+					</div>
+										
+					<div class="input-group ">
+						<input type="text" class="form-control" placeholder="Komentarz (opcjonalnie)">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
+						</div>
+					</div>
+					
+					
+					<div class="row mx-0">
+						<div class="col px-0">
+							<button type="reset" class="btn btn-default mt-4   text-white">Anuluj</button>
+						</div>
+					
+						<div class="col px-0">
+							<button type="submit" class="btn btn-default mt-4   text-white">Dodaj</button>
+						</div>
+					</div>
+				</form>
+				
 			</div>
+			
 		</div>
 		
 		<div class="row mx-0">
