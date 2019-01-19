@@ -2,12 +2,16 @@ body{
 	position:relative;
 }
 
+#containerIncome,
 #containerMenu,
 #containerLogin,
 #containerStartPage,
 #containerRegistration{
 	background:white;
 	font-family:'Varela Round', sans-serif;
+}
+#containerIncome{
+	
 }
 
 .containerHeaderMenu,
@@ -87,8 +91,6 @@ img{
 	top:0;
 	background:#01A9DB;
 	opacity:0.93;
-	
-	
 	width:100%;
 	height:100%;
 }
@@ -168,12 +170,24 @@ img{
 	.containerHeaderMenu{
 		display:none;
 	}
-
+	
 }
 
 @media (min-width: 767.98px) {
 	.navbar header h2 a{
 		display:none;
+	}
+	
+	.navbar .show li:first-child{
+	border-top: 1px solid #0489B1;
+	padding-top:5px;
+	}
+}
+
+@media (min-width: 991.98px) {
+	.navbar .show li:first-child{
+	border-top: none;
+	padding-top:0;
 	}
 }
 
@@ -185,6 +199,7 @@ img{
 	header a{
 		font-size:26px;		
 	}
+	
 }
 
 @media (min-width: 767.98px) {
@@ -222,7 +237,7 @@ img{
 .login .sideBg,
 .registration .sideBg{
 	background:#01A9DB;
-	opacity:0.7;
+	opacity:0.6;
 	position:absolute;
 	top:0;
 	height:100%;
@@ -283,6 +298,11 @@ label {
 	padding:0;
 }
 
+.navbar-toggler:focus{
+	
+	outline:none;
+}
+
 .navbar header h2 a{
 	font-size:22px;
 	color:#FE2E2E;
@@ -301,6 +321,19 @@ label {
 	transition:all 0.3s ease-out;
 }
 
+.navbar .show li{
+	padding-bottom:2px;
+	padding-top:2px;	
+}
+
+.navbar .show li:last-child{
+	padding-bottom:0;
+	border-top: 1px solid #0489B1;
+}
+
+.navbar .show li:last-child a i{
+	padding-left:5px;
+}
 
 
 .dropdown-item:hover,
@@ -317,13 +350,8 @@ label {
 
 .dropdown-menu{
 	background:#FAFAFA;
-	
-	
 }
 
-.dropdown-divider{
-	border-color:#D8D8D8;
-}
 
 .contentBg{
 	position:absolute;
@@ -386,6 +414,80 @@ label {
 }
 
 .modal-dialog{
-	top:20%;
+	top:20%;	
+}
+
+.addIncomeRow{
+	padding:0;
+
 	
 }
+
+.containerAddIncome{
+	
+	padding:0 0 0 0;
+}
+
+.formAddIncome{
+	background:#F7F9F9;
+	padding:8% 0 0 0;
+	margin-top:0;
+	margin-bottom:10%;
+	font-family:'Varela Round', sans-serif;
+}
+
+.formAddIncome h3{
+	margin-left:10%;
+}
+
+.formAddIncome .input-group{
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:5%;
+}
+
+.formAddIncome .input-group-text,
+.formAddIncome select,
+.formAddIncome input{
+	border:none;
+	border-bottom: 1px solid #6E6E6E;
+	border-radius:0;
+	background:white;
+}
+
+.formAddIncome select:focus,
+.formAddIncome input:focus{
+	box-shadow:none;
+	border-bottom: 2px solid #0B3861;
+	background:white;
+	
+}
+
+.inputGroupPrependFocus{
+	border-bottom: 1px solid #0B3861;
+}
+
+.inputGroupTextFocus{
+	background:white !important;
+}
+
+.formAddIncome button{
+	width:100%;	
+	font-size:20px;
+	border-radius:0;
+	
+}
+
+.formAddIncome [type="reset"]:hover{
+	background:#FF0000;
+}
+
+.formAddIncome [type="reset"]{
+	background:#FE2E2E;
+}
+
+.formAddIncome [type="submit"]{
+	background:#01A9DB;
+}
+
