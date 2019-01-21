@@ -37,10 +37,15 @@ categoriesIncome[1] = "Odsetki bankowe";
 categoriesIncome[2] = "Sprzedaż na allegro";
 categoriesIncome[3] = "Inne";
 
+var paymentMethod = new Array(3);
+paymentMethod[0] = "Gotówka";
+paymentMethod[1] = "Karta debetowa";
+paymentMethod[2] = "Karta kredytowa";
+
 $(function(){
 	
 	//set sticky footer
-	if($(document).height() >= $(window).height()){
+	/*if($(document).height() >= $(window).height()){
 		$('footer').addClass('footerMenuSticky');
 	}else{
 		$('footer').removeClass('footerMenuSticky');
@@ -52,7 +57,7 @@ $(function(){
 		}else{
 			$('footer').removeClass('footerMenuSticky');
 		}
-	});
+	});*/
 	
 	
 	// set title of header icon for <= sm size
@@ -215,9 +220,85 @@ $(function(){
 	}
 	
 	
+	var userName = 'imię';
+	var userEmail = 'email';
+	var userPassword = 'hasło';
+	
+	
+	
+	//set user data
+	
+	var $userNameSpan = $('.dataUser #headerName span');
+	var $userEmailSpan = $('.dataUser #headerEmail span');
+	var $userPasswordSpan = $('.dataUser #headerPassword span');
+	
+	$userNameSpan.text(userName);
+	$userEmailSpan.text(userEmail);
+	
+	
+	var $dataUser = $('.dataUser');
+	var userInput = '';
+	
+	
+	//edit user name
+	var $formUserName = $dataUser.next().eq(0);
+	
+	$dataUser.find('#editNameLink').on('click', function() {
+		$formUserName.removeClass('hideItem');	
+	});
+	
+	$formUserName.find('.btnChangeUserName').on('click', function() {
+		userInput = $(this).parent().prev().find('.inputEditName');
+		if(userInput.val() !== ''){
+			userName = userInput.val();
+			userName = setFirstLetterUpperCase(userName);
+			$userNameSpan.text(userName);
+			
+			userInput.val('');
+			
+		}
+		$formUserName.addClass('hideItem');
+		
+	});
+		
+		
+	//edit user email
+		
+	var $formUserEmail = $dataUser.next().eq(1);
+	
+	$dataUser.find('#editEmailLink').on('click', function() {
+		$formUserEmail.removeClass('hideItem');	
+	});
+	
+	$formUserEmail.find('.btnChangeUserEmail').on('click', function() {	
+		userInput = $(this).parent().prev().find('.inputEditEmail');
+		if(userInput.val() !== ''){
+			userEmail = userInput.val();
+			$userEmailSpan.text(userEmail);
+			
+			userInput.val('');
+			
+		}
+		$formUserEmail.addClass('hideItem');
+		
+	});
+	
+	//edit user password
+	
+	var $formUserPassword = $dataUser.next().eq(2);
+	
+	$dataUser.find('#editPasswordLink').on('click', function() {
+		$formUserPassword.removeClass('hideItem');	
+	});
+	
+	$formUserPassword.find('.btnChangeUserPassword').on('click', function() {	
+		$formUserPassword.addClass('hideItem');
+		
+	});
+	
+	
+	
 	//set chart
-	
-	
 	
 	var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
@@ -240,5 +321,32 @@ $(function(){
 	}
 	
 	chart.render();
-
+	
+	
 });
+	function setFirstLetterUpperCase(name){
+		var firstLetter = name.substr(0,1);
+		var otherLetters = name.substr(1, name.length-1);
+		var upperFirstLetter = firstLetter.toUpperCase();
+		var otherNameLetters = '';
+		for(i = 1; i < name.length; i++){
+			otherNameLetters += name.substr(i, 1).toLowerCase();
+		}
+		return upperFirstLetter + otherNameLetters;
+		
+		
+	}
+	
+	
+	function hidePassword(password){
+		var hidePassword = '';
+		for(i = 0; i < password.length; i++){
+			hidePassword += '*';
+		}
+		return hidePassword;
+	}
+	
+		
+		
+		
+	

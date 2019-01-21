@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatiable" content="IE-edge,chrome=1" />
-	<title>Dodaj przychód</title>
+	<title>Ustawienia</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="container-fluid p-0" id="containerIncome" >
+	<div class="container-fluid p-0" id="containerSettings" >
 		<div class="row pl-3 m-0 containerHeaderMenu">
 			<div class="col py-3 my-2">
 				<header><h2><b><a href="menu.html" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
@@ -31,7 +31,7 @@
 		</div>
 		
 		<div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog " role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="logoutModalLabel">Czy na pewno chcesz się wylogować?</h5>
@@ -62,11 +62,11 @@
 						<a class="nav-link" href="menu.html"><i class="icon-home"></i> Strona główna</a>
 				    </li>
 					
-				    <li class="nav-item active">
-						<a class="nav-link" href="income.html"><i class="icon-dollar"></i> Dodaj przychód<span class="sr-only">(current)</span></a>
+				    <li class="nav-item">
+						<a class="nav-link" href="income.html"><i class="icon-dollar"></i> Dodaj przychód</a>
 					</li>
 					
-					<li class="nav-item">
+					<li class="nav-item ">
 						<a class="nav-link" href="expense.html"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
 					</li>
 					
@@ -74,9 +74,8 @@
 						<a class="nav-link" href="balance.html"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
 					</li>
 					
-					<li class="nav-item dropdown">
+					<li class="nav-item active">
 						<a class="nav-link " href="settings.html" ><i class="icon-cog-alt"></i> Ustawienia</a>	
-						
 					</li>
 					
 					<li class="nav-item" id="logOutItemNav">
@@ -86,64 +85,103 @@
 			</div>
 		</nav>
 		
-		<div class="row pb-sm-5 justify-content-center addDataRow mx-0">
-			
-			
-			<div class="col-12 col-sm-10 col-md-8 col-lg-6 containerAddData">
-				<form class="formAddData">
-					<h3>Wprowadź przychód</h3>
-					<div class="input-group ">
-						<input type="number" class="form-control" placeholder="Kwota" required>
-						<div class="input-group-prepend ">
-							<span class="input-group-text " id="amountIncome"><i class="fas fa-pen-alt"></i></span>
-						</div>
+		<div class="row justify-content-center my-5 mx-0 pt-5 " id="rowMyAccount">
+			<div class="col-12 col-md-8 col-xl-6 px-0 colMyAccount">
+				<div class="row headerMyData mx-0 py-2">
+					<div class="col" >
+						<header>Moje dane</header>
 					</div>
-										
-					<div class="input-group ">	
-						<input type="date" class="form-control" id="date" placeholder="Data" required>
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
+				</div>
+				<div class="row mx-0 pr-4">
+					<div class="col-12 ">
+						
+						<div class="row dataUser mt-4">
+							<div class="col-11 " id="headerName">Imię: <span></span></div>
+							
+							<div class="col-1">
+								<a href="#" id="editNameLink"><i class="fas fa-edit"></i></a>
+							</div>
 						</div>
+						
+						<form class="hideItem">
+							<div class=" row mt-2 " >
+								<div class="col-12 col-sm-8 input-group">
+									<input type="text" class="form-control inputEditName" placeholder="Podaj nowe imię">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-user"></i></span>
+									</div>
+								</div>
+								<div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
+									<button type="submit" class="btn text-white btnChangeUserName"><i class="fas fa-plus"></i> Zapisz</button>
+								</div>
+							</div>
+						</form>
+							
+							
+						<div class="row dataUser mt-4">
+							<div class="col-11 " id="headerEmail">Email: <span></span></div>
+							
+							<div class="col-1 pr-2">
+								<a href="#" id="editEmailLink"><i class="fas fa-edit"></i></a>
+							</div>
+						</div>
+						<form class="hideItem">
+							<div class=" row mt-2" >
+								<div class="col-12 col-sm-8 input-group">
+									<input type="email" class="form-control inputEditEmail"placeholder="Podaj nowy adres email">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+									</div>
+								</div>
+								<div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
+									<button type="submit" class="btn text-white btnChangeUserEmail"><i class="fas fa-plus"></i> Zapisz</button>
+								</div>
+							</div>
+						</form>
+							
+						<div class="row dataUser my-4">
+							<div class="col-11" id="headerPassword">Hasło: <span></span></div>
+							
+							<div class="col-1">
+								<a href="#" id="editPasswordLink"><i class="fas fa-edit"></i></a>
+							</div>
+						</div>
+						<form class="hideItem">
+							<div class="row mt-2" >
+								<div class="col-12 col-sm-8 input-group mb-2">
+									<input type="password" class="form-control inputEditPassword" id="oldPassword" placeholder="Podaj stare hasło">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-lock"></i></span>
+									</div>
+								</div>
+								<div class="col-12 col-sm-8 input-group mb-2">
+									<input type="password" class="form-control inputEditPassword" id="newPassword" placeholder="Podaj nowe hasło">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-lock"></i></span>
+									</div>
+								</div>
+								<div class="col-12 col-sm-8 input-group">
+									<input type="password" class="form-control inputEditPassword" id="repeatNewPassword" placeholder="Powtórz nowe hasło">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-lock"></i></span>
+									</div>
+								</div>
+								<div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0 ">
+									<button type="submit" class="btn text-white btnChangeUserPassword"><i class="fas fa-plus"></i> Zapisz </button>
+								</div>
+							</div>
+						</form>
+							
+						
 					</div>
-					
-					<div class="input-group ">
-						<select class="custom-select" id="category" required>
-							<option value="" disabled selected>Kategoria</option>
-							<option value="1">Wynagrodzenie</option>
-							<option value="2">Odsetki bankowe</option>
-							<option value="3">Sprzedaż na allegro</option>
-							<option value="4">Inne</option>
-						</select>
-						<div class="input-group-prepend ">
-							<span class="input-group-text " id="categoriesIncome"><i class="fas fa-pen-alt "></i></span>
-						</div>
-					</div>
-										
-					<div class="input-group ">
-						<input type="text" class="form-control" placeholder="Komentarz (opcjonalnie)">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-						</div>
-					</div>
-					
-					
-					<div class="row mx-0">
-						<div class="col px-0">
-							<button type="reset" class="btn btn-default mt-4 text-white"><i class="fas fa-times"></i> Anuluj</button>
-						</div>
-					
-						<div class="col px-0">
-							<button type="submit" class="btn btn-default mt-4 text-white"><i class="fas fa-plus"></i> Dodaj</button>
-						</div>
-					</div>
-				</form>
+				</div>
+				
 				
 			</div>
-			
 		</div>
 		
-		<div class="row mx-0">
-			<footer class="col footerMenu text-center py-2">
+		<div class="row mx-0 mt-5">
+			<footer class="col footerMenu  text-center py-2">
 				<p class="text-muted">2018 &copy; fullWallet.pl</p>	
 			</footer>	
 		</div>

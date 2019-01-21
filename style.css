@@ -2,6 +2,7 @@ body{
 	position:relative;
 }
 
+#containerSettings,
 #containerBalance,
 #containerExpense,
 #containerIncome,
@@ -615,4 +616,61 @@ tbody tr:last-child{
 
 .rowChart{
 	margin-bottom:100px;
+}
+
+
+#containerSettings #rowMyAccount{
+	
+	
+}
+
+#containerSettings .colMyAccount{
+	border-radius:4px;
+	border:1px solid #E6E6E6;
+	background:#FBFCFC;
+	
+	
+}
+
+
+#containerSettings .hideItem{
+	display:none;
+}
+
+#containerSettings .colMyAccount .btnChangeUserPassword,
+#containerSettings .colMyAccount .btnChangeUserEmail,
+#containerSettings .colMyAccount .btnChangeUserName{
+	background:#43A047;
+	width:100%;
+	
+}
+
+#containerSettings .colMyAccount .btnChangeUserPassword:hover,
+#containerSettings .colMyAccount .btnChangeUserEmail:hover,
+#containerSettings .colMyAccount .btnChangeUserName:hover{
+	background:#388E3C;
+	
+}
+
+#containerSettings .colMyAccount .dataUser{
+	font-size:18px;
+	
+	
+	
+}
+
+#containerSettings .colMyAccount .dataUser span{
+	font-size:19px;
+	margin-left:5px;
+	
+}
+
+#containerSettings .headerMyData{
+	background:#81C784;
+	width:100%;
+	border-bottom: 1px solid #66BB6A;
+	font-size:26px;
+	color:#424242;
+
+	
 }
