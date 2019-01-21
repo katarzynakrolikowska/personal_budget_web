@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatiable" content="IE-edge,chrome=1" />
-	<title>Dodaj przychód</title>
+	<title>Przeglądaj bilans</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="container-fluid p-0" id="containerIncome" >
+	<div class="container-fluid p-0" id="containerBalance" >
 		<div class="row pl-3 m-0 containerHeaderMenu">
 			<div class="col py-3 my-2">
 				<header><h2><b><a href="menu.html" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
@@ -31,7 +31,7 @@
 		</div>
 		
 		<div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog " role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="logoutModalLabel">Czy na pewno chcesz się wylogować?</h5>
@@ -58,11 +58,11 @@
 
 			<div class="collapse navbar-collapse " id="menu">
 				<ul class="navbar-nav m-auto ">
-				    <li class="nav-item">
+				    <li class="nav-item mainSiteItem">
 						<a class="nav-link" href="menu.html"><i class="icon-home"></i> Strona główna<span class="sr-only">(current)</span></a>
 				    </li>
 					
-				    <li class="nav-item active">
+				    <li class="nav-item">
 						<a class="nav-link" href="income.html"><i class="icon-dollar"></i> Dodaj przychód</a>
 					</li>
 					
@@ -70,7 +70,7 @@
 						<a class="nav-link" href="expense.html"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
 					</li>
 					
-					<li class="nav-item">
+					<li class="nav-item active">
 						<a class="nav-link" href="balance.html"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
 					</li>
 					
@@ -85,6 +85,19 @@
 						
 					</li>
 					
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown periodNavItem">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPeriod" title="Wybierz okres" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-calendar-alt pl-2"></i><span> Wybierz okres</span></a>
+						
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownPeriod">
+							<a class="dropdown-item" href="#" id="optionCurrentMonth">Bieżący miesiąc</a>
+							<a class="dropdown-item" href="#" id="optionPreviousMonth">Poprzedni miesiąc</a>
+							<a class="dropdown-item" href="#" id="optionCurrentYear">Bieżący rok</a>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#selectPeriodModal" id="optionSelectPeriod">Niestandardowy</a>
+						</div>
+					</li>
+						
 					<li class="nav-item" id="logOutItemNav">
 						<a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Wyloguj się</a>
 					</li>
@@ -92,64 +105,104 @@
 			</div>
 		</nav>
 		
-		<div class="row pb-sm-5 justify-content-center addDataRow mx-0">
+		<div class="modal fade " id="selectPeriodModal" tabindex="-1" role="dialog" aria-labelledby="selectPeriodModalLabel" aria-hidden="true">
+			<div class="modal-dialog " role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="selectPeriodModalLabel">Wybierz zakres</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group row pr-5">
+								<label class="col-form-label col-4 text-center" for="dateStart">Od dnia</label>
+								<input type="date" class="form-control col-8" id="dateStart" required>
+							</div>
+							
+							<div class="form-group row pr-5">	
+								<label class="col-form-label col-4 text-center" for="dateEnd">Do dnia</label>
+								<input type="date" class="form-control col-8" id="dateEnd" placeholder="Data końcowa" required>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-primary" data-dismiss="modal">Anuluj</a>
+						<a href="#" class="btn btn-primary" id="btnOK" data-dismiss="modal">OK</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
 			
-			
-			<div class="col-12 col-sm-10 col-md-8 col-lg-6 containerAddData">
-				<form class="formAddData">
-					<h3>Wprowadź przychód</h3>
-					<div class="input-group ">
-						<input type="number" class="form-control" placeholder="Kwota" required>
-						<div class="input-group-prepend ">
-							<span class="input-group-text " id="amountIncome"><i class="fas fa-pen-alt"></i></span>
-						</div>
-					</div>
-										
-					<div class="input-group ">	
-						<input type="date" class="form-control" id="date" placeholder="Data" required>
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-						</div>
-					</div>
-					
-					<div class="input-group ">
-						<select class="custom-select" id="category" required>
-							<option value="" disabled selected>Kategoria</option>
-							<option value="1">Wynagrodzenie</option>
-							<option value="2">Odsetki bankowe</option>
-							<option value="3">Sprzedaż na allegro</option>
-							<option value="4">Inne</option>
-						</select>
-						<div class="input-group-prepend ">
-							<span class="input-group-text " id="categoriesIncome"><i class="fas fa-pen-alt "></i></span>
-						</div>
-					</div>
-										
-					<div class="input-group ">
-						<input type="text" class="form-control" placeholder="Komentarz (opcjonalnie)">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-						</div>
-					</div>
-					
-					
-					<div class="row mx-0">
-						<div class="col px-0">
-							<button type="reset" class="btn btn-default mt-4 text-white"><i class="fas fa-times"></i> Anuluj</button>
-						</div>
-					
-						<div class="col px-0">
-							<button type="submit" class="btn btn-default mt-4 text-white"><i class="fas fa-plus"></i> Dodaj</button>
-						</div>
-					</div>
-				</form>
-				
+		
+		<div class="row justify-content-center pt-5 mx-0">
+			<div class="col-auto headerOption">
+				<header><h3>Twój bilans za 
+					<span> bieżący miesiąc</span>
+				</h3></header>
+			</div>
+		</div>
+		<div class="row mx-0 my-5 rowTables justify-content-around">
+			<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+				<header><h4><b>Przychody</b></h4></header>
+				<table class="table" id="tableIncome">
+					<thead>
+						<tr>
+							<th scope="col">Kategoria</th>
+							<th scope="col" class="text-center">Data</th>
+							<th scope="col" class="text-right">Kwota</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
 			</div>
 			
+			<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+				<header><h4><b>Wydatki</b></h4></header>
+				<table class="table" id="tableExpense">
+					<thead>
+						<tr>
+							<th scope="col">Kategoria</th>
+							<th scope="col" class="text-center">Data</th>
+							<th scope="col" class="text-right">Kwota</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center mr-0">
+			<div class="col-12 col-md-10 col-lg-8 " id="resultBg">
+				<div class="resultText shadow">
+					TWÓJ BILANS: <span id="resultBalance"></span> PLN
+				</div>
+				<div class="col text-center my-4" id="resultComment"></div>
+			</div>
+		</div>
+		
+			
+		
+		<div class="row mr-0 mb-5">
+			<div class="col-12 text-center">
+				<header><h2><b>Spójrz jeszcze raz, na co wydałeś w wybranym okresie</b></h2></header>	
+			</div>
+		</div>
+		
+		<div class="row justify-content-center rowChart mr-0">
+			<div class="col col-lg-10 " id="chart">
+				<div id="chartContainer"></div>
+			</div>
 		</div>
 		
 		<div class="row mx-0">
-			<footer class="col footerMenu text-center py-2">
+			<footer class="col footerMenu text-center  py-2">
 				<p class="text-muted">2018 &copy; fullWallet.pl</p>	
 			</footer>	
 		</div>
@@ -157,6 +210,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<script type="text/javascript" src="personalBudget.js"></script>
 </body>
 
