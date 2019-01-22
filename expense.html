@@ -23,7 +23,7 @@
 				<header><h2><b><a href="menu.html" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
 			</div>
 			<div class="col-auto pt-4">
-				<a href="#" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> Użytkownik</span></a>
+				<a href="settings.html" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> Użytkownik</span></a>
 			</div>
 			<div class="col-auto pt-4 pr-4 pr-sm-4">
 				<a href="#" class="headerLink" id="linkLogOut" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i><span> Wyloguj się</span></a>
@@ -107,11 +107,8 @@
 					</div>
 					
 					<div class="input-group ">
-						<select class="custom-select" id="paymentMethod" required>
-							<option value="" disabled selected>Sposób płatności</option>
-							<option value="1">Gotówka</option>
-							<option value="2">Karta debetowa</option>
-							<option value="3">Karta kredytowa</option>
+						<select class="custom-select setPaymentMethods" id="paymentMethod" required>
+							
 						</select>
 						<div class="input-group-prepend ">
 							<span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
@@ -119,25 +116,8 @@
 					</div>
 					
 					<div class="input-group ">
-						<select class="custom-select" id="category" required>
-							<option value="" disabled selected>Kategoria</option>
-							<option value="1">Jedzenie</option>
-							<option value="2">Mieszkanie</option>
-							<option value="3">Transport</option>
-							<option value="4">Telekomunikacja</option>
-							<option value="5">Opieka zdrowotna</option>
-							<option value="6">Ubranie</option>
-							<option value="7">Higiena</option>
-							<option value="8">Dzieci</option>
-							<option value="9">Rozrywka</option>
-							<option value="10">Wycieczka</option>
-							<option value="11">Szkolenia</option>
-							<option value="12">Książki</option>
-							<option value="13">Oszczędności</option>
-							<option value="14">Na złotą jesień, czyli emeryturę</option>
-							<option value="15">Spłata długów</option>
-							<option value="16">Darowizna</option>
-							<option value="17">Inne wydatki</option>
+						<select class="custom-select setExpenseCategories" id="category" required>
+							
 						</select>
 						<div class="input-group-prepend ">
 							<span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
