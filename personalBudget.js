@@ -37,8 +37,113 @@ categoriesIncome[1] = "Odsetki bankowe";
 categoriesIncome[2] = "Sprzedaż na allegro";
 categoriesIncome[3] = "Inne";
 
+var paymentMethod = new Array(3);
+paymentMethod[0] = "Gotówka";
+paymentMethod[1] = "Karta debetowa";
+paymentMethod[2] = "Karta kredytowa";
+
 $(function(){
 	
+	//set incomes categories
+	var $setIncomesCategories = $('.setIncomeCategories');
+	var $newOption = $('<option>');
+	
+	$setIncomesCategories.append($newOption.append('Wybierz kategorię').attr({
+		'disabled': true,
+		'selected': true
+	}));
+	for(i = 0; i < categoriesIncome.length; i++){
+		$newOption = $('<option>');
+		$setIncomesCategories.append($newOption.append(categoriesIncome[i]));
+		
+	}
+	
+	
+	//set expenses categories
+	
+	var $setExpenseCategories = $('.setExpenseCategories');
+	var $newOption = $('<option>');
+	
+	$setExpenseCategories.append($newOption.append('Wybierz kategorię').attr({
+		'disabled': true,
+		'selected': true
+	}));
+	for(i = 0; i < categoriesExpense.length; i++){
+		$newOption = $('<option>');
+		$setExpenseCategories.append($newOption.append(categoriesExpense[i]));
+		
+	}
+	
+	
+	//set payments method
+	var $setPaymentMethods = $('.setPaymentMethods');
+	var $newOption = $('<option>');
+	
+	$setPaymentMethods.append($newOption.append('Wybierz metodę płatności').attr({
+		'disabled': true,
+		'selected': true
+	}));
+	for(i = 0; i < paymentMethod.length; i++){
+		$newOption = $('<option>');
+		$setPaymentMethods.append($newOption.append(paymentMethod[i]));
+		
+	}
+	
+	//set settings menu
+	var $containerMyData = $('#containerMyData');
+	var $containerMyIncomes = $('#containerMyIncomes');
+	var $containerMyExpenses = $('#containerMyExpenses');
+	
+	var $navLinkData = $('.navLinkData');
+	var $navLinkIncome = $('.navLinkIncome');
+	var $navLinkExpense = $('.navLinkExpense');
+	
+	$navLinkData.on('click', function() {
+		$containerMyData.removeClass('hideItem');
+		$containerMyIncomes.addClass('hideItem');
+		$containerMyExpenses.addClass('hideItem');
+		
+		$(this).addClass('active');
+		$navLinkIncome.removeClass('active');
+		$navLinkExpense.removeClass('active');
+		
+	});
+		
+	$navLinkIncome.on('click', function() {
+		$containerMyData.addClass('hideItem');
+		$containerMyIncomes.removeClass('hideItem');
+		$containerMyExpenses.addClass('hideItem');
+		
+		$(this).addClass('active');
+		$navLinkData.removeClass('active');
+		$navLinkExpense.removeClass('active');
+	});
+	
+	$navLinkExpense.on('click', function() {
+		$containerMyData.addClass('hideItem');
+		$containerMyIncomes.addClass('hideItem');
+		$containerMyExpenses.removeClass('hideItem');
+		
+		$(this).addClass('active');
+		$navLinkData.removeClass('active');
+		$navLinkIncome.removeClass('active');
+	});
+	
+	
+	//set modal text after data edit
+	$('.linkDelete').on('click', function() {
+		$('#settingsModal p').text("Dane usunięto!");
+	});
+	
+	var $btnSave = $('.btnSave');
+	var $settingsModal = $('#settingsModal');
+	
+	/*btnSave.on('click', function() {
+		$settingsModal.text("Dane zaktualizowano!");
+	});	*/
+	
+		
+		
 	//set sticky footer
 	if($(document).height() >= $(window).height()){
 		$('footer').addClass('footerMenuSticky');
@@ -56,15 +161,26 @@ $(function(){
 	
 	
 	// set title of header icon for <= sm size
-	if ($(window).width() <= 768) {  
+	if ($(window).width() <= 767.98) {  
 		$('.containerHeader .headerLink i:eq(0)').attr('title', 'Rejestracja');
 		$('.containerHeader .headerLink i:eq(1)').attr('title', 'Logowanie');
+		$('#containerSettings .colSettingsNav ul').removeClass('flex-column');
+		$('#containerSettings .colSettingsNav ul li:eq(0)').attr('title', 'Moje dane');
+		$('#containerSettings .colSettingsNav ul li:eq(1)').attr('title', 'Moje przychody');
+		$('#containerSettings .colSettingsNav ul li:eq(2)').attr('title', 'Moje wydatki');
       }
 	$(window).resize(function() {
-       if ($(window).width() <= 768) {  
+       if ($(window).width() <= 767.98) {  
             $('.containerHeader .headerLink i:eq(0)').attr('title', 'Rejestracja');
-			$('.containerHeader .headerLink i:eq(1)').attr('title', 'Logowanie');	
-       }
+			$('.containerHeader .headerLink i:eq(1)').attr('title', 'Logowanie');
+			$('#containerSettings .colSettingsNav ul').removeClass('flex-column');
+			$('#containerSettings .colSettingsNav ul li:eq(0)').attr('title', 'Moje dane');
+			$('#containerSettings .colSettingsNav ul li:eq(1)').attr('title', 'Moje przychody');
+			$('#containerSettings .colSettingsNav ul li:eq(2)').attr('title', 'Moje wydatki');
+       }else{
+		   $('#containerSettings .colSettingsNav ul').addClass('flex-column');
+		   
+	   }
 	});
 	
 	
@@ -215,9 +331,156 @@ $(function(){
 	}
 	
 	
+	var userName = 'imię';
+	var userEmail = 'email';
+	var userPassword = 'hasło';
+	
+	
+	
+	//set user data
+	
+	var $userNameSpan = $('.dataUser #headerName span');
+	var $userEmailSpan = $('.dataUser #headerEmail span');
+	var $userPasswordSpan = $('.dataUser #headerPassword span');
+	
+	$userNameSpan.text(userName);
+	$userEmailSpan.text(userEmail);
+	$userPasswordSpan.text('ukryte');
+	
+	var $dataUser = $('.dataUser');
+	var userInput = '';
+	
+	
+	//edit user name
+	var $formUserName = $dataUser.next().eq(0);
+	
+	$dataUser.find('#editNameLink').on('click', function() {
+		$formUserName.removeClass('hideItem');	
+	});
+	
+	$formUserName.find('.btnChangeUserName').on('click', function(e) {
+		e.preventDefault();
+		userInput = $(this).parent().prev().find('.inputEditName');
+		if(userInput.val() !== ''){
+			userName = userInput.val();
+			userName = setFirstLetterUpperCase(userName);
+			$userNameSpan.text(userName);
+			
+			userInput.val('');
+			$settingsModal.find('p').text("Dane zaktualizowano!");
+		}else{
+			$settingsModal.find('p').text("Operacja nie powiodła się!");
+		}
+		$formUserName.addClass('hideItem');
+		
+	});
+		
+		
+	//edit user email
+		
+	var $formUserEmail = $dataUser.next().eq(1);
+	
+	$dataUser.find('#editEmailLink').on('click', function() {
+		$formUserEmail.removeClass('hideItem');	
+	});
+	
+	$formUserEmail.find('.btnChangeUserEmail').on('click', function(e) {
+		e.preventDefault();		
+		userInput = $(this).parent().prev().find('.inputEditEmail');
+		if(userInput.val() !== ''){
+			userEmail = userInput.val();
+			$userEmailSpan.text(userEmail);
+			
+			userInput.val('');
+			$settingsModal.find('p').text("Dane zaktualizowano!");
+		}else{
+			$settingsModal.find('p').text("Operacja nie powiodła się!");
+		}
+		$formUserEmail.addClass('hideItem');
+		
+	});
+	
+	//edit user password
+	
+	var $formUserPassword = $dataUser.next().eq(2);
+	
+	$dataUser.find('#editPasswordLink').on('click', function() {
+		$formUserPassword.removeClass('hideItem');	
+	});
+	
+	$formUserPassword.find('.btnChangeUserPassword').on('click', function(e) {
+		e.preventDefault();	
+		$formUserPassword.addClass('hideItem');
+		$settingsModal.find('p').text("Dane zaktualizowano!");
+	});
+	
+	
+	//edit incomes
+	var $containerMyIncomes = $('#containerMyIncomes');
+	var $formIncomes = $containerMyIncomes.find('form');
+	$containerMyIncomes.find('#editLastIncomeLink').on('click', function(e) {
+		e.preventDefault();
+		$formIncomes.eq(0).removeClass('hideItem');
+	});
+	 
+	$containerMyIncomes.find('.btnChangeIncome').on('click', function(e) {
+		e.preventDefault();
+		$formIncomes.eq(0).addClass('hideItem');
+	});
+	
+	$containerMyIncomes.find('#addCategoryIncomeLink').on('click', function(e) {
+		e.preventDefault();
+		$formIncomes.eq(1).removeClass('hideItem');
+	});
+	 
+	$containerMyIncomes.find('.btnAddCategoryIncome').on('click', function(e) {
+		e.preventDefault();
+		$formIncomes.eq(1).addClass('hideItem');
+	});
+	
+	
+	//edit expenses
+	
+	var $containerMyExpenses = $('#containerMyExpenses');
+	var $formExpenses = $containerMyExpenses.find('form');
+	$containerMyExpenses.find('#editLastExpenseLink').on('click', function(e) {
+		e.preventDefault();
+		$formExpenses.eq(0).removeClass('hideItem');
+	});
+	 
+	$containerMyExpenses.find('.btnChangeExpense').on('click', function(e) {
+		e.preventDefault();
+		$formExpenses.eq(0).addClass('hideItem');
+	});
+	
+	
+	$containerMyExpenses.find('#addPaymentExpenseLink').on('click', function(e) {
+		e.preventDefault();
+		$formExpenses.eq(1).removeClass('hideItem');
+	});
+	 
+	$containerMyExpenses.find('.btnAddPaymentExpense').on('click', function(e) {
+		e.preventDefault();
+		$formExpenses.eq(1).addClass('hideItem');
+	});
+	
+	
+	$containerMyExpenses.find('#addCategoryExpenseLink').on('click', function(e) {
+		e.preventDefault();
+		$formExpenses.eq(2).removeClass('hideItem');
+	});
+	 
+	$containerMyExpenses.find('.btnAddCategoryExpense').on('click', function(e) {
+		e.preventDefault();
+		$formExpenses.eq(2).addClass('hideItem');
+	});
+	
+	
+	
+	
+	
+	
 	//set chart
-	
-	
 	
 	var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
@@ -240,5 +503,26 @@ $(function(){
 	}
 	
 	chart.render();
-
+	
+	
 });
+	function setFirstLetterUpperCase(name){
+		var firstLetter = name.substr(0,1);
+		var otherLetters = name.substr(1, name.length-1);
+		var upperFirstLetter = firstLetter.toUpperCase();
+		var otherNameLetters = '';
+		for(i = 1; i < name.length; i++){
+			otherNameLetters += name.substr(i, 1).toLowerCase();
+		}
+		return upperFirstLetter + otherNameLetters;
+		
+		
+	}
+	
+	
+	
+	
+		
+		
+		
+	

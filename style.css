@@ -2,6 +2,7 @@ body{
 	position:relative;
 }
 
+#containerSettings,
 #containerBalance,
 #containerExpense,
 #containerIncome,
@@ -33,8 +34,6 @@ body{
 	border-bottom:2px solid #585858;
 }
 
-
-	
 
 .containerHeaderMenu header a{
 	font-size:25px;
@@ -96,16 +95,13 @@ img{
 }
 
 
-
 #textLeftBg{
 	position:absolute;
 	top:0;
 	background:#FE2E2E;
 	opacity:0.93;
 	width:100%;
-	height:100%;
-	
-	
+	height:100%;	
 }
 
 .textL,
@@ -118,9 +114,7 @@ img{
 	padding:15px;
 	text-align:center;
 	height:100%;
-	width:100%;
-	
-	
+	width:100%;	
 }
 
 #startButtons p,
@@ -150,7 +144,6 @@ img{
 .headerLink{
 	color:#6E6E6E;
 	font-weight:bold;
-
 }
 
 .headerLink:hover{
@@ -177,6 +170,22 @@ img{
 		width:75%;
 	}
 	
+	.settingsNav .navTitleText{
+		display:none;
+	}
+	
+	.settingsNav .iconPenExpense,
+	.settingsNav .iconPenIncome{
+		font-size:10px;
+		position:absolute;
+		top:13px;
+		left:32px;
+	}
+
+	.settingsNav .kiconPenIncome{
+		left:33px;
+		top:14px;
+	}
 }
 
 @media (min-width: 767.98px) {
@@ -191,6 +200,24 @@ img{
 	
 	#logOutItemNav{
 		display:none;
+	}
+	
+	.settingsNav .iconPenExpense,
+	.settingsNav .iconPenIncome{
+		font-size:10px;
+		position:absolute;
+		top:16px;
+		left:32px;
+	}
+
+
+	.settingsNav .iconPenIncome{
+		left:33px;
+		top:15px;	
+	}
+	
+	#containerSettings .settingsNav li{
+		width:100% !important;
 	}
 	
 	
@@ -384,7 +411,6 @@ label {
 }
 
 
-
 .navbar header h2 a:hover{
 	text-decoration:none;
 	font-size:24px;
@@ -398,8 +424,7 @@ label {
 
 .navbar .show #logOutItemNav{
 	padding-bottom:0;
-	border-top: 1px solid #0489B1;
-	
+	border-top: 1px solid #0489B1;	
 }
 
 .navbar .show li:last-child a i{
@@ -447,8 +472,7 @@ label {
 	font-size:28px;
 	z-index:10;
 	padding:20px;
-	padding-top:50px;
-	
+	padding-top:50px;	
 }
 
 .modal-footer{
@@ -498,16 +522,14 @@ label {
 	border:none;
 	border-bottom: 1px solid #6E6E6E;
 	border-radius:0;
-	background:white;
-	
+	background:white;	
 }
 
 .formAddData select:focus,
 .formAddData input:focus{
 	box-shadow:none;
 	border-bottom: 2px solid #0B3861;
-	background:white;
-	
+	background:white;	
 }
 
 .inputGroupPrependFocus{
@@ -516,15 +538,13 @@ label {
 
 .inputGroupTextFocus{
 	border-bottom: 2px solid #0B3861 !important;
-	background:white !important;
-	
+	background:white !important;	
 }
 
 .formAddData button{
 	width:100%;	
 	font-size:20px;
-	border-radius:0;
-	
+	border-radius:0;	
 }
 
 .formAddData [type="reset"]:hover{
@@ -551,8 +571,7 @@ th{
 	border-top:2px solid #2E7D32 !important;
 	border-bottom:2px solid #2E7D32 !important;
 	background:#66BB6A !important;
-	font-weight: 400 !important;
-	
+	font-weight: 400 !important;	
 }
 
 td{
@@ -588,8 +607,7 @@ tbody tr:last-child{
 	height:300px;
 	margin-bottom:10%;
 	border-radius:4px;
-	border:1px solid #E6E6E6;
-	
+	border:1px solid #E6E6E6;	
 }
 
 #containerBalance .resultText{
@@ -616,3 +634,84 @@ tbody tr:last-child{
 .rowChart{
 	margin-bottom:100px;
 }
+
+
+#containerSettings .colMyAccount{
+	border-radius:4px;
+	background:#F1F8E9;
+	margin-bottom:100px !important;	
+}
+
+
+#containerSettings .hideItem{
+	display:none;
+}
+
+
+#containerSettings .colMyAccount .btnSave{
+	background:#43A047;
+	width:100%;	
+}
+
+
+#containerSettings .colMyAccount .btnSave:hover{
+	background:#388E3C;	
+}
+
+#containerSettings .colMyAccount .expenseUser,
+#containerSettings .colMyAccount .incomeUser,
+#containerSettings .colMyAccount .dataUser{
+	font-size:18px;	
+}
+
+#containerSettings .colMyAccount .dataUser span{
+	font-size:19px;
+	margin-left:5px;	
+}
+
+#containerSettings .headerMyExpenses,
+#containerSettings .headerMyIncomes,
+#containerSettings .headerMyData{
+	border-top:2px solid #81C784;
+	width:100%;
+	background:#C8E6C9;
+	font-size:26px;
+	color:#424242;	
+}
+
+
+.settingsNav {
+	background:#81C784;
+}
+
+#containerSettings .settingsNav .active{
+	background:#4CAF50;
+}
+
+#containerSettings .settingsNav li a{
+	margin:0;	
+}
+
+
+#containerSettings .settingsNav .nav-link:hover{
+	border-radius:0;
+	background:#4CAF50;
+}
+
+.settingsNav .navLinkIncome,
+.settingsNav .navLinkExpense,
+.settingsNav .navLinkData{
+	position:relative;
+}
+
+.settingsNav .navTitleText{
+	margin-left:5px;
+}
+
+#settingsModal p{
+	font-size:28px;
+}
+
+
+
+
