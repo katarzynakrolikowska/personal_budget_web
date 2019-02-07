@@ -22,7 +22,7 @@
 				<header><h2><b><a href="#" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
 			</div>
 			<div class="col-auto pt-5 ">
-				<a href="registration.html" class="headerLink"><i class="fas fa-clipboard-list"></i><span> Rejestracja</span></a>
+				<a href="registration.php" class="headerLink"><i class="fas fa-clipboard-list"></i><span> Rejestracja</span></a>
 			</div>
 			
 			<div class="col-auto pt-5 pr-4">
@@ -71,7 +71,7 @@
 			<div class="col-12 col-md-6 mb-5 mb-md-2 text-center" >
 				
 				<p>Jesteś tutaj pierwszy raz?</p>
-				<a class="btn btn-lg py-2 btnRegister shadow" href="registration.html" role="button"><i class="fas fa-clipboard-list"></i> Zarejestruj się</a>
+				<a class="btn btn-lg py-2 btnRegister shadow" href="registration.php" role="button"><i class="fas fa-clipboard-list"></i> Zarejestruj się</a>
 				</div>
 			
 			

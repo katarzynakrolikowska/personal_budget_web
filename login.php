@@ -19,13 +19,13 @@
 	<div class="container-fluid " id="containerLogin" >
 		<div class="row pl-1 containerHeader">
 			<div class="col py-3 my-2">
-				<header><h2><b><a href="startPage.html" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
+				<header><h2><b><a href="index.php" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
 			</div>
 			<div class="col-auto pt-5">
-				<a href="registration.html" class="headerLink" id="linkR"><i class="fas fa-clipboard-list"></i><span> Rejestracja</span></a>
+				<a href="registration.php" class="headerLink" id="linkR"><i class="fas fa-clipboard-list"></i><span> Rejestracja</span></a>
 			</div>
 			<div class="col-auto pt-5 pr-4">
-				<a href="login.html" class="headerLink" id="linkL"><i class="fas fa-sign-in-alt"></i><span> Logowanie</span></a>
+				<a href="login.php" class="headerLink" id="linkL"><i class="fas fa-sign-in-alt"></i><span> Logowanie</span></a>
 			</div>
 		</div>
 		
