@@ -1,8 +1,0 @@
-SELECT SUM(i.amountIncome) as incomeSum, ic.category
-FROM incomes i
-NATURAL JOIN income_categories ic
-WHERE i.userID = 4
-AND i.dateIncome >= '2016-05-01' 
-AND i.dateIncome <= '2016-05-30'
-GROUP BY ic.category
-ORDER BY incomeSum DESC;

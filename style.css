@@ -712,6 +712,11 @@ tbody tr:last-child{
 	font-size:28px;
 }
 
-
+.errorRegistration{
+	color:red !important;
+	text-align:center;
+	font-size:13px;
+	
+}
 
 
