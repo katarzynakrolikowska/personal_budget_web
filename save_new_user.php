@@ -17,17 +17,17 @@ if(isset($_POST['username'])) {
 		$_SESSION['errorUsername'] = 'Wpisz imię!';
 		$isUserDataOk = false;
 	} else if(mb_strlen($username) < 3) {
-		$_SESSION['errorUsername'] = 'Imię powinno składać się z minimum 3 znaków';
+		$_SESSION['errorUsername'] = 'Imię powinno składać się z minimum 3 znaków!';
 		$isUserDataOk = false;
 	} else if(!preg_match('/^[a-zA-ZąęćżźńłóśĄĘĆŻŹŁÓŃŚ\s]+$/', $username)) {
-		$_SESSION['errorUsername'] = 'Imię powinno składać się z samych liter';
+		$_SESSION['errorUsername'] = 'Imię powinno składać się z samych liter!';
 		$isUserDataOk = false;
 	} 
 	
 	$_SESSION['email'] = $email;
 	
 	if(empty($email)) {
-		$_SESSION['errorEmail'] = 'Wpisz adres email';
+		$_SESSION['errorEmail'] = 'Wpisz adres email!';
 		$isUserDataOk = false;
 	} else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		$_SESSION['errorEmail'] ='Nieprawidłowy adres email!';
@@ -100,8 +100,8 @@ if(isset($_POST['username'])) {
 			$command -> bindValue(':email', $email, PDO::PARAM_STR);
 			$command -> execute();
 			
-			unset($_SESSION['username']);
-			unset($_SESSION['email']);
+			//unset($_SESSION['username']);
+			//unset($_SESSION['email']);
 			
 			//session_destroy();
 			
@@ -114,7 +114,7 @@ if(isset($_POST['username'])) {
 		
 	}
 } else {
-	header('Location:index.php');
+	header('Location:registration.php');
 	exit();
 
 }
