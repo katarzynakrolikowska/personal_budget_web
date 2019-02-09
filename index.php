@@ -26,7 +26,7 @@
 			</div>
 			
 			<div class="col-auto pt-5 pr-4">
-				<a href="login.html" class="headerLink"><i class="fas fa-sign-in-alt"></i><span> Logowanie</span></a>
+				<a href="login.php" class="headerLink"><i class="fas fa-sign-in-alt"></i><span> Logowanie</span></a>
 			</div>
 		</div>
 		

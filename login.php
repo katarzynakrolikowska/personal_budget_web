@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if(isset($_SESSION['loggedID'])) {
+	header('Location:menu.php');
+	exit();
+}
+
+?>
+
+
 <! DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -41,22 +52,33 @@
 					<div class="col-12 col-sm p-5 shadow-lg">
 						<header><h3>Logowanie</h3></header>
 					
-						<form class="formRegister">
+						<form class="formRegister" action="login_user.php" method="post">
 						
-							<div class="input-group mb-3">
-								<input type="email" class="form-control" placeholder="Email" required><div class="input-group-prepend">
+							<div class="input-group mb-1">
+								<input type="text" class="form-control" placeholder="Email" name="emailLog" value=
+								<?php
+									if(isset($_SESSION['givenEmail'])) {
+										echo $_SESSION['givenEmail'];
+									}
+								?>
+								><div class="input-group-prepend">
 									<span class="input-group-text" id="userEmail"><i class="fas fa-envelope"></i></span>
 								</div>
 							</div>
-												
-							<div class="input-group mb-3">	
-								<input type="password" class="form-control password" placeholder="Hasło" required>
+											
+							<div class="input-group mb-1 mt-3">	
+								<input type="password" class="form-control password" placeholder="Hasło" name="passwordLog">
 								<div class="input-group-prepend">
 									<span class="input-group-text" ><i class="fas fa-lock"></i></span>
 								</div>
 							</div>
-							
-							<div class="form-check">
+							<?php
+								if(isset($_SESSION['givenEmail'])) {
+									echo '<div style="color:red; font-size:13; text-align:center">Nieprawidłowy adres email lub hasło!</div>';
+									unset($_SESSION['givenEmail']);
+								}
+							?>	
+							<div class="form-check mt-3">
 								<input class="form-check-input" type="checkbox" value="" id="showPassword">
 								<label class="form-check-label" for="showPassword">
 									Pokaż hasło

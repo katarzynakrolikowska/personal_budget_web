@@ -46,7 +46,7 @@
 					
 						<form class="formRegister" method="post" action="save_new_user.php">
 							
-							<div class="input-group mb-3">
+							<div class="input-group mb-1">
 								
 								<input type="text" class="form-control" placeholder="Imię" name="username" value=
 								<?php
@@ -67,7 +67,7 @@
 									unset($_SESSION['errorUsername']);
 								}
 							?>
-							<div class="input-group mb-3">
+							<div class="input-group mb-1 mt-3">
 								
 								<input type="text" class="form-control" placeholder="Email" name="email" value=
 								<?php
@@ -88,7 +88,7 @@
 									unset($_SESSION['errorEmail']);
 								}
 							?>					
-							<div class="input-group mb-3">
+							<div class="input-group mb-1 mt-3">
 								
 								<input type="password" class="form-control password" placeholder="Hasło" name="password1" >
 								<div class="input-group-prepend">
@@ -102,15 +102,16 @@
 									unset($_SESSION['errorPassword']);
 								}
 							?>
-							<div class="input-group mb-3">
+							<div class="input-group mb-1 mt-3">
 								
 								<input type="password" class="form-control password" placeholder="Powtórz hasło" name="password2" >
 								<div class="input-group-prepend">
 									<span class="input-group-text" ><i class="fas fa-lock"></i></span>
 								</div>
+								
 							</div>
-					
-							<div class="form-check">
+						
+							<div class="form-check mt-3">
 								<input class="form-check-input" type="checkbox" value="" id="showPassword">
 								<label class="form-check-label" for="showPassword">
 									Pokaż hasło
