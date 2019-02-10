@@ -1,5 +1,9 @@
 <?php
-	session_start();
+session_start();
+if(isset($_SESSION['loggedID'])) {
+header('Location:menu.php');
+exit();
+}
 ?>
 
 <! DOCTYPE HTML>
@@ -10,7 +14,7 @@
 	<meta http-equiv="X-UA-Compatiable" content="IE-edge,chrome=1" />
 	<title>Rejestracja</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Varela+Round&amp;subset=latin-ext" rel="stylesheet">
@@ -63,7 +67,7 @@
 							</div>				
 							<?php
 								if(isset($_SESSION['errorUsername'])) {
-									echo '<div style="color:red; font-size:13; text-align:center">'.$_SESSION['errorUsername'].'</div>';
+									echo '<div class="error">'.$_SESSION['errorUsername'].'</div>';
 									unset($_SESSION['errorUsername']);
 								}
 							?>
@@ -84,7 +88,7 @@
 							</div>
 							<?php
 								if(isset($_SESSION['errorEmail'])) {
-									echo '<div style="color:red; font-size:13; text-align:center">'.$_SESSION['errorEmail'].'</div>';
+									echo '<div class="error">'.$_SESSION['errorEmail'].'</div>';
 									unset($_SESSION['errorEmail']);
 								}
 							?>					
@@ -98,7 +102,7 @@
 							</div>
 							<?php
 								if(isset($_SESSION['errorPassword'])) {
-									echo '<div style="color:red; font-size:13; text-align:center">'.$_SESSION['errorPassword'].'</div>';
+									echo '<div class="error">'.$_SESSION['errorPassword'].'</div>';
 									unset($_SESSION['errorPassword']);
 								}
 							?>

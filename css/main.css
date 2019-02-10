@@ -507,13 +507,16 @@ label {
 
 .formAddData h3{
 	margin-left:10%;
+	padding-bottom:5px;
 }
 
 .formAddData .input-group{
 	width:80%;
 	margin-left:auto;
 	margin-right:auto;
-	margin-bottom:5%;
+	margin-top:4%;
+	margin-bottom:1%;
+	
 }
 
 .formAddData .input-group-text,
@@ -541,17 +544,18 @@ label {
 	background:white !important;	
 }
 
+.formAddData .reset,
 .formAddData button{
 	width:100%;	
 	font-size:20px;
 	border-radius:0;	
 }
 
-.formAddData [type="reset"]:hover{
+.formAddData .reset:hover{
 	background:#E64A19;
 }
 
-.formAddData [type="reset"]{
+.formAddData .reset{
 	background:#F4511E;
 }
 
@@ -712,7 +716,7 @@ tbody tr:last-child{
 	font-size:28px;
 }
 
-.errorRegistration{
+.error{
 	color:red !important;
 	text-align:center;
 	font-size:13px;

@@ -17,7 +17,7 @@ if(isset($_SESSION['loggedID'])) {
 	<meta http-equiv="X-UA-Compatiable" content="IE-edge,chrome=1" />
 	<title>Logowanie</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/main.css" type="text/css" />
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Varela+Round&amp;subset=latin-ext" rel="stylesheet">
@@ -74,7 +74,7 @@ if(isset($_SESSION['loggedID'])) {
 							</div>
 							<?php
 								if(isset($_SESSION['givenEmail'])) {
-									echo '<div style="color:red; font-size:13; text-align:center">Nieprawidłowy adres email lub hasło!</div>';
+									echo '<div class="error">Nieprawidłowy adres email lub hasło!</div>';
 									unset($_SESSION['givenEmail']);
 								}
 							?>	
