@@ -1,4 +1,4 @@
-//var animateButtons = false;
+
 var today = new Date();
 var currentYear = today.getFullYear();
 var currentMonth = today.getMonth() + 1;
@@ -197,16 +197,9 @@ $(function(){
 	});
 	
 	
-	//set current date formAddIncome
-	$('.formAddData #date').val(currentDate);
 	
 	
-	//set range of input date
-	$('[type="date"]').attr({
-		'min' : '1900-01-01',
-		'max' : currentDate
-	});
-		
+	
 		
 	//set css for start page text
 	$('.textL').mouseenter(function() {
@@ -236,6 +229,21 @@ $(function(){
 			'transition' : 'all 0.3s ease-out'
 		});
 	});
+	
+	//set active menu item
+	//var $listItems = $('.navbar-nav a');
+	
+	
+	/*$listItems.each(function() {
+		$(this).on('click', function() {
+			$listItems.removeClass('active');
+			this.addClass('active');
+		});
+	});*/
+	
+	
+	
+	
 	
 	
 	
@@ -363,7 +371,7 @@ $(function(){
 		userInput = $(this).parent().prev().find('.inputEditName');
 		if(userInput.val() !== ''){
 			userName = userInput.val();
-			userName = setFirstLetterUpperCase(userName);
+			
 			$userNameSpan.text(userName);
 			
 			userInput.val('');
@@ -506,18 +514,7 @@ $(function(){
 	
 	
 });
-	function setFirstLetterUpperCase(name){
-		var firstLetter = name.substr(0,1);
-		var otherLetters = name.substr(1, name.length-1);
-		var upperFirstLetter = firstLetter.toUpperCase();
-		var otherNameLetters = '';
-		for(i = 1; i < name.length; i++){
-			otherNameLetters += name.substr(i, 1).toLowerCase();
-		}
-		return upperFirstLetter + otherNameLetters;
-		
-		
-	}
+	
 	
 	
 	
