@@ -1,16 +1,5 @@
 <?php
 
-
-if(!isset($_SESSION['loggedID'])) {
-	header('Location:login.php');
-	exit();
-} else if(!isset($_POST['amount'])) {
-	header('Location:menu.php');
-	exit();
-}
-
-
-
 function checkAmount(&$amount) {
 	$amount = str_replace([',', ' '], ['.', ''], $amount);
 	if(empty($amount)) {
@@ -36,14 +25,14 @@ function checkUserDate($date) {
 		$_SESSION['errorDate'] = 'Wpisz datę w formacie rrrr-mm-dd!';
 		return false;
 	} else {
-		$today = new DateTime();
 		
-		$year = $today -> format('Y');
-		$month = $today -> format('m');
-		$day = $today -> format('d');
+		
+		$year = $dateObj -> format('Y');
+		$month = $dateObj -> format('m');
+		$day = $dateObj -> format('d');
 		$daysCountOfCurrentMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 		$startDate = DateTime::createFromFormat('Y-m-d', '1900-01-01');
-		$endtDate = DateTime::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$daysCountOfCurrentMonth);
+		$endtDate = getLastDateOfCurrentMonth();
 		if(!checkdate($month, $day, $year) || $dateObj < $startDate || $dateObj > $endtDate) {
 			$_SESSION['errorDate'] = 'Niepoprawna data!';
 			return false;
@@ -66,5 +55,39 @@ function checkSelectedOption($selectedOption, $arrayOptions) {
 	if(isset($_SESSION['errorOption'])) return false;
 	
 }
+
+$today = new DateTime();
+$GLOBALS['year'] = $today -> format('Y');
+$GLOBALS['month'] = $today -> format('m');
+
+function getLastDateOfCurrentMonth() {
+	
+	$daysCountOfCurrentMonth = cal_days_in_month(CAL_GREGORIAN, $GLOBALS['month'], $GLOBALS['year']);
+	return DateTime::createFromFormat('Y-m-d', $GLOBALS['year'].'-'.$GLOBALS['month'].'-'.$daysCountOfCurrentMonth);
+}
+
+
+function getFirstDateOfCurrentMonth() {
+	
+	 return DateTime::createFromFormat('Y-m-d', $GLOBALS['year'].'-'.$GLOBALS['month'].'-'.'1');
+}
+
+function getLastDateOfPreviousMonth() {
+	
+	 return getFirstDateOfCurrentMonth() -> modify('-1 day');
+	 
+}
+
+function getFirstDateOfPreviousMonth() {
+	
+	 return getFirstDateOfCurrentMonth() -> modify('-1 month');
+	 
+}
+
+
+function decimalFormat($amount) {
+	return number_format($amount, 2, '.', ' ');
+}
+
 
 ?>
