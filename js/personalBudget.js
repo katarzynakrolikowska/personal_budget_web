@@ -231,17 +231,19 @@ $(function(){
 	});
 	
 	//set active menu item
-	//var $listItems = $('.navbar-nav a');
+	//var $listItems = $('nav ul');
+	//$('#pp').addClass('active');
 	
-	
-	/*$listItems.each(function() {
+	/*$listItems.find('a').each(function() {
 		$(this).on('click', function() {
-			$listItems.removeClass('active');
-			this.addClass('active');
+			$listItems.find('li').removeClass('active');
+			this.parent().addClass('active');
 		});
+	});
+	
+	$listItems.find('#first').on('click', function() {
+		$('#pp').addClass('active');
 	});*/
-	
-	
 	
 	
 	

@@ -26,3 +26,41 @@
 		</div>
 	</div>
 </div>
+
+<nav class="navbar navbar-expand-lg justify-content-between sticky-top shadow">
+			
+	<header><h2><b><a href="menu.php" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
+	
+	<button class="navbar-toggler mr-2 mr-sm-4 collapsed" type="button" data-toggle="collapse" data-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		 <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+	 </button>
+
+	<div class="collapse navbar-collapse " id="menu">
+		<ul class="navbar-nav m-auto ">
+			<li class="nav-item" >
+				<a class="nav-link" id="first" href="menu.php"><i class="icon-home"></i> Strona główna</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" href="income.php"><i class="icon-dollar"></i> Dodaj przychód</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link " href="expense.php"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
+			</li>
+			
+			<li class="nav-item" id="itemBalance">
+				<a class="nav-link " href="balance.php"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
+			</li>
+			
+			<li class="nav-item dropdown">
+				<a class="nav-link " href="settings.php" ><i class="icon-cog-alt"></i> Ustawienia</a>
+				
+			</li>
+			
+			<li class="nav-item" id="logOutItemNav">
+				<a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Wyloguj się</a>
+			</li>
+		</ul>
+	</div>
+</nav>
