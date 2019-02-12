@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 if(!isset($_SESSION['loggedID'])) {
 	header('Location:login.php');
@@ -44,7 +44,7 @@ function checkUserDate($date) {
 		$daysCountOfCurrentMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 		$startDate = DateTime::createFromFormat('Y-m-d', '1900-01-01');
 		$endtDate = DateTime::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$daysCountOfCurrentMonth);
-		if(!checkdate($month, $day, $year) || $dateObj <= $startDate || $dateObj >= $endtDate) {
+		if(!checkdate($month, $day, $year) || $dateObj < $startDate || $dateObj > $endtDate) {
 			$_SESSION['errorDate'] = 'Niepoprawna data!';
 			return false;
 		} else return true;	
@@ -53,19 +53,16 @@ function checkUserDate($date) {
 
 
 function checkSelectedOption($selectedOption, $arrayOptions) {
-	if(!isset($selectedOption)) {
-		return $_SESSION['errorOption'] = false;
-	} else {
 		
-		foreach($arrayOptions as $option) {
-			if($selectedOption != $option['id']){
-				$_SESSION['errorOption'] = false;
-			} else {
-				unset($_SESSION['errorOption']);
-				return true;
-			}
+	foreach($arrayOptions as $option) {
+		if($selectedOption != $option['id']){
+			$_SESSION['errorOption'] = false;
+		} else {
+			unset($_SESSION['errorOption']);
+			return true;
 		}
 	}
+	
 	if(isset($_SESSION['errorOption'])) return false;
 	
 }

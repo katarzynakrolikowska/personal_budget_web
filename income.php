@@ -48,44 +48,6 @@ try{
 			require_once('nav_header.php');
 		?>
 		
-		<nav class="navbar navbar-expand-lg justify-content-between sticky-top shadow">
-			
-			<header><h2><b><a href="menu.php" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
-			
-			<button class="navbar-toggler mr-2 mr-sm-4 collapsed" type="button" data-toggle="collapse" data-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				 <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-			 </button>
-
-			<div class="collapse navbar-collapse " id="menu">
-				<ul class="navbar-nav m-auto ">
-				    <li class="nav-item">
-						<a class="nav-link" href="menu.php"><i class="icon-home"></i> Strona główna</a>
-				    </li>
-					
-				    <li class="nav-item active">
-						<a class="nav-link" href="income.php"><i class="icon-dollar"></i> Dodaj przychód<span class="sr-only">(current)</span></a>
-					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="expense.php"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
-					</li>
-					
-					<li class="nav-item" id="itemBalance">
-						<a class="nav-link" href="balance.php"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link " href="settings.html" ><i class="icon-cog-alt"></i> Ustawienia</a>	
-						
-					</li>
-					
-					<li class="nav-item" id="logOutItemNav">
-						<a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Wyloguj się</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		
 		<div class="row pb-sm-5 justify-content-center addDataRow mx-0">
 			<?php
 				if(isset($_SESSION['addIncomeSuccess'])) {
@@ -120,11 +82,10 @@ try{
 						<input type="date" class="form-control" id="date" name="date" value=
 						<?php
 							if(isset($_SESSION['date'])) {
+								//echo DateTime::createFromFormat('Y-m-d', $_SESSION['date']) -> format('Y-m-d');
 								echo $_SESSION['date'];
 								unset($_SESSION['date']);
-							} else {
-								echo date('Y-m-d');
-							}
+							} else echo date('Y-m-d');
 						?>>
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
@@ -138,7 +99,7 @@ try{
 					?>	
 					<div class="input-group">
 						<select class="custom-select" id="category" name="categoryIncome">
-							<option disabled selected value="n">Wybierz kategorię</option>
+							<option disabled selected>Wybierz kategorię</option>
 							<?php
 								foreach($_SESSION['categoriesIncome'] as $category) {
 									echo '<option value='.$category['id'].'>'.$category['name'].'</option>';	
@@ -195,7 +156,7 @@ try{
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 	
-	<script type="text/javascript" src="js/personalBudget.js"></script>
+	<script type="text/javascript" src="http://localhost/PB/js/personalBudget.js"></script>
 </body>
 
 

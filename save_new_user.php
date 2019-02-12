@@ -78,7 +78,7 @@ if(isset($_POST['username'])) {
 			
 			$query = 'INSERT INTO expenses_category_assigned_to_users(user_id, name) SELECT 
 				(SELECT id FROM users WHERE email=:email),
-				name FROM expenses_category_default';
+				name FROM expenses_category_default as e_def ORDER BY e_def.id';
 			
 			$command = $db -> prepare($query);
 			$command -> bindValue(':email', $email, PDO::PARAM_STR);
@@ -86,7 +86,7 @@ if(isset($_POST['username'])) {
 			
 			$query = 'INSERT INTO incomes_category_assigned_to_users(user_id, name) SELECT 
 				(SELECT id FROM users WHERE email=:email),
-				name FROM incomes_category_default';
+				name FROM incomes_category_default as i_def ORDER BY i_def.id';
 			
 			$command = $db -> prepare($query);
 			$command -> bindValue(':email', $email, PDO::PARAM_STR);
@@ -94,14 +94,14 @@ if(isset($_POST['username'])) {
 			
 			$query = 'INSERT INTO payment_methods_assigned_to_users(user_id, name) SELECT 
 				(SELECT id FROM users WHERE email=:email),
-				name FROM payment_methods_default';
+				name FROM payment_methods_default as pm_def ORDER BY pm_def.id';
 			
 			$command = $db -> prepare($query);
 			$command -> bindValue(':email', $email, PDO::PARAM_STR);
 			$command -> execute();
 			
-			//unset($_SESSION['username']);
-			//unset($_SESSION['email']);
+			unset($_SESSION['username']);
+			unset($_SESSION['email']);
 			
 			//session_destroy();
 			
