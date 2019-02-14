@@ -66,10 +66,10 @@ body{
 }
 
 .footerMenuSticky{
-		position:absolute;
-		bottom:0;
-		left:0;
-	}
+	position:absolute;
+	bottom:0;
+	left:0;
+}
 
 img{
 	position:relative;

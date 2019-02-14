@@ -13,7 +13,7 @@ if(isset($_POST['amount'])) {
 	
 	if(!checkAmount($amount)) {
 		$userDataOk = false;
-	} else $userDataOk = true;
+	} 
 	
 	
 	
@@ -21,7 +21,7 @@ if(isset($_POST['amount'])) {
 	
 	if(!checkUserDate($date)) {
 		$userDataOk = false;
-	} else $userDataOk = true;
+	} 
 	
 
 	
@@ -29,7 +29,7 @@ if(isset($_POST['amount'])) {
 		if(!checkSelectedOption($_POST['paymentMethod'], $_SESSION['paymentMethods'])) {
 			$_SESSION['errorOptionPayment'] = '';
 			$userDataOk = false;
-		} else $userDataOk = true;
+		}
 	} else {
 		$_SESSION['errorOptionPayment'] = '';
 		$userDataOk = false;
@@ -39,10 +39,11 @@ if(isset($_POST['amount'])) {
 		if(!checkSelectedOption($_POST['categoryExpense'], $_SESSION['categoriesExpense'])) {
 			$_SESSION['errorOptionExp'] = '';
 			$userDataOk = false;
-		} else $userDataOk = true;
+		}
 	} else {
 		$_SESSION['errorOptionExp'] = '';
 		$userDataOk = false;
+		echo 'nie ustawiona kategoria wydatku<br />';
 	}
 	
 	
@@ -56,7 +57,6 @@ if(isset($_POST['amount'])) {
 		$_SESSION['date'] =  $_POST['date'];
 		header('Location:expense.php');
 		exit();
-		
 	}
 	
 	try {

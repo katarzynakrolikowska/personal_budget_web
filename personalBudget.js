@@ -97,7 +97,6 @@ $(function(){
 	
 	
 	
-	
 	$('#showPassword').on('click', function() {
 		var $password = $('.password');
 		var typePassword = $password.attr('type');
@@ -108,10 +107,7 @@ $(function(){
 		}
 	});
 	
-	
-	
-	
-	
+
 		
 	//set css for start page text
 	$('.textL').mouseenter(function() {
