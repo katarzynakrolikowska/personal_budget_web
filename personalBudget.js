@@ -1,93 +1,5 @@
 
-var today = new Date();
-var currentYear = today.getFullYear();
-var currentMonth = today.getMonth() + 1;
-var currentDay = today.getDate();
-if(currentDay < 10)
-	currentDay = "0" + currentDay;
-	
-if(currentMonth < 10)
-	currentMonth = "0" + currentMonth;
-
-var currentDate = currentYear + "-" + currentMonth + "-" + currentDay;
-
-
-var categoriesExpense = new Array(17);
-categoriesExpense[0] = "Jedzenie";
-categoriesExpense[1] = "Mieszkanie";
-categoriesExpense[2] = "Transport";
-categoriesExpense[3] = "Telekomunikacja";
-categoriesExpense[4] = "Opieka zdrowotna";
-categoriesExpense[5] = "Ubranie";
-categoriesExpense[6] = "Higiena";
-categoriesExpense[7] = "Dzieci";
-categoriesExpense[8] = "Rozrywka";
-categoriesExpense[9] = "Wycieczka";
-categoriesExpense[10] = "Szkolenia";
-categoriesExpense[11] = "Książki";
-categoriesExpense[12] = "Oszczędności";
-categoriesExpense[13] = "Na złotą jesień, czyli emeryturę";
-categoriesExpense[14] = "Spłata długów";
-categoriesExpense[15] = "Darowizna";
-categoriesExpense[16] = "Inne wydatki";
-
-var categoriesIncome = new Array(4);
-categoriesIncome[0] = "Wynagrodzenie";
-categoriesIncome[1] = "Odsetki bankowe";
-categoriesIncome[2] = "Sprzedaż na allegro";
-categoriesIncome[3] = "Inne";
-
-var paymentMethod = new Array(3);
-paymentMethod[0] = "Gotówka";
-paymentMethod[1] = "Karta debetowa";
-paymentMethod[2] = "Karta kredytowa";
-
 $(function(){
-	
-	//set incomes categories
-	var $setIncomesCategories = $('.setIncomeCategories');
-	var $newOption = $('<option>');
-	
-	$setIncomesCategories.append($newOption.append('Wybierz kategorię').attr({
-		'disabled': true,
-		'selected': true
-	}));
-	for(i = 0; i < categoriesIncome.length; i++){
-		$newOption = $('<option>');
-		$setIncomesCategories.append($newOption.append(categoriesIncome[i]));
-		
-	}
-	
-	
-	//set expenses categories
-	
-	var $setExpenseCategories = $('.setExpenseCategories');
-	var $newOption = $('<option>');
-	
-	$setExpenseCategories.append($newOption.append('Wybierz kategorię').attr({
-		'disabled': true,
-		'selected': true
-	}));
-	for(i = 0; i < categoriesExpense.length; i++){
-		$newOption = $('<option>');
-		$setExpenseCategories.append($newOption.append(categoriesExpense[i]));
-		
-	}
-	
-	
-	//set payments method
-	var $setPaymentMethods = $('.setPaymentMethods');
-	var $newOption = $('<option>');
-	
-	$setPaymentMethods.append($newOption.append('Wybierz metodę płatności').attr({
-		'disabled': true,
-		'selected': true
-	}));
-	for(i = 0; i < paymentMethod.length; i++){
-		$newOption = $('<option>');
-		$setPaymentMethods.append($newOption.append(paymentMethod[i]));
-		
-	}
 	
 	//set settings menu
 	var $containerMyData = $('#containerMyData');
@@ -230,23 +142,6 @@ $(function(){
 		});
 	});
 	
-	//set active menu item
-	//var $listItems = $('nav ul');
-	//$('#pp').addClass('active');
-	
-	/*$listItems.find('a').each(function() {
-		$(this).on('click', function() {
-			$listItems.find('li').removeClass('active');
-			this.parent().addClass('active');
-		});
-	});
-	
-	$listItems.find('#first').on('click', function() {
-		$('#pp').addClass('active');
-	});*/
-	
-	
-	
 	
 	
 	//set css for add income form and add expense form
@@ -271,23 +166,7 @@ $(function(){
 	});
 	
 	
-	//set income table
-	var $incomeTableBody = $('#tableIncome tbody');
-	var sumOfIncomes = 0;
-	for(i = 0; i < categoriesIncome.length; i++) {
-		$incomeTableBody.append('<tr><td>'+categoriesIncome[i]+'</td><td class="text-right">'+currentDate+'</td><td class="text-right"><b>'+i+'</b></td></tr>');
-		sumOfIncomes += i;
-	}
-	$incomeTableBody.append('<tr><td></td><td class="text-right"><b>'+"RAZEM"+'</b></td><td class="text-right"><b>'+sumOfIncomes+'</b></td></tr>');
 	
-	//set expense table
-	var $expenseTableBody = $('#tableExpense tbody');
-	var sumOfExpenses = 0;
-	for(i = 0; i < categoriesExpense.length; i++) {
-		$expenseTableBody.append('<tr><td>'+categoriesExpense[i]+'</td><td class="text-right">'+currentDate+'</td><td class="text-right"><b>'+i+'</b></td></tr>');
-		sumOfExpenses += i;
-	}
-	$expenseTableBody.append('<tr><td></td><td class="text-right"><b>'+"RAZEM"+'</b></td><td class="text-right"><b>'+sumOfExpenses+'</b></td></tr>');
 	
 	
 	//set header of balance site
@@ -325,21 +204,7 @@ $(function(){
 		$dateStart.attr('max', $dateEnd.val());	
 	});
 	
-	
-	//display balance 
-	var difference = sumOfIncomes - sumOfExpenses;
-	
-	$('#resultBalance').text(difference);
-	
-	if(difference < 0){
-		$('#containerBalance .resultText').css('background', '#EF5350');
-		$('#resultComment').text("Uważaj, wpadasz w długi!");
-	}
-	else if(difference > 0){
-		$('#containerBalance .resultText').css('background', '#4CAF50');
-		$('#resultComment').text("Gratulacje! Świetnie zarządzasz finansami!");
-	}
-	
+
 	
 	var userName = 'imię';
 	var userEmail = 'email';
@@ -488,35 +353,7 @@ $(function(){
 	
 	
 	
-	
-	
-	//set chart
-	
-	var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	data: [{
-		type: "pie",
-		startAngle: 240,
-		yValueFormatString: "##0.00\"%\"",
-		indexLabel: "{label} {y}",
-		dataPoints: [
-			{y: 1, label: categoriesExpense[0]}
-			
-		]
-	}]
-	});
-	chart.render();
-	
-	for(i = 1; i < categoriesExpense.length; i++){
-		chart.options.data[0].dataPoints.push({ y: i, label: categoriesExpense[i]});
-		
-	}
-	
-	chart.render();
-	
-	
 });
-	
 	
 	
 	

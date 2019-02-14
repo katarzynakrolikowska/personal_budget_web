@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 05 Lut 2019, 17:40
+-- Czas generowania: 14 Lut 2019, 02:47
 -- Wersja serwera: 10.1.37-MariaDB
 -- Wersja PHP: 7.3.0
 
@@ -61,29 +61,6 @@ CREATE TABLE `expenses_category_default` (
   `name` varchar(50) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
---
--- Zrzut danych tabeli `expenses_category_default`
---
-
-INSERT INTO `expenses_category_default` (`id`, `name`) VALUES
-(1, 'Jedzenie'),
-(2, 'Mieszkanie'),
-(3, 'Transport'),
-(4, 'Telekomunikacja'),
-(5, 'Opieka zdrowotna'),
-(6, 'Ubranie'),
-(7, 'Higiena'),
-(8, 'Dzieci'),
-(9, 'Rozrywka'),
-(10, 'Wycieczka'),
-(11, 'Szkolenia'),
-(12, 'Książki'),
-(13, 'Oszczędności'),
-(14, 'Na złotą jesień, czyli emeryturę'),
-(15, 'Spłata długów'),
-(16, 'Darowizna'),
-(17, 'Inne wydatki');
-
 -- --------------------------------------------------------
 
 --
@@ -122,16 +99,6 @@ CREATE TABLE `incomes_category_default` (
   `name` varchar(50) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
---
--- Zrzut danych tabeli `incomes_category_default`
---
-
-INSERT INTO `incomes_category_default` (`id`, `name`) VALUES
-(1, 'Wynagrodzenie'),
-(2, 'Odsetki bankowe'),
-(3, 'Sprzedaż na allegro'),
-(4, 'Inne');
-
 -- --------------------------------------------------------
 
 --
@@ -154,15 +121,6 @@ CREATE TABLE `payment_methods_default` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(50) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `payment_methods_default`
---
-
-INSERT INTO `payment_methods_default` (`id`, `name`) VALUES
-(1, 'Gotówka'),
-(2, 'Karta debetowa'),
-(3, 'Karta kredytowa');
 
 -- --------------------------------------------------------
 
@@ -195,13 +153,15 @@ ALTER TABLE `expenses`
 --
 ALTER TABLE `expenses_category_assigned_to_users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `expenses_category_default`
 --
 ALTER TABLE `expenses_category_default`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `incomes`
@@ -216,26 +176,30 @@ ALTER TABLE `incomes`
 --
 ALTER TABLE `incomes_category_assigned_to_users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `incomes_category_default`
 --
 ALTER TABLE `incomes_category_default`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `payment_methods_assigned_to_users`
 --
 ALTER TABLE `payment_methods_assigned_to_users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `payment_methods_default`
 --
 ALTER TABLE `payment_methods_default`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `users`
@@ -257,13 +221,13 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT dla tabeli `expenses_category_assigned_to_users`
 --
 ALTER TABLE `expenses_category_assigned_to_users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `expenses_category_default`
 --
 ALTER TABLE `expenses_category_default`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `incomes`
@@ -281,7 +245,7 @@ ALTER TABLE `incomes_category_assigned_to_users`
 -- AUTO_INCREMENT dla tabeli `incomes_category_default`
 --
 ALTER TABLE `incomes_category_default`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `payment_methods_assigned_to_users`
@@ -293,13 +257,13 @@ ALTER TABLE `payment_methods_assigned_to_users`
 -- AUTO_INCREMENT dla tabeli `payment_methods_default`
 --
 ALTER TABLE `payment_methods_default`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Ograniczenia dla zrzutów tabel
@@ -317,7 +281,8 @@ ALTER TABLE `expenses`
 -- Ograniczenia dla tabeli `expenses_category_assigned_to_users`
 --
 ALTER TABLE `expenses_category_assigned_to_users`
-  ADD CONSTRAINT `expenses_category_assigned_to_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `expenses_category_assigned_to_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `expenses_category_assigned_to_users_ibfk_2` FOREIGN KEY (`name`) REFERENCES `expenses_category_default` (`name`);
 
 --
 -- Ograniczenia dla tabeli `incomes`
@@ -330,13 +295,15 @@ ALTER TABLE `incomes`
 -- Ograniczenia dla tabeli `incomes_category_assigned_to_users`
 --
 ALTER TABLE `incomes_category_assigned_to_users`
-  ADD CONSTRAINT `incomes_category_assigned_to_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `incomes_category_assigned_to_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `incomes_category_assigned_to_users_ibfk_2` FOREIGN KEY (`name`) REFERENCES `incomes_category_default` (`name`);
 
 --
 -- Ograniczenia dla tabeli `payment_methods_assigned_to_users`
 --
 ALTER TABLE `payment_methods_assigned_to_users`
-  ADD CONSTRAINT `payment_methods_assigned_to_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `payment_methods_assigned_to_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `payment_methods_assigned_to_users_ibfk_2` FOREIGN KEY (`name`) REFERENCES `payment_methods_default` (`name`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
