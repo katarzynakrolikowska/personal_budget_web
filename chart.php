@@ -4,8 +4,8 @@
 	</div>
 </div>
 
-<div class="row justify-content-center rowChart mr-0">
-	<div class="col-10 col-sm col-lg-10 " id="chart">
+<div class="row justify-content-center rowChart mr-0 ">
+	<div class="col-10 col-sm col-lg-10" id="chart">
 		<div id="chartPieContainer"></div>
 	</div>
 </div>

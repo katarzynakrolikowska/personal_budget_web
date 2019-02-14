@@ -21,12 +21,12 @@ if(isset($_POST['amount'])) {
 	
 	if(!checkUserDate($date)) {
 		$userDataOk = false;
-	} else $userDataOk = true;
+	}
 	
 	if(isset($_POST['categoryIncome'])) {
 		if(!checkSelectedOption($_POST['categoryIncome'], $_SESSION['categoriesIncome'])) {
 			$userDataOk = false;
-		} else $userDataOk = true;
+		}
 	} else {
 		$_SESSION['errorOption'] = '';
 		$userDataOk = false;
