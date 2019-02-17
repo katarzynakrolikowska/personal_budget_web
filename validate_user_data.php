@@ -25,16 +25,20 @@ function checkUserDate($date) {
 		$_SESSION['errorDate'] = 'Wpisz datę w formacie rrrr-mm-dd!';
 		return false;
 	} else {
-		
-		
 		$year = $dateObj -> format('Y');
 		$month = $dateObj -> format('m');
 		$day = $dateObj -> format('d');
 		$daysCountOfCurrentMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 		$startDate = DateTime::createFromFormat('Y-m-d', '1900-01-01');
 		$endtDate = getLastDateOfCurrentMonth();
-		if(!checkdate($month, $day, $year) || $dateObj < $startDate || $dateObj > $endtDate) {
+		if(!checkdate($month, $day, $year)) {
 			$_SESSION['errorDate'] = 'Niepoprawna data!';
+			return false;
+		} else if($dateObj < $startDate) {
+			$_SESSION['errorDate'] = 'Wybierz datę z zakresu od '.$startDate -> format('d-m-Y').'!';
+			return false;
+		} else if($dateObj > $endtDate) {
+			$_SESSION['errorDate'] = 'Wybierz datę z zakresu do '.$endtDate -> format('d-m-Y').'!';
 			return false;
 		} else return true;	
 	} 
@@ -46,6 +50,7 @@ function checkSelectedOption($selectedOption, $arrayOptions) {
 	foreach($arrayOptions as $option) {
 		if($selectedOption != $option['id']){
 			$_SESSION['errorOption'] = false;
+			
 		} else {
 			unset($_SESSION['errorOption']);
 			return true;
@@ -53,6 +58,7 @@ function checkSelectedOption($selectedOption, $arrayOptions) {
 	}
 	
 	if(isset($_SESSION['errorOption'])) return false;
+	
 	
 }
 

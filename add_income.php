@@ -13,8 +13,7 @@ if(isset($_POST['amount'])) {
 	
 	if(!checkAmount($amount)) {
 		$userDataOk = false;
-	} else $userDataOk = true;
-	
+	} else $_POST['amount'] = number_format($_POST['amount'], 2, '.', '');	
 	
 	
 	$date = $_POST['date'];
@@ -43,8 +42,10 @@ if(isset($_POST['amount'])) {
 	if(!$userDataOk) {
 		$_SESSION['amount'] = $_POST['amount'];
 		$_SESSION['date'] =  $_POST['date'];
+		$_SESSION['categoryIncome'] =  $_POST['categoryIncome'];
 		header('Location:income.php');
 		exit();
+		
 	}
 	
 	try {

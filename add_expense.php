@@ -43,7 +43,6 @@ if(isset($_POST['amount'])) {
 	} else {
 		$_SESSION['errorOptionExp'] = '';
 		$userDataOk = false;
-		echo 'nie ustawiona kategoria wydatku<br />';
 	}
 	
 	
@@ -55,6 +54,8 @@ if(isset($_POST['amount'])) {
 	if(!$userDataOk) {
 		$_SESSION['amount'] = $_POST['amount'];
 		$_SESSION['date'] =  $_POST['date'];
+		$_SESSION['categoryExpense'] =  $_POST['categoryExpense'];
+		$_SESSION['paymentMethod'] =  $_POST['paymentMethod'];
 		header('Location:expense.php');
 		exit();
 	}

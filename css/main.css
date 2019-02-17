@@ -2,18 +2,10 @@ body{
 	position:relative;
 }
 
-#containerSettings,
-#containerBalance,
-#containerExpense,
-#containerIncome,
-#containerMenu,
-#containerLogin,
-#containerStartPage,
-#containerRegistration{
+.container-fluid{
 	background:white;
 	font-family:'Varela Round', sans-serif;
 }
-
 
 .containerHeaderMenu,
 .containerHeader {
@@ -21,22 +13,19 @@ body{
 	background:#FAFAFA;
 }
 
-#containerRegistration #linkR{
+#containerLogin #linkLogin,
+#containerRegistration #linkRegister{
 	background:white;
 	padding:3px;
 	border-bottom:2px solid #585858;
 }
-
-
-#containerLogin #linkL{
-	background:white;
-	padding:3px;
-	border-bottom:2px solid #585858;
-}
-
 
 .containerHeaderMenu header a{
 	font-size:25px;
+}
+
+.containerHeader header a{
+	font-size:30px;
 }
 
 .containerHeaderMenu header a,
@@ -47,6 +36,8 @@ body{
 	padding:10px;
 	border: 1px solid #F2F2F2;
 	border-radius:5px;
+	font-family: 'Montserrat', sans-serif;
+
 }
 
 .containerHeaderMenu header a:hover,
@@ -55,17 +46,14 @@ body{
 	text-decoration:none;
 }
 
-.footerMenu,
-.footerLogin,
-.footerRegister,
-.footerStartPage{
+.footer{
 	background:#F2F2F2;
 	color:#6E6E6E;
 	font-family:'Varela Round', sans-serif;
 	width:100%;
 }
 
-.footerMenuSticky{
+.footerSticky{
 	position:absolute;
 	bottom:0;
 	left:0;
@@ -74,15 +62,6 @@ body{
 img{
 	position:relative;
 	width:100%;
-}
-
-
-.registration img{
-	height:443px;
-}
-
-.login img{
-	height:360px;
 }
 
 #textRightBg{
@@ -152,6 +131,9 @@ img{
 }
 
 @media (max-width: 767.98px) {
+	.navbar header h2 a{
+		font-family: 'Montserrat', sans-serif;
+	}
 	.headerLink span{
 		display:none;
 	}
@@ -257,10 +239,7 @@ img{
 }
 
 @media (max-width: 575.98px) {
-	.login img,
-	.registration img{
-		display:none;
-	}
+	.containerHeader header a,
 	header a{
 		font-size:22px;		
 	}
@@ -326,10 +305,8 @@ img{
 .registration .sideBg{
 	background:#01A9DB;
 	opacity:0.6;
-	position:absolute;
-	top:0;
 	height:100%;
-	width:100%;
+	
 }
 
 h3{
@@ -359,10 +336,13 @@ h2{
 	background:#0080FF;
 }
 
+#containerLogin footer{
+	bottom:-50px;
+}
+
 label {
 	color:#585858;
 }
-
 
 .navbar {
 	opacity:0.85;
@@ -569,6 +549,7 @@ label {
 
 td{
 	width:33%;
+	
 }
 
 th{
@@ -629,6 +610,11 @@ tbody tr:last-child{
 	color:#424242;
 	font-size:27px;
 }
+
+#containerBalance footer{
+	bottom:-400px;
+}
+
 
 #chartContainer{
 	height:300px;
@@ -721,4 +707,10 @@ tbody tr:last-child{
 	text-align:center;
 	font-size:13px;
 	
+}
+
+.newUserInfo {
+	text-align:center;
+	margin-top:50px;
+	padding:0;
 }

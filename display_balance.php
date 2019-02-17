@@ -70,6 +70,7 @@
 	</div>
 </div>
 <?php
+$dataPoints = array();
 if(isset($_SESSION['expenses'])) {
 	foreach($_SESSION['expenses'] as $row) {
 		array_push($dataPoints, array("y" => $row['eSum']/$sumExpenses*100, "label" => $row['name']));
