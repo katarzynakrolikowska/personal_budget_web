@@ -58,16 +58,16 @@ $(function(){
 		
 	//set sticky footer
 	if($(document).height() >= $(window).height()){
-		$('footer').addClass('footerMenuSticky');
+		$('footer').addClass('footerSticky');
 	}else{
-		$('footer').removeClass('footerMenuSticky');
+		$('footer').removeClass('footerSticky');
 	}
 	
 	$(window).resize(function() {
 		if($(document).height() >= $(window).height()){
-			$('footer').addClass('footerMenuSticky');
+			$('footer').addClass('footerSticky');
 		}else{
-			$('footer').removeClass('footerMenuSticky');
+			$('footer').removeClass('footerSticky');
 		}
 	});
 	
@@ -345,7 +345,6 @@ $(function(){
 		e.preventDefault();
 		$formExpenses.eq(2).addClass('hideItem');
 	});
-	
 	
 	
 	

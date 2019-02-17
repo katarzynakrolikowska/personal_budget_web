@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['loggedID'])) {
-	header('Location:login.php');
+	header('Location:zaloguj-sie');
 	exit();
 }
 
@@ -13,8 +13,7 @@ if(isset($_POST['amount'])) {
 	
 	if(!checkAmount($amount)) {
 		$userDataOk = false;
-	} else $userDataOk = true;
-	
+	} else $_POST['amount'] = number_format($_POST['amount'], 2, '.', '');	
 	
 	
 	$date = $_POST['date'];
@@ -43,8 +42,10 @@ if(isset($_POST['amount'])) {
 	if(!$userDataOk) {
 		$_SESSION['amount'] = $_POST['amount'];
 		$_SESSION['date'] =  $_POST['date'];
-		header('Location:income.php');
+		$_SESSION['categoryIncome'] =  $_POST['categoryIncome'];
+		header('Location:dodaj-przychod');
 		exit();
+		
 	}
 	
 	try {
@@ -63,7 +64,7 @@ if(isset($_POST['amount'])) {
 		$_POST = array();
 		
 		
-		header('Location:income.php');
+		header('Location:dodaj-przychod');
 		exit();
 	} catch(PDOException $error) {
 		echo 'Błąd: '.$error -> getMessage().'<br />';
@@ -71,7 +72,7 @@ if(isset($_POST['amount'])) {
 	}
 	
 } else {
-	header('Location:income.php');
+	header('Location:dodaj-przychod');
 }
 
 

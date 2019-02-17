@@ -3,6 +3,6 @@
 	'host' => 'localhost',
 	'user' => 'root',
 	'password' => '',
-	'database' => 'personal_budget'
+	'database' => 'personal_budget_data'
 	];
 ?>

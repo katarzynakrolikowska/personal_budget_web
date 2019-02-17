@@ -1,4 +1,6 @@
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript">
+	
 	$(document).ready(function () {
 		var chart = new CanvasJS.Chart("chartPieContainer", {
 			legend:{
@@ -11,8 +13,8 @@
 			data: [{
 				type: "pie",
 				showInLegend: true,
-				legendText: "{label}-{y}",
-				
+				legendText: "{label} {y}",
+				startAngle: 300,
 				yValueFormatString: "##0.##\"%\"",
 				indexLabel: "{label} {y}",
 				toolTipContent: "{label}",

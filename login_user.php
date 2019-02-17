@@ -3,7 +3,7 @@
 session_start();
 
 if(isset($_SESSION['loggedID'])) {
-	header('Location:menu.php');
+	header('Location:menu-glowne');
 	exit();
 }
 
@@ -23,11 +23,11 @@ if(isset($_POST['emailLog'])) {
 		if($user && password_verify($password, $user['password'])) {
 			$_SESSION['loggedID'] = $user['id'];
 			$_SESSION['username'] = $user['username'];
-			header('Location:menu.php');
+			header('Location:menu-glowne');
 			exit();
 		} else {
 			$_SESSION['givenEmail'] = $email;
-			header('Location:login.php');
+			header('Location:zaloguj-sie');
 			exit();
 		}
 		
@@ -40,7 +40,7 @@ if(isset($_POST['emailLog'])) {
 	
 	
 } else {
-	header('Location:login.php');
+	header('Location:zaloguj-sie');
 }
 
 

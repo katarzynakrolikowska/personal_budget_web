@@ -1,5 +1,2 @@
-
 *.json
-demo.html
 *.txt
-!sumQuery.txt

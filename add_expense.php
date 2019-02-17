@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['loggedID'])) {
-	header('Location:login.php');
+	header('Location:zaloguj-sie');
 	exit();
 }
 
@@ -43,7 +43,6 @@ if(isset($_POST['amount'])) {
 	} else {
 		$_SESSION['errorOptionExp'] = '';
 		$userDataOk = false;
-		echo 'nie ustawiona kategoria wydatku<br />';
 	}
 	
 	
@@ -55,7 +54,9 @@ if(isset($_POST['amount'])) {
 	if(!$userDataOk) {
 		$_SESSION['amount'] = $_POST['amount'];
 		$_SESSION['date'] =  $_POST['date'];
-		header('Location:expense.php');
+		$_SESSION['categoryExpense'] =  $_POST['categoryExpense'];
+		$_SESSION['paymentMethod'] =  $_POST['paymentMethod'];
+		header('Location:dodaj-wydatek');
 		exit();
 	}
 	
@@ -76,7 +77,7 @@ if(isset($_POST['amount'])) {
 		
 		$_POST = array();
 		
-		header('Location:expense.php');
+		header('Location:dodaj-wydatek');
 		exit();
 	} catch(PDOException $error) {
 		echo 'Błąd: '.$error -> getMessage().'<br />';
@@ -84,7 +85,7 @@ if(isset($_POST['amount'])) {
 	}
 	
 } else {
-	header('Location:expense.php');
+	header('Location:dodaj-wydatek');
 }
 
 

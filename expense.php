@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedID'])) {
-	header('Location:login.php');
+	header('Location:zaloguj-sie');
 	exit();
 }
 
@@ -28,6 +28,7 @@ try{
 	echo $error -> getMessage().'<br />';
 	echo 'Błąd serwera!';
 }
+
 ?>
 
 
@@ -38,12 +39,9 @@ try{
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatiable" content="IE-edge,chrome=1" />
 	<title>Dodaj wydatek</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/main.css" type="text/css" />
-	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
-	<link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Varela+Round&amp;subset=latin-ext" rel="stylesheet">
+	<?php
+		require_once('head_links.php');
+	?>
 	
 	
 
@@ -70,7 +68,7 @@ try{
 					<h3>Wprowadź wydatek</h3>
 					
 					<div class="input-group ">
-						<input type="number" class="form-control" placeholder="Kwota" name="amount" value=
+						<input type="number" class="form-control" step="0.01" placeholder="Kwota" name="amount" value=
 						<?php
 							if(isset($_SESSION['amount'])) {
 								echo $_SESSION['amount'];
@@ -112,8 +110,13 @@ try{
 							<option disabled selected value="n">Wybierz metodę płatności</option>
 							<?php
 								foreach($_SESSION['paymentMethods'] as $method) {
-									echo '<option value='.$method['id'].'>'.$method['name'].'</option>';	
+									if(isset($_SESSION['paymentMethod']) && ($_SESSION['paymentMethod'] == $method['id'])) {
+										echo '<option value='.$method['id'].' selected>'.$method['name'].'</option>';
+									} else {
+										echo '<option value='.$method['id'].'>'.$method['name'].'</option>';
+									}
 								}
+								unset($_SESSION['paymentMethod']);
 							?>
 						</select>
 						<div class="input-group-prepend ">
@@ -131,8 +134,13 @@ try{
 							<option disabled selected>Wybierz kategorię</option>
 							<?php
 								foreach($_SESSION['categoriesExpense'] as $category) {
-									echo '<option value='.$category['id'].'>'.$category['name'].'</option>';	
+									if(isset($_SESSION['categoryExpense']) && ($_SESSION['categoryExpense'] == $category['id'])) {
+										echo '<option value='.$category['id'].' selected>'.$category['name'].'</option>';
+									} else {
+										echo '<option value='.$category['id'].'>'.$category['name'].'</option>';
+									}
 								}
+								unset($_SESSION['categoryExpense']);
 							?>
 						</select>
 						<div class="input-group-prepend ">
@@ -161,7 +169,7 @@ try{
 					
 					<div class="row mx-0">
 						<div class="col px-0">
-							<a href="menu.php" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
+							<a href="menu-glowne" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
 						</div>
 					
 						<div class="col px-0">
@@ -174,16 +182,9 @@ try{
 			
 		</div>
 		
-		<div class="row mx-0">
-			<footer class="col footerMenu  text-center py-2">
-				<p class="text-muted">2018 &copy; fullWallet.pl</p>	
-			</footer>	
-		</div>
-	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="personalBudget.js"></script>
+		<?php
+			require_once('footer.php');
+		?>
 </body>
 
 

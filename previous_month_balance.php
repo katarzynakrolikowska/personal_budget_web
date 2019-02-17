@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedID'])) {
-	header('Location:login.php');
+	header('Location:zaloguj-sie');
 	exit();
 }
 
@@ -15,7 +15,7 @@ try {
 	require_once('balance_query.php');
 	selectIncomes($startDate, $endDate);
 	
-	header('Location:balance.php');
+	header('Location:przegladaj-bilans');
 	exit();
 } catch(PDOException $error) {
 	echo 'Błąd: '.$error -> getMessage().'<br />';

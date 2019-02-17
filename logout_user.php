@@ -2,12 +2,10 @@
 session_start();
 
 if(isset($_SESSION['loggedID'])) {
-	unset($_SESSION['loggedID']);
-	unset($_SESSION['username']);
-	unset($_SESSION['email']);
+	$_SESSION = array();
 } 
 
-header('Location:index.php');
+header('Location:zapanuj-nad-wlasnymi-finansami');
 exit();
 
 ?>
