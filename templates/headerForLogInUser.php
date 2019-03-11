@@ -5,7 +5,7 @@
 		<header><h2><b><a href="menu-glowne" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
 	</div>
 	<div class="col-auto pt-4">
-		<a href="zmien-ustawienia" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> <?php echo $_SESSION['username'];?></span></a>
+		<a href="zmien-ustawienia" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> <?=$username ? $username : 'Użytkownik' ?></span></a>
 	</div>
 	<div class="col-auto pt-4 pr-4 pr-sm-4">
 		<a href="#" class="headerLink" id="linkLogOut" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i><span> Wyloguj się</span></a>
@@ -23,7 +23,7 @@
 			
 			<div class="modal-footer">
 				<a href="#" class="btn btn-primary" data-dismiss="modal">Anuluj</a>
-				<a href="logout_user.php" class="btn btn-primary">Wyloguj się</a>
+				<a href="index.php?action=logout" class="btn btn-primary">Wyloguj się</a>
 			</div>
 		</div>
 	</div>

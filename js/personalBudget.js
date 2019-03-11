@@ -1,6 +1,13 @@
 
 $(function(){
 	
+	$('[data-toggle="popover"]').popover({
+		placement: 'bottom',
+		offset: '-112px'
+		
+	});
+	
+
 	//set settings menu
 	var $containerMyData = $('#containerMyData');
 	var $containerMyIncomes = $('#containerMyIncomes');
@@ -57,7 +64,7 @@ $(function(){
 		
 		
 	//set sticky footer
-	if($(document).height() >= $(window).height()){
+	/*if($(document).height() >= $(window).height()){
 		$('footer').addClass('footerSticky');
 	}else{
 		$('footer').removeClass('footerSticky');
@@ -69,7 +76,7 @@ $(function(){
 		}else{
 			$('footer').removeClass('footerSticky');
 		}
-	});
+	});*/
 	
 	
 	// set title of header icon for <= sm size
