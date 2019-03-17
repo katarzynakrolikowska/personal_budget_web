@@ -1,8 +1,8 @@
 <?php
 
-class HelperMethods
+class TextTransformation
 {
-    public static function getUppercaseFirstLetter($text)
+    public static function getUppercaseFirstLetterAndLowercaseOtherLetters($text)
     {
         return mb_strtoupper(mb_substr($text, 0, 1)).mb_strtolower(mb_substr($text,1));
     }

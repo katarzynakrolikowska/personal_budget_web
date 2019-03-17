@@ -345,10 +345,12 @@ h2{
 	width:14px;
 }
 
+.formAddData a,
 .formRegister a{
 	cursor:pointer;
 	
 }
+
 
 .formRegister a span{
 	background:#FBFCFC;
@@ -357,6 +359,7 @@ h2{
 	border-top-right-radius: 4px !important;
 }
 
+.formAddData a span:hover,
 .formRegister a span:hover{
 	background:#F7F9F9;
 	

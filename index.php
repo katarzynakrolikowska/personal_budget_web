@@ -11,12 +11,26 @@ try {
 		$action = $_GET['action'];
 	}
 
-	$messageForUser = $portal->getMessage();
-
-	if($portal -> loggedInUser) {
-		$username = $portal -> loggedInUser -> getName();
+	if (isset($_GET['msg'])) {
+		$messageOK = $portal -> getMessage();
+	} else {
+		$messageError = $portal -> getMessage();
 	}
 	
+
+	if ($portal -> loggedInUser) {
+		$username = $portal -> loggedInUser -> getName();
+	}
+
+	if (($action == 'showLoginForm' || $action == 'showRegistrationForm' || $action == 'showMain') && $portal -> loggedInUser){
+		header('Location:index.php?action=showMainForLoginUser');
+		return;
+	}
+
+	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalance' || $action == 'showMainForLoginUser') && !($portal -> loggedInUser)){
+		header('Location:index.php?action=showMain');
+		return;
+	}
 
 	switch($action):
 		case 'login':
@@ -43,7 +57,7 @@ try {
 			switch ($portal -> registerUser()):
 				case ACTION_OK:
 					$portal -> setMessage('Konto zostało założone!');
-					header('Location:index.php?action=showLoginForm');
+					header('Location:index.php?action=showLoginForm&msg=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wszystkie dane!');
@@ -60,6 +74,21 @@ try {
 			endswitch;
 			header('Location:index.php?action=showRegistrationForm');
 			break;
+		case 'addIncome':
+			switch ($portal -> addIncome()):
+				case ACTION_OK:
+					$portal -> setMessage('Przychód został dodany!');
+					header('Location:index.php?action=showIncomeAddForm&msg=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Uzupełnij wymagane dane!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showIncomeAddForm');
+			break;
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;
@@ -68,8 +97,7 @@ try {
 	echo 'Błąd serwera!';
 } catch (Exception $error) {
 	echo $error -> getMessage().'<br />';
-	echo $error -> getFile().'<br />';
-	echo $error -> getTraceAsString()().'<br />';
+	echo $error -> getTraceAsString().'<br />';
 }
 
 function classLoader($name)

@@ -42,15 +42,28 @@ class PortalFront extends Portal
         return $logOperation -> login();
     }
 
-    function logOut()
+    public function logOut()
     {
         $this -> loggedInUser = null;
         $_SESSION = array();
     }
 
-    function registerUser()
+    public function registerUser()
     {
-        $registration = new Registration($this -> dbo);
+        $registration = new Registration($this -> dbo, $_POST);
         return $registration -> registerUser();
     }
+
+    public function getIncomeCategoriesAssignedToUser($user)
+    {
+        $incomeAppendForm = new IncomeAppendForm($this -> dbo);
+        return $incomeAppendForm -> getIncomeCategoriesAssignedToUser($user);
+    }
+
+    public function addIncome()
+    {
+        $incomeAppendForm = new IncomeAppendForm($this -> dbo);
+        return $incomeAppendForm -> addIncome();
+    }
+
 }

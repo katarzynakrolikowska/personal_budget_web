@@ -24,7 +24,10 @@
     } else {
         require_once 'headerForLogoutUser.php';
     }
-
+    
+    if (isset($messageOK)) {
+        echo '<h4 class="my-5 text-center">'.$messageOK.'</h4>';
+    }
 
     switch ($action):
         case 'showLoginForm':
@@ -35,6 +38,10 @@
             break;
         case 'showMainForLoginUser':
             require_once 'templates/loginUserMainContent.php';
+            break;
+        case 'showIncomeAddForm':
+            $_SESSION['incomeCategories'] = $portal -> getIncomeCategoriesAssignedToUser($portal -> loggedInUser);
+            require_once 'templates/incomeAddForm.php';
             break;
         case 'showMain':
         default:
