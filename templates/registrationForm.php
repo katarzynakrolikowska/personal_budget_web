@@ -9,8 +9,8 @@
 				<header><h3>Rejestracja</h3></header>
 
 				<?php
-					if (isset($messageForUser)) {
-						echo '<h6 class="error">'.$messageForUser.'</h6>';
+					if (isset($messageError)) {
+						echo '<h6 class="error">'.$messageError.'</h6>';
 					}
 				?>
 
@@ -18,9 +18,9 @@
 					
 					<div class="input-group mb-1 
 					<?php
-						if ($_SESSION['errorUsername']) {
+						if (isset($_SESSION['errorUsername'])) {
 							echo 'errorBorder';
-							$_SESSION['errorUsername'] = false;
+							unset($_SESSION['errorUsername']);
 						}
 					?>">
 						<div class="input-group-prepend">
@@ -46,9 +46,9 @@
 					
 					<div class="input-group mb-1 mt-3
 					<?php
-						if ($_SESSION['errorLogin']) {
+						if (isset($_SESSION['errorLogin'])) {
 							echo 'errorBorder';
-							$_SESSION['errorLogin'] = false;
+							unset($_SESSION['errorLogin']);
 						}
 					?>">
 						<div class="input-group-prepend">
@@ -72,7 +72,7 @@
 									
 					<div class="input-group mb-1 mt-3 
 					<?php
-						if ($_SESSION['errorPassword1']) {
+						if (isset($_SESSION['errorPassword1'])) {
 							echo 'errorBorder';
 						}
 					?>">
@@ -91,9 +91,9 @@
 					
 					<div class="input-group mb-1 mt-3
 					<?php
-						if ($_SESSION['errorPassword1']) {
+						if (isset($_SESSION['errorPassword1'])) {
 							echo 'errorBorder';
-							$_SESSION['errorPassword1'] = false;
+							unset($_SESSION['errorPassword1']);
 						}
 					?>">
 						<div class="input-group-prepend">
@@ -116,8 +116,7 @@
 						</label>
 					</div>
 					
-					<button type="submit" class="btn btn-default mt-4 text-white">Zarejestruj się</button>
-					
+					<button type="submit" class="btn btn-default mt-4 text-white">Zarejestruj się</button>	
 				</form>
 			</div>
 			

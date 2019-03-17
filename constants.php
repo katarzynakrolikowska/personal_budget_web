@@ -14,3 +14,9 @@ define('MAX_LENGTH_LOGIN', 50);
 
 define('MIN_LENGTH_PASSWORD', 8);
 define('MAX_LENGTH_PASSWORD', 20);
+
+define('START_DATE', '1900-01-01');
+
+define('INCOME_FORM_FIELDS', array('amount', 'date', 'category'));
+define('FORM_REGISTRATION_FIELDS', array('username', 'login', 'password1', 'password2'));
+define('LOGIN_FORM_FIELDS', array('login', 'password'));

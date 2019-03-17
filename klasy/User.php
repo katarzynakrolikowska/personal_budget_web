@@ -15,7 +15,12 @@ class User
 
     public function getName()
     {
-        return $this -> name;
+        return TextTransformation::getUppercaseFirstLetterAndLowercaseOtherLetters($this -> name);
+    }
+
+    public function getId()
+    {
+        return $this -> id;
     }
     
 }

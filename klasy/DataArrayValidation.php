@@ -2,47 +2,94 @@
 
 class DataArrayValidation
 {
-    private $fieldsFromForm = array();
+    private $sendedFieldsFromForm = array();
+    private $namesOfRequiredFields = array();
+    private $dataValidation = null;
+   
 
-    public function __construct($fieldsFromForm)
+    public function __construct($sendedFieldsFromForm, $namesOfRequiredFields, $dataValidation = null)
     {
-        $this -> fieldsFromForm = $fieldsFromForm;
-        $this -> setSessionErrorForAllFieldsFromForm();
-        
+        $this -> sendedFieldsFromForm = $sendedFieldsFromForm;
+        $this -> namesOfRequiredFields = $namesOfRequiredFields;
+        $this -> dataValidation = new DataValidation($dataValidation);
+        $this -> setSessionFieldsFromFormValue();
     }
 
-    public function isFieldsFromFormExist()
+    public function isRequiredFieldsFromFormMissing()
     {
-        foreach ($this -> fieldsFromForm as $field) {
-            if (!isset($field)) {
-                return false;
+        $isMissing = false;
+
+        foreach ($this -> namesOfRequiredFields as $name) {
+            if ($this -> isFieldFromFormMissing($name)) {
+                $isMissing = true;
             }
         }
-        return true;
+
+        if ($isMissing) {
+             return true;
+        } else {
+            return false;
+        }
     }
 
-    public function isEmptyAllFieldsFromForm()
+    private function isFieldFromFormMissing($fieldName)
     {
-        foreach ($this -> fieldsFromForm as $field) {
-            if (!empty(trim($field))) {
-                return false;
+        $this -> dataValidation -> setData($this -> sendedFieldsFromForm[$fieldName]);
+
+        if (!$this -> dataValidation -> isExist()) {
+            $this -> setSessionErrorForFormField($fieldName);
+            return  true;
+        } else if ($this -> dataValidation -> isEmpty()) {
+            $this -> setSessionErrorForFormField($fieldName);
+            return  true;
+        } else {
+            $this -> unsetSessionErrorOfFormField($fieldName);
+            return false;
+        }
+
+    }
+
+    private function setSessionErrorForFormField($fieldName)
+    {
+        $fieldName = ucfirst($fieldName);
+        $_SESSION['error'.$fieldName] = '';
+    }
+
+    private function unsetSessionErrorOfFormField($fieldName)
+    {
+        $fieldName = ucfirst($fieldName);
+        unset($_SESSION['error'.$fieldName]);
+    }
+
+    private function setSessionFieldsFromFormValue()
+    {
+        foreach ($this -> sendedFieldsFromForm as $key => $value) {
+            $this -> dataValidation -> setData($value);
+            $this -> dataValidation -> setSessionData($key);
+        }
+    }
+
+    public function isValidDataFromForm($validationObjects)
+    {
+        $userDataOk = true;
+
+        foreach ($validationObjects as $errorName => $validationObj) {
+            
+            if (!$validationObj -> isValid()) {
+                $_SESSION[$errorName] = '';
+                $userDataOk = false;
+            } else {
+                unset($_SESSION[$errorName]);
             }
         }
-        return true;
+        return $userDataOk;
     }
 
-    public function setSessionErrorForAllFieldsFromForm()
+    public function unsetSessionFieldsFromForm()
     {
-        foreach ($this -> fieldsFromForm as $name => $value) {
-            $this -> setSessionErrorForFieldForm($name);
+        foreach($this -> sendedFieldsFromForm as $name => $value) {
+            unset($_SESSION[$name]);
         }
     }
-
-    private function setSessionErrorForFieldForm($fieldName)
-    {
-        $fieldName = HelperMethods::getUppercaseFirstLetter($fieldName);
-        $_SESSION['error'.$fieldName] = true;
-    }
-
     
 }

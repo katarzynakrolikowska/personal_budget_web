@@ -2,11 +2,14 @@
 
 class Registration
 {
-    private $dbo =null;
+    private $dbo = null;
+    private $dataArrayValidation = null;
+    
 
-    public function __construct($dbo)
+    public function __construct($dbo, $dataArray)
     {
         $this -> dbo = $dbo;
+        $this -> dataArrayValidation = new DataArrayValidation($dataArray, FORM_REGISTRATION_FIELDS);
     }
 
     public function registerUser()
@@ -19,7 +22,7 @@ class Registration
 			return INVALID_DATA;
         }
 
-        if ($this -> isLoginExists()) {
+        if ($this -> isUserExists()) {
             return LOGIN_ALREADY_EXISTS;
         }
         
@@ -29,15 +32,15 @@ class Registration
 
         $this -> addNewUserToDatabase();
 
+        $_SESSION = array();
         return ACTION_OK;
     }
 
+    
+
     private function isAllRequiredDataMissing()
     {
-        $dataArrayValidation = new DataArrayValidation($_POST);
-        if (!$dataArrayValidation -> isFieldsFromFormExist()) {
-            return true;
-        } else if ($dataArrayValidation -> isEmptyAllFieldsFromForm()) {
+        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
             return true;
         } else {
             return false;
@@ -60,18 +63,14 @@ class Registration
             $userDataOK = false;
         }
 
-        unset($_SESSION['username']);
-		unset($_SESSION['login']);
-        
         return $userDataOK;
     }
 
     private function isValidNameFromRegistrationForm()
     {
-        $nameValidation = new NameValidation($_POST['username']);
-        $_SESSION['username'] = $nameValidation -> getSanitizeValue();
+        $nameValidation = new NameValidation($_POST['username']);       
         if ($nameValidation -> isValidName()) {
-            $_SESSION['errorUsername'] = false;
+            unset($_SESSION['errorUsername']);
             return true;
         } else {
             return false;
@@ -81,9 +80,8 @@ class Registration
     private function isValidLoginFromRegistrationForm()
     {
         $loginValidation = new LoginValidation($_POST['login']);
-        $_SESSION['login'] = $loginValidation -> getSanitizeValue();
         if ($loginValidation -> isValidLogin()) {
-            $_SESSION['errorLogin'] = false;
+            unset($_SESSION['errorLogin']);
             return true;
         } else {
             return false;
@@ -95,7 +93,7 @@ class Registration
         $passwordValidation = new PasswordValidation($_POST['password1']);
 
         if ($passwordValidation -> isValidPassword()) {
-            $_SESSION['errorPassword1'] = false;
+            unset($_SESSION['errorPassword1']);
             return true;
         } else {
             return false;
@@ -109,14 +107,10 @@ class Registration
         }
     }
 
-    private function isLoginExists()
+    private function isUserExists()
     {
-        $query = 'SELECT id,password FROM users WHERE login = ?';
-        $myDB = new MyDB($this -> dbo);
-        $parametersToBind = array($_POST['login'] => PDO::PARAM_STR);
-        
-        if (sizeof($myDB -> getQueryResult($query, $parametersToBind)) > 0) {
-            $_SESSION['errorLogin'] = true;
+        $loginValidation = new LoginValidation($_POST['login']);
+        if ($loginValidation -> isLoginExists($this -> dbo)) {
             return true;
         } else {
             return false;
@@ -125,14 +119,14 @@ class Registration
 
     private function addNewUserToDatabase()
     {
-        $this -> addCredentialsToDatabase();
+        $this -> addUserDataToDatabase();
 
         $this -> setDefaultCategoriesForNewUser();
     }
 
-    private function addCredentialsToDatabase()
+    private function addUserDataToDatabase()
     {
-        $_POST['password1'] = HelperMethods::getHashText($_POST['password1']);
+        $_POST['password1'] = TextTransformation::getHashText($_POST['password1']);
 
         $myDB = new MyDB($this -> dbo);
         $query = 'INSERT INTO users VALUES(NULL, ?, ?, ?)';
@@ -146,6 +140,7 @@ class Registration
     private function setDefaultCategoriesForNewUser()
     {
         $myDB = new MyDB($this -> dbo);
+
         $query = 'INSERT INTO expenses_category_assigned_to_users(user_id,              name) SELECT (SELECT id FROM users WHERE login=?),
                 name FROM expenses_category_default as e_def ORDER BY     e_def.id';
         $parametersToBind = array($_POST['login'] => PDO::PARAM_STR);
@@ -154,15 +149,11 @@ class Registration
 
         $query = 'INSERT INTO incomes_category_assigned_to_users(user_id, name)         SELECT (SELECT id FROM users WHERE login=?),
                 name FROM incomes_category_default as i_def ORDER BY i_def.id';
-                
-        $parametersToBind = array($_POST['login'] => PDO::PARAM_STR);
-
+        
         $myDB -> executeQuery($query, $parametersToBind);
 
         $query = 'INSERT INTO payment_methods_assigned_to_users(user_id, name)          SELECT (SELECT id FROM users WHERE login=?),
                 name FROM payment_methods_default as pm_def ORDER BY pm_def.id';
-        
-        $parametersToBind = array($_POST['login'] => PDO::PARAM_STR);
 
         $myDB -> executeQuery($query, $parametersToBind);
 
