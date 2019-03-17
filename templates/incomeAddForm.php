@@ -76,7 +76,6 @@
                                 echo '<option value='.$category['id'].'>'.$category['name'].'</option>';
                             }
                         }
-                        //unset($_SESSION['incomeCategories']);
                     ?>
                 </select>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">
@@ -105,7 +104,7 @@
             
             <div class="row mx-0 mt-4">
                 <div class="col px-0">
-                    <a href="menu-glowne" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
+                    <a href="#" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
                 </div>
             
                 <div class="col px-0">
@@ -113,13 +112,6 @@
                 </div>
             </div>
         </form>
-
-        <?php
-        foreach ($_POST as $key => $val)
-        {
-            echo $key.' = '.$val.'<br />';
-        }
-        ?>
     </div>
     
 </div>

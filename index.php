@@ -89,6 +89,21 @@ try {
 			endswitch;
 			header('Location:index.php?action=showIncomeAddForm');
 			break;
+		case 'addExpense':
+			switch ($portal -> addExpense()):
+				case ACTION_OK:
+					$portal -> setMessage('Wydatek został dodany!');
+					header('Location:index.php?action=showExpenseAddForm&msg=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Uzupełnij wymagane dane!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showExpenseAddForm');
+			break;
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;

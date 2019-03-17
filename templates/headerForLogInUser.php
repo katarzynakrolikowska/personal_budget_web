@@ -47,8 +47,8 @@
 				<a class="nav-link" href="index.php?action=showIncomeAddForm"><i class="icon-dollar"></i> Dodaj przychód</a>
 			</li>
 			
-			<li class="nav-item <?=isset($_SESSION['expense']) ? 'active' : ''?>">
-				<a class="nav-link " href="dodaj-wydatek"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
+			<li class="nav-item <?=$action == 'showExpenseAddForm' ? 'active' : ''?>">
+				<a class="nav-link " href="index.php?action=showExpenseAddForm"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
 			</li>
 			
 			<li class="nav-item <?=isset($_SESSION['balance']) ? 'active' : ''?>" id="itemBalance">
