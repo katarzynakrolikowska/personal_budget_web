@@ -1,6 +1,6 @@
 <?php
 
-class IncomeAppendForm
+class IncomeInsertion
 {
     private $dbo = null;
     private $myDB = null;

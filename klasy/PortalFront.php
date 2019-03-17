@@ -56,14 +56,32 @@ class PortalFront extends Portal
 
     public function getIncomeCategoriesAssignedToUser($user)
     {
-        $incomeAppendForm = new IncomeAppendForm($this -> dbo);
-        return $incomeAppendForm -> getIncomeCategoriesAssignedToUser($user);
+        $incomeInsertion = new IncomeInsertion($this -> dbo);
+        return $incomeInsertion -> getIncomeCategoriesAssignedToUser($user);
     }
 
     public function addIncome()
     {
-        $incomeAppendForm = new IncomeAppendForm($this -> dbo);
-        return $incomeAppendForm -> addIncome();
+        $incomeInsertion = new IncomeInsertion($this -> dbo);
+        return $incomeInsertion -> addIncome();
+    }
+
+    public function addExpense()
+    {
+        $expenseInsertion = new ExpenseInsertion($this -> dbo);
+        return $expenseInsertion -> addExpense();
+    }
+
+    public function getExpenseCategoriesAssignedToUser($user)
+    {
+        $expenseInsertion = new ExpenseInsertion($this -> dbo);
+        return $expenseInsertion -> getExpenseCategoriesAssignedToUser($user);
+    }
+
+    public function getPaymentMethodsAssignedToUser($user)
+    {
+        $expenseInsertion = new ExpenseInsertion($this -> dbo);
+        return $expenseInsertion -> getPaymentMethodsAssignedToUser($user);
     }
 
 }

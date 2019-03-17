@@ -43,6 +43,11 @@
             $_SESSION['incomeCategories'] = $portal -> getIncomeCategoriesAssignedToUser($portal -> loggedInUser);
             require_once 'templates/incomeAddForm.php';
             break;
+        case 'showExpenseAddForm':
+            $_SESSION['expenseCategories'] = $portal -> getExpenseCategoriesAssignedToUser($portal -> loggedInUser);
+            $_SESSION['paymentMethods'] = $portal -> getPaymentMethodsAssignedToUser($portal -> loggedInUser);
+            require_once 'templates/expenseAddForm.php';
+            break;
         case 'showMain':
         default:
             require_once 'templates/startContent.php';

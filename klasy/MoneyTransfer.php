@@ -39,8 +39,6 @@ class MoneyTransfer
     {
         if (isset($amount)) {
             $this -> amount = $amount;
-        } else {
-            $this -> amount = '';
         }
     }
 
@@ -48,8 +46,6 @@ class MoneyTransfer
     {
         if (isset($date)) {
             $this -> date = $date;
-        } else {
-            $this -> date = '';
         }
         
     }
@@ -58,8 +54,6 @@ class MoneyTransfer
     {
         if (isset($category)) {
             $this -> category = $category;
-        } else {
-            $this -> category = '';
         }
     }
 
