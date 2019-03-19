@@ -21,7 +21,7 @@
 				indexLabelFontSize: 15,
 				
 				indexLabelWrap: false,
-				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+				dataPoints: <?php echo json_encode($portal -> getDataPointsForExpensesChart(), JSON_NUMERIC_CHECK); ?>
 			}]
 			
 		});

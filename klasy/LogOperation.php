@@ -4,10 +4,12 @@ class LogOperation
 {
     private $dbo =null;
     private $userDataFromDatabase = null;
+    private $dataArrayValidation = null;
 
     public function __construct($dbo)
     {
         $this -> dbo = $dbo;
+        $this -> dataArrayValidation = new DataArrayValidation($_POST, LOGIN_FORM_FIELDS);
     }
 
     public function logIn()
@@ -16,9 +18,7 @@ class LogOperation
             return FORM_DATA_MISSING;
         }
 
-        //$dataValidation = new DataValidation($_POST['login']);
-
-        if (!$this -> isUserExists()) {
+        if (!$this -> isValidDataFromLoginForm()) {
             return INVALID_DATA;
         }
 
@@ -29,27 +29,32 @@ class LogOperation
 
     private function isAllRequiredDataMissing()
     {
-        $dataArrayValidation = new DataArrayValidation($_POST, LOGIN_FORM_FIELDS);
-        if ($dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
+        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
             return true;
         } else {
             return false;
         }
     }
 
-    private function isUserExists()
+    private function isValidDataFromLoginForm()
     {
-        $query = 'SELECT id, username, password FROM users WHERE login = ?';
-        $myDB = new MyDB($this -> dbo);
-        $parametersToBind = array($_POST['login'] => PDO::PARAM_STR);
-        
-        $results = $myDB -> getQueryResult($query, $parametersToBind);
+        $loginValidation = new LoginValidation($_POST['login']);
+        $results = $loginValidation -> getUserDataAssignedToLogin($this -> dbo);
 
-        if (sizeof($results) === 1 && $this -> isCorrectPassword($results[0]['password'])) {
+        if ($this -> isUserExists($results) && $this -> isCorrectPassword($results[0]['password'])) {
             $this -> userDataFromDatabase = $results[0];
             return true;
         } else {
-            $_SESSION['errorLogin'] = true;
+           $this -> dataArrayValidation -> setSessionErrorForRequiredFields();
+            return false;
+        }
+    }
+
+    private function isUserExists($results)
+    {
+        if (sizeof($results) === 1 ) {
+            return true;
+        } else {
             return false;
         }
     }

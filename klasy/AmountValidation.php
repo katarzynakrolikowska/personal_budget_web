@@ -2,16 +2,6 @@
 
 class AmountValidation extends DataValidation
 {
-    /*public function __construct($amount)
-    {
-        parent:: __construct($amount);
-    }
-
-    /*private function getValidAmountNotation()
-    {
-        return str_replace([',', ' '], ['.', ''], $this -> data);
-    }*/
-
     public function isValid()
     {
         if ($this -> isEmpty()) {
@@ -26,7 +16,7 @@ class AmountValidation extends DataValidation
             return false;
         }
         
-        $_SESSION['amount'] = $this -> getNumberFormatWithoutSpace();
+        $_SESSION['amount'] = AmountModifier::getNumberFormatWithoutSpace($this -> data);
         return true;
     }
 
@@ -48,10 +38,7 @@ class AmountValidation extends DataValidation
         }
     }
 
-    public function getNumberFormatWithoutSpace()
-    {
-        return number_format($this -> data, 2, '.', '');
-    }
+    
 
     
 }

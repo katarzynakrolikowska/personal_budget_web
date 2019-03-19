@@ -2,7 +2,7 @@
 
 class NameValidation extends DataValidation
 {
-    public function isValidName()
+    public function isValid()
     {
         if ($this -> isValidLength(MIN_LENGTH_USERNAME, MAX_LENGTH_USERNAME) && $this -> isNameIncludeValidChars()) {
             return true;

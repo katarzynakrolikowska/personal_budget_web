@@ -4,7 +4,7 @@ class DataValidation
 {
     protected $data = null;
 
-    public function __construct($data)
+    public function __construct($data = '')
     {
         $this -> data = $data;
     }
@@ -73,20 +73,5 @@ class DataValidation
         $_SESSION[$name] = $this -> getSanitizedValue();
     }
 
-    /*public function setSessionError($name, $info = ''){
-        $name = ucfirst($name);
-        $_SESSION['error'.$name] = $info;
-    }
-
-
-    public function setSessionErrorForData($name)
-    {
-        $name = ucfirst($name);
-        $_SESSION['error'.$name] = true;
-    }*/
-
-    /*public function unsetSessionData($key)
-    {
-        unset($_SESSION[$key]);
-    }*/
+    
 }

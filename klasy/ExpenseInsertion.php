@@ -32,14 +32,11 @@ class ExpenseInsertion
         $this -> insertDataIntoDatabase();
         $this -> dataArrayValidation -> unsetSessionFieldsFromForm();
 
-        //$_POST = array();
-
         return ACTION_OK;
     }
 
     private function isRequiredDataMissing()
     {
-        
         if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
             return true;
         } else {
@@ -79,32 +76,32 @@ class ExpenseInsertion
 
     public function getExpenseCategoriesAssignedToUser($user)
     {
-        $query = 'SELECT id, name FROM expenses_category_assigned_to_users WHERE user_id=? ORDER BY id DESC';
+        $query = 'SELECT id, name FROM expenses_category_assigned_to_users WHERE user_id=:id';
 
-        $parametersToBind = array($user -> getId() => PDO::PARAM_INT);
+        $parametersToBind = array(':id' => $user -> getId());
 
         return $this -> myDB -> getQueryResult($query, $parametersToBind);
     }
 
     public function getPaymentMethodsAssignedToUser($user)
     {
-        $query = 'SELECT id, name FROM payment_methods_assigned_to_users WHERE user_id=? ORDER BY id';
+        $query = 'SELECT id, name FROM payment_methods_assigned_to_users WHERE user_id=:id';
 
-        $parametersToBind = array($user -> getId() => PDO::PARAM_INT);
+        $parametersToBind = array(':id' => $user -> getId());
 
         return $this -> myDB -> getQueryResult($query, $parametersToBind);
     }
 
     private function insertDataIntoDatabase()
     {
-        $query = 'INSERT INTO expenses VALUES(NULL, ?, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO expenses VALUES(NULL, :userID, :categoryID, :paymentID, :amount, :date, :comment)';
 
-        $parametersToBind = array($_SESSION['loggedInUser'] -> getId() =>                           PDO::PARAM_INT, 
-                            $this -> expense -> getCategory() => PDO::PARAM_INT,
-                            $this -> expense -> getPaymentMethod() => PDO::PARAM_INT,
-                            $this -> expense -> getAmount() => PDO::PARAM_STR, 
-                            $this -> expense -> getTransferDate() => PDO::PARAM_STR, 
-                            $this -> expense -> getComment() => PDO::PARAM_STR);
+        $parametersToBind = array(':userID' => $_SESSION['loggedInUser'] ->                          getId(), 
+                            ':categoryID' => $this -> expense -> getCategory(),
+                            ':paymentID' => $this -> expense -> getPaymentMethod(),
+                            ':amount' => $this -> expense -> getAmount(), 
+                            ':date' => $this -> expense -> getTransferDate(), 
+                            ':comment' => $this -> expense -> getComment());
 
         $this -> myDB -> executeQuery($query, $parametersToBind);
     }

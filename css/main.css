@@ -277,13 +277,13 @@ img{
 		padding-top:20px !important;
 	}
 	
-	#containerBalance .resultText{
+	.resultText{
 		font-size:28px !important;
 		padding-left:10% !important;
 		padding-right:10% !important;
 	}
 	
-	#containerBalance #resultComment{
+	#resultComment{
 		font-size:24px !important;
 	}
 	
@@ -622,15 +622,15 @@ tbody tr:last-child{
 	color:#2C3E50;
 }
 
-#containerBalance .headerOption h3{
+.headerOption h3{
 	text-align:center !important;
 }
 
-#containerBalance .headerOption .customPeriodHeader{
+.headerOption .customPeriodHeader{
 	font-size:28px !important;
 }
 
-#containerBalance #resultBg{
+#resultBg{
 	background:#F5F5F5;
 	height:300px;
 	margin-bottom:10%;
@@ -638,7 +638,7 @@ tbody tr:last-child{
 	border:1px solid #E6E6E6;	
 }
 
-#containerBalance .resultText{
+.resultText{
 	height:50%;
 	text-align:center;
 	font-size:35px;
@@ -649,12 +649,12 @@ tbody tr:last-child{
 	border-radius:4px;
 }
 
-#containerBalance #resultComment{
+#resultComment{
 	color:#424242;
 	font-size:27px;
 }
 
-#containerBalance footer{
+.footerBalance{
 	bottom:-400px;
 }
 

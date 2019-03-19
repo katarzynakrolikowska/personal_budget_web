@@ -3,19 +3,25 @@
 
 class DateValidation extends DataValidation
 {
-    private $today = null;
-    private $dateObj = null;
+   
+    private $dateModifier = null;
 
-    public function __construct($data)
+    public function __construct($data = '')
     {
         parent:: __construct($data);
-        $this -> today = new DateTime();
-        $this -> dateObj = DateTime::createFromFormat('Y-m-d', $this -> data);
+        $this -> dateModifier = new DateModifier($data);
+    }
+
+    public function setData($date)
+    {
+        $this -> data = $date;
+        $this -> dateModifier -> initDateObj($date); 
     }
 
     public function isValid()
     {
         if ($this -> isEmpty()) {
+            
             return false;
         }
 
@@ -36,7 +42,7 @@ class DateValidation extends DataValidation
 
     private function isValidDateFormat()
     {
-        if (!$this -> dateObj) {
+        if (!$this -> dateModifier) {
             return false;
         } else {
             return true;
@@ -45,9 +51,9 @@ class DateValidation extends DataValidation
 
     private function isValidYearMonthDay()
     {
-        $year = $this -> getYear();
-        $month = $this -> getMonth();
-        $day = $this -> getDay();
+        $year = $this -> dateModifier -> getYear();
+        $month = $this -> dateModifier -> getMonth();
+        $day = $this -> dateModifier -> getDay();
 
         if (!checkdate($month, $day, $year)) {
             return false;
@@ -56,73 +62,47 @@ class DateValidation extends DataValidation
         }
     }
 
-    private function getYear()
-    {
-        return $this -> dateObj -> format('Y');
-    }
-
-    private function getMonth()
-    {
-        return $this -> dateObj -> format('m');
-    }
-
-    private function getDay()
-    {
-        return $this -> dateObj -> format('d');
-    }
-
     private function isOutOfRangeDate()
     {
-        $startDate = DateTime::createFromFormat('Y-m-d', START_DATE);
-        $endDate = $this -> getLastDateOfCurrentMonth();
-
+        $startDate = DateModifier::getDateObjFromString(START_DATE);
+        $endDate = DateModifier::getLastDateOfCurrentMonth();
+        
         if ($this -> isEarlierThanStartDate($startDate) || $this -> isLatterThanEndDate($endDate)) {
+            
             return true;
         } else {
             return false;
         }
     }
 
-    private function getLastDateOfCurrentMonth()
+    private function isEarlierThanStartDate($startDateObj)
     {
-        $daysCountOfCurrentMonth = $this -> getDaysCountOfCurrentMonth();
-       
-        return DateTime::createFromFormat('Y-m-d', $this -> getCurrentYear().'-'.$this -> getCurrentMonth().'-'.$daysCountOfCurrentMonth);
-    }
-
-    private function getDaysCountOfCurrentMonth()
-    {
-        return cal_days_in_month(CAL_GREGORIAN, $this -> getCurrentMonth(), $this -> getCurrentYear());
-    }
-
-    private function getCurrentYear()
-    {
-        return $this -> today -> format('Y');
-    }
-
-    private function getCurrentMonth()
-    {
-        return $this -> today -> format('m');
-    }
-
-    private function isEarlierThanStartDate($startDate)
-    {
-        if ($this -> dateObj < $startDate) {
+        if ($this -> dateModifier -> getDateObj() < $startDateObj) {
             return true;
         } else {
             return false;
         }
     }
 
-    private function isLatterThanEndDate($endDate)
+    private function isLatterThanEndDate($endDateObj)
     {
-        if ($this -> dateObj > $endDate) {
+        if ($this -> dateModifier -> getDateObj() > $endDateObj) {
             return true;
         } else {
             return false;
         }
     }
 
-    
+    public function isFirstDateEarlierThanSecondDate($firstDateStr, $secondDateStr)
+    {
+        $firstDateObj = DateModifier::getDateObjFromString($firstDateStr);
+        $secondDateObj = DateModifier::getDateObjFromString($secondDateStr);
+
+        if ($firstDateObj <= $secondDateObj) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

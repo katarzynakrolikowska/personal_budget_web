@@ -32,8 +32,6 @@ class IncomeInsertion
         $this -> insertDataIntoDatabase();
         $this -> dataArrayValidation -> unsetSessionFieldsFromForm();
 
-        //$_POST = array();
-
         return ACTION_OK;
     }
 
@@ -77,28 +75,24 @@ class IncomeInsertion
 
     public function getIncomeCategoriesAssignedToUser($user)
     {
-        $query = 'SELECT id, name FROM incomes_category_assigned_to_users WHERE user_id=?';
+        $query = 'SELECT id, name FROM incomes_category_assigned_to_users WHERE user_id=:id';
 
-        $parametersToBind = array($user -> getId() => PDO::PARAM_INT);
+        $parametersToBind = array(':id' => $user -> getId());
 
         return $this -> myDB -> getQueryResult($query, $parametersToBind);
     }
 
     private function insertDataIntoDatabase()
     {
-        $query = 'INSERT INTO incomes VALUES(NULL, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO incomes VALUES(NULL, :userID, :categoryID, :amount, :date, :comment)';
 
-        $parametersToBind = array($_SESSION['loggedInUser'] -> getId() =>                           PDO::PARAM_INT, 
-                            $this -> income -> getCategory() => PDO::PARAM_INT,
-                            $this -> income -> getAmount() => PDO::PARAM_STR, 
-                            $this -> income -> getTransferDate() => PDO::PARAM_STR, 
-                            $this -> income -> getComment() => PDO::PARAM_STR);
+        $parametersToBind = array(':userID' => $_SESSION['loggedInUser'] ->                          getId(), 
+                            ':categoryID' => $this -> income -> getCategory(),
+                            ':amount' => $this -> income -> getAmount(), 
+                            ':date' => $this -> income -> getTransferDate(), 
+                            ':comment' => $this -> income -> getComment());
 
         $this -> myDB -> executeQuery($query, $parametersToBind);
     }
-    
-    
-    
-        
     
 }

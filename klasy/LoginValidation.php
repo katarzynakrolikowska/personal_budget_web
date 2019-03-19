@@ -2,7 +2,7 @@
 
 class LoginValidation extends DataValidation
 {
-    public function isValidLogin()
+    public function isValid()
     {
         if ($this -> isValidLength(MIN_LENGTH_LOGIN, MAX_LENGTH_LOGIN) && $this -> isLoginIncludeValidChars()) {
             return true;
@@ -22,11 +22,8 @@ class LoginValidation extends DataValidation
 
     public function isLoginExists($dbo)
     {
-        $query = 'SELECT id, username, password FROM users WHERE login = ?';
-        $myDB = new MyDB($dbo);
-        $parametersToBind = array($this -> data => PDO::PARAM_STR);
-        
-        $results = $myDB -> getQueryResult($query, $parametersToBind);
+        $results = $this -> getUserDataAssignedToLogin($dbo);
+
         if (sizeof($results) > 0) {
             $_SESSION['errorLogin'] = true;
             return true;
@@ -34,4 +31,14 @@ class LoginValidation extends DataValidation
             return false;
         }
     }
+
+    public function getUserDataAssignedToLogin($dbo)
+    {
+        $query = 'SELECT id, username, password FROM users WHERE login = :login';
+        $myDB = new MyDB($dbo);
+        $parametersToBind = array(':login' => $this -> data);
+        
+        return $myDB -> getQueryResult($query, $parametersToBind);
+    }
+
 }

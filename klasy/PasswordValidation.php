@@ -2,7 +2,7 @@
 
 class PasswordValidation extends DataValidation
 {
-    public function isValidPassword()
+    public function isValid()
     {
         if ($this -> isValidLength(MIN_LENGTH_PASSWORD, MAX_LENGTH_PASSWORD)) {
             return true;

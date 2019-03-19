@@ -12,22 +12,19 @@ class MyDB
     public function getQueryResult($query, $parametersToBind)
     {
         $command = $this -> dbo -> prepare($query);
-        $i = 1;
-        foreach ($parametersToBind as $key => $value) {
-            $command -> bindValue($i, $key, $value);
-            $i ++;
+        foreach ($parametersToBind as $name => $value) {
+            $command -> bindValue($name, $value);
         }
         $command -> execute();
+        
         return $command -> fetchAll();
     }
 
     public function executeQuery($query, $parametersToBind)
     {
         $command = $this -> dbo -> prepare($query);
-        $i = 1;
-        foreach ($parametersToBind as $key => $value) {
-            $command -> bindValue($i, $key, $value);
-            $i ++;
+        foreach ($parametersToBind as $name => $value) {
+            $command -> bindValue($name, $value);
         }
         $command -> execute();
     }

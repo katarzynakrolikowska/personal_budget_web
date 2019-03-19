@@ -2,11 +2,10 @@
 
 class DataArrayValidation
 {
-    private $sendedFieldsFromForm = array();
+    protected $sendedFieldsFromForm = array();
     private $namesOfRequiredFields = array();
     private $dataValidation = null;
    
-
     public function __construct($sendedFieldsFromForm, $namesOfRequiredFields, $dataValidation = null)
     {
         $this -> sendedFieldsFromForm = $sendedFieldsFromForm;
@@ -46,7 +45,13 @@ class DataArrayValidation
             $this -> unsetSessionErrorOfFormField($fieldName);
             return false;
         }
+    }
 
+    public function setSessionErrorForRequiredFields()
+    {
+        foreach ($this -> namesOfRequiredFields as $name) {
+            $this -> setSessionErrorForFormField($name);
+        }
     }
 
     private function setSessionErrorForFormField($fieldName)
@@ -81,13 +86,14 @@ class DataArrayValidation
             } else {
                 unset($_SESSION[$errorName]);
             }
+
         }
         return $userDataOk;
     }
 
     public function unsetSessionFieldsFromForm()
     {
-        foreach($this -> sendedFieldsFromForm as $name => $value) {
+        foreach ($this -> sendedFieldsFromForm as $name => $value) {
             unset($_SESSION[$name]);
         }
     }
