@@ -3,11 +3,13 @@
 class PortalFront extends Portal
 {
     public $loggedInUser = null;
+    private $balnce = null;
 
     public function __construct($host, $user, $pass, $db)
     {
         $this -> dbo = $this -> connect($host, $user, $pass, $db);
         $this -> loggedInUser = $this -> getActualUser();
+        $this -> balance = new Balance($this -> dbo);
     }
 
     
@@ -54,10 +56,11 @@ class PortalFront extends Portal
         return $registration -> registerUser();
     }
 
-    public function getIncomeCategoriesAssignedToUser($user)
+    public function setSessionForIncomeOptionsAssignedToUser()
     {
         $incomeInsertion = new IncomeInsertion($this -> dbo);
-        return $incomeInsertion -> getIncomeCategoriesAssignedToUser($user);
+
+        $_SESSION['incomeCategories'] = $incomeInsertion -> getIncomeCategoriesAssignedToUser($this -> loggedInUser);
     }
 
     public function addIncome()
@@ -66,22 +69,63 @@ class PortalFront extends Portal
         return $incomeInsertion -> addIncome();
     }
 
+    public function setSessionForExpenseOptionsAssignedToUser()
+    {
+        $expenseInsertion = new ExpenseInsertion($this -> dbo);
+
+        $_SESSION['expenseCategories'] = $expenseInsertion -> getExpenseCategoriesAssignedToUser($this -> loggedInUser);
+
+        $_SESSION['paymentMethods'] = $expenseInsertion -> getPaymentMethodsAssignedToUser($this -> loggedInUser);
+    }
+
     public function addExpense()
     {
         $expenseInsertion = new ExpenseInsertion($this -> dbo);
         return $expenseInsertion -> addExpense();
     }
 
-    public function getExpenseCategoriesAssignedToUser($user)
+    public function setBalanceForCurrentMonth()
     {
-        $expenseInsertion = new ExpenseInsertion($this -> dbo);
-        return $expenseInsertion -> getExpenseCategoriesAssignedToUser($user);
+        $this -> balance -> setBalanceForCurrentMonth();
     }
 
-    public function getPaymentMethodsAssignedToUser($user)
+    public function setBalanceForPreviousMonth()
     {
-        $expenseInsertion = new ExpenseInsertion($this -> dbo);
-        return $expenseInsertion -> getPaymentMethodsAssignedToUser($user);
+        $this -> balance -> setBalanceForPreviousMonth();
     }
 
+    public function setBalanceForCurrentYear()
+    {
+        $this -> balance -> setBalanceForCurrentYear();
+    }
+
+    public function setBalanceForCustomPeriod()
+    {
+        return $this -> balance -> setBalanceForCustomPeriod();
+    }
+
+    public function getHtmlOfIncomeTable()
+    {
+        return $this -> balance -> getHtmlOfIncomesTable();
+    }
+
+    public function getHtmlOfExpensesTable()
+    {
+        return $this -> balance -> getHtmlOfExpensesTable();
+    }
+
+    public function getDifference()
+    {
+        return $this -> balance -> getDifference();
+    }
+
+    public function getBalanceHeader()
+    {
+        return $this -> balance -> getHeader();
+    }
+
+    public function getDataPointsForExpensesChart()
+    {
+        return $this -> balance -> getDataPointsOfExpensesChart();
+    }
 }

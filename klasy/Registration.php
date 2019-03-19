@@ -4,7 +4,6 @@ class Registration
 {
     private $dbo = null;
     private $dataArrayValidation = null;
-    
 
     public function __construct($dbo, $dataArray)
     {
@@ -36,8 +35,6 @@ class Registration
         return ACTION_OK;
     }
 
-    
-
     private function isAllRequiredDataMissing()
     {
         if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
@@ -49,55 +46,21 @@ class Registration
 
     private function isValidDataFromRegistrationForm()
     {
-        $userDataOK = true;
-
-        if (!$this -> isValidNameFromRegistrationForm()) {
-            $userDataOK = false;
-        }
-
-        if (!$this -> isValidLoginFromRegistrationForm()) {
-            $userDataOK = false;
-        }
-
-        if (!$this -> isValidPasswordFromRegistrationForm()) {
-            $userDataOK = false;
-        }
-
-        return $userDataOK;
-    }
-
-    private function isValidNameFromRegistrationForm()
-    {
-        $nameValidation = new NameValidation($_POST['username']);       
-        if ($nameValidation -> isValidName()) {
-            unset($_SESSION['errorUsername']);
+        if ($this -> dataArrayValidation -> isValidDataFromForm($this -> getValidationObjects())) {
             return true;
         } else {
             return false;
         }
     }
 
-    private function isValidLoginFromRegistrationForm()
+    private function getValidationObjects()
     {
+        $nameValidation = new NameValidation($_POST['username']);
         $loginValidation = new LoginValidation($_POST['login']);
-        if ($loginValidation -> isValidLogin()) {
-            unset($_SESSION['errorLogin']);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private function isValidPasswordFromRegistrationForm()
-    {
         $passwordValidation = new PasswordValidation($_POST['password1']);
-
-        if ($passwordValidation -> isValidPassword()) {
-            unset($_SESSION['errorPassword1']);
-            return true;
-        } else {
-            return false;
-        }
+       
+        return $validationObjects = array('errorUsername' => $nameValidation,                               'errorLogin' => $loginValidation,
+                                    'errorPassword1' => $passwordValidation);
     }
 
     private function isPasswordsMatched()
@@ -121,7 +84,7 @@ class Registration
     {
         $this -> addUserDataToDatabase();
 
-        $this -> setDefaultCategoriesForNewUser();
+        $this -> setDefaultOptionsForNewUser();
     }
 
     private function addUserDataToDatabase()
@@ -129,36 +92,34 @@ class Registration
         $_POST['password1'] = TextTransformation::getHashText($_POST['password1']);
 
         $myDB = new MyDB($this -> dbo);
-        $query = 'INSERT INTO users VALUES(NULL, ?, ?, ?)';
-        $parametersToBind = array($_POST['username'] => PDO::PARAM_STR,
-                            $_POST['password1'] => PDO::PARAM_STR,
-                            $_POST['login'] => PDO::PARAM_STR);
+
+        $query = 'INSERT INTO users VALUES(NULL, :username, :password, :login)';
+        $parametersToBind = array(':username' => $_POST['username'],
+                            ':password' => $_POST['password1'],
+                            ':login' => $_POST['login']);
         
         $myDB -> executeQuery($query, $parametersToBind);
     }
 
-    private function setDefaultCategoriesForNewUser()
+    private function setDefaultOptionsForNewUser()
     {
         $myDB = new MyDB($this -> dbo);
+        $parametersToBind = array(':login' => $_POST['login']);
 
-        $query = 'INSERT INTO expenses_category_assigned_to_users(user_id,              name) SELECT (SELECT id FROM users WHERE login=?),
+        $query = 'INSERT INTO expenses_category_assigned_to_users(user_id,              name) SELECT (SELECT id FROM users WHERE login=:login),
                 name FROM expenses_category_default as e_def ORDER BY     e_def.id';
-        $parametersToBind = array($_POST['login'] => PDO::PARAM_STR);
-
         $myDB -> executeQuery($query, $parametersToBind);
 
-        $query = 'INSERT INTO incomes_category_assigned_to_users(user_id, name)         SELECT (SELECT id FROM users WHERE login=?),
+        $query = 'INSERT INTO incomes_category_assigned_to_users(user_id, name)         SELECT (SELECT id FROM users WHERE login=:login),
                 name FROM incomes_category_default as i_def ORDER BY i_def.id';
-        
         $myDB -> executeQuery($query, $parametersToBind);
 
-        $query = 'INSERT INTO payment_methods_assigned_to_users(user_id, name)          SELECT (SELECT id FROM users WHERE login=?),
+        $query = 'INSERT INTO payment_methods_assigned_to_users(user_id, name)          SELECT (SELECT id FROM users WHERE login=:login),
                 name FROM payment_methods_default as pm_def ORDER BY pm_def.id';
-
         $myDB -> executeQuery($query, $parametersToBind);
 
-        
     }
+
 
     
 }

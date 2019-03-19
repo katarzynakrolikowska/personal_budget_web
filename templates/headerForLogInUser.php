@@ -5,7 +5,7 @@
 		<header><h2><b><a href="index.php?action=showMainForLoginUser" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
 	</div>
 	<div class="col-auto pt-4">
-		<a href="zmien-ustawienia" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> <?=$username ? $username : 'Użytkownik' ?></span></a>
+		<a href="#" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> <?=$username ? $username : 'Użytkownik' ?></span></a>
 	</div>
 	<div class="col-auto pt-4 pr-4 pr-sm-4">
 		<a href="#" class="headerLink" id="linkLogOut" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i><span> Wyloguj się</span></a>
@@ -51,12 +51,12 @@
 				<a class="nav-link " href="index.php?action=showExpenseAddForm"><i class="icon-shopping-basket"></i> Dodaj wydatek</a>
 			</li>
 			
-			<li class="nav-item <?=isset($_SESSION['balance']) ? 'active' : ''?>" id="itemBalance">
-				<a class="nav-link " href="przegladaj-bilans"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
+			<li class="nav-item <?=$action == 'showBalanceForSelectedPeriod' ? 'active' : ''?>" id="itemBalance">
+				<a class="nav-link " href="index.php?action=showBalance&period=currentMonth"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
 			</li>
 			
 			<li class="nav-item dropdown <?=isset($_SESSION['settings']) ? 'active' : ''?>">
-				<a class="nav-link " href="zmien-ustawienia" ><i class="icon-cog-alt"></i> Ustawienia</a>
+				<a class="nav-link " href="#" ><i class="icon-cog-alt"></i> Ustawienia</a>
 				
 			</li>
 			
@@ -65,8 +65,8 @@
 			</li>
 		</ul>
 		<?php 
-			if(isset($_SESSION['balance'])) {
-				require_once('nav_balance.php');
+			if ($action === 'showBalanceForSelectedPeriod') {
+				require_once('templates/navHeaderBalanceSite.php');
 			}
 		?>
 	</div>

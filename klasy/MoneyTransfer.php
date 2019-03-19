@@ -46,8 +46,7 @@ class MoneyTransfer
     {
         if (isset($date)) {
             $this -> date = $date;
-        }
-        
+        }  
     }
 
     public function setCategory($category)

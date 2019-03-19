@@ -40,13 +40,15 @@
             require_once 'templates/loginUserMainContent.php';
             break;
         case 'showIncomeAddForm':
-            $_SESSION['incomeCategories'] = $portal -> getIncomeCategoriesAssignedToUser($portal -> loggedInUser);
+            $portal -> setSessionForIncomeOptionsAssignedToUser();
             require_once 'templates/incomeAddForm.php';
             break;
         case 'showExpenseAddForm':
-            $_SESSION['expenseCategories'] = $portal -> getExpenseCategoriesAssignedToUser($portal -> loggedInUser);
-            $_SESSION['paymentMethods'] = $portal -> getPaymentMethodsAssignedToUser($portal -> loggedInUser);
+            $portal -> setSessionForExpenseOptionsAssignedToUser();
             require_once 'templates/expenseAddForm.php';
+            break;
+        case 'showBalanceForSelectedPeriod':
+            require_once 'templates/balanceSite.php';
             break;
         case 'showMain':
         default:
@@ -55,7 +57,7 @@
     ?>
 
         <div class="row mx-0">
-            <footer class="col footer text-center py-2 <?=$action === 'showLoginForm' ? 'footerLogin' : ''?>">
+            <footer class="col footer text-center py-2 <?=$action === 'showLoginForm' ? 'footerLogin' : ''?> <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
                 <p class="text-muted">2018 &copy; fullWallet.pl</p>	
             </footer>	
         </div>
@@ -65,8 +67,8 @@
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <?php
-	if(!empty($_SESSION['expenses']) && isset($_SESSION['balance'])) {
-		require_once('set_chart.php');
+	if (($portal -> getHtmlOfExpensesTable()) && ($action === 'showBalanceForSelectedPeriod')) {
+		require_once('setChart.php');
 	}
 ?>
 

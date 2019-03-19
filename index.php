@@ -16,6 +16,10 @@ try {
 	} else {
 		$messageError = $portal -> getMessage();
 	}
+
+	if (isset($_GET['period'])) {
+		$period = $_GET['period'];
+	}
 	
 
 	if ($portal -> loggedInUser) {
@@ -32,7 +36,7 @@ try {
 		return;
 	}
 
-	switch($action):
+	switch ($action):
 		case 'login':
 			switch ($portal -> login()):
 				case ACTION_OK:
@@ -104,15 +108,40 @@ try {
 			endswitch;
 			header('Location:index.php?action=showExpenseAddForm');
 			break;
+		case 'showBalance':
+			switch ($period):
+				case 'previousMonth':
+					$portal -> setBalanceForPreviousMonth();
+					break;
+				case 'currentYear':
+					$portal -> setBalanceForCurrentYear();
+					break;
+				case 'customPeriod':
+					switch ($portal -> setBalanceForCustomPeriod()):
+						case ACTION_OK:
+							header('Location:index.php?action=showBalanceForSelectedPeriod');
+							return;
+						case FORM_DATA_MISSING:
+							$portal -> setMessage('Uzupełnij wymagane dane!');
+							break;
+						case INVALID_DATA:
+							$portal -> setMessage('Nieprawidłowe dane!');
+					endswitch;
+				default:
+					$portal -> setBalanceForCurrentMonth();
+			endswitch;
+			header('Location:index.php?action=showBalanceForSelectedPeriod');
+			break;			
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;
 } catch (PDOException $error) {
-	echo 'Błąd: '.$error -> getMessage().'<br />';
+	//echo 'Błąd: '.$error -> getMessage().'<br />';
+	//echo $error -> getTraceAsString().'<br />';
 	echo 'Błąd serwera!';
 } catch (Exception $error) {
 	echo $error -> getMessage().'<br />';
-	echo $error -> getTraceAsString().'<br />';
+	//echo $error -> getTraceAsString().'<br />';
 }
 
 function classLoader($name)

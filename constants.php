@@ -22,3 +22,4 @@ define('FORM_REGISTRATION_FIELDS', array('username', 'login', 'password1', 'pass
 define('LOGIN_FORM_FIELDS', array('login', 'password'));
 define('INCOME_FORM_FIELDS', array('amount', 'date', 'category'));
 define('EXPENSE_FORM_FIELDS', array('amount', 'date', 'paymentMethod','category'));
+define('BALANCE_MODAL_FORM_FIELDS', array('startDate', 'endDate'));
