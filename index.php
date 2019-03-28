@@ -11,7 +11,7 @@ try {
 		$action = $_GET['action'];
 	}
 
-	if (isset($_GET['msg'])) {
+	if (isset($_GET['result'])) {
 		$messageOK = $portal -> getMessage();
 	} else {
 		$messageError = $portal -> getMessage();
@@ -19,6 +19,17 @@ try {
 
 	if (isset($_GET['period'])) {
 		$period = $_GET['period'];
+	}
+	
+		
+	if (isset($_GET['editedItem'])) {
+		$editedItem = $_GET['editedItem'];
+	}
+
+	if (isset($_GET['editionContent'])) {
+		$editionContent = $_GET['editionContent'];
+	} else {
+		$editionContent = 'userData';
 	}
 	
 
@@ -31,7 +42,7 @@ try {
 		return;
 	}
 
-	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalance' || $action == 'showMainForLoginUser') && !($portal -> loggedInUser)){
+	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalanceForSelectedPeriod' || $action == 'showMainForLoginUser') && !($portal -> loggedInUser)){
 		header('Location:index.php?action=showMain');
 		return;
 	}
@@ -61,7 +72,7 @@ try {
 			switch ($portal -> registerUser()):
 				case ACTION_OK:
 					$portal -> setMessage('Konto zostało założone!');
-					header('Location:index.php?action=showLoginForm&msg=OK');
+					header('Location:index.php?action=showLoginForm&result=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wszystkie dane!');
@@ -82,7 +93,7 @@ try {
 			switch ($portal -> addIncome()):
 				case ACTION_OK:
 					$portal -> setMessage('Przychód został dodany!');
-					header('Location:index.php?action=showIncomeAddForm&msg=OK');
+					header('Location:index.php?action=showIncomeAddForm&result=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wymagane dane!');
@@ -97,7 +108,7 @@ try {
 			switch ($portal -> addExpense()):
 				case ACTION_OK:
 					$portal -> setMessage('Wydatek został dodany!');
-					header('Location:index.php?action=showExpenseAddForm&msg=OK');
+					header('Location:index.php?action=showExpenseAddForm&result=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wymagane dane!');
@@ -108,7 +119,7 @@ try {
 			endswitch;
 			header('Location:index.php?action=showExpenseAddForm');
 			break;
-		case 'showBalance':
+		case 'setBalance':
 			switch ($period):
 				case 'previousMonth':
 					$portal -> setBalanceForPreviousMonth();
@@ -122,7 +133,7 @@ try {
 							header('Location:index.php?action=showBalanceForSelectedPeriod');
 							return;
 						case FORM_DATA_MISSING:
-							$portal -> setMessage('Uzupełnij wymagane dane!');
+							$portal -> setMessage('Uzupełnij wszystkie pola!');
 							break;
 						case INVALID_DATA:
 							$portal -> setMessage('Nieprawidłowe dane!');
@@ -131,17 +142,31 @@ try {
 					$portal -> setBalanceForCurrentMonth();
 			endswitch;
 			header('Location:index.php?action=showBalanceForSelectedPeriod');
-			break;			
+			break;
+		case 'editUserData':
+			switch ($portal -> editUserData($editedItem)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					header('Location:index.php?action=showSettings&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Uzupełnij wymagane dane!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Nieprawidłowe dane!');
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;	
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;
 } catch (PDOException $error) {
-	//echo 'Błąd: '.$error -> getMessage().'<br />';
-	//echo $error -> getTraceAsString().'<br />';
+	echo 'Błąd: '.$error -> getMessage().'<br />';
+	echo $error -> getTraceAsString().'<br />';
 	echo 'Błąd serwera!';
 } catch (Exception $error) {
 	echo $error -> getMessage().'<br />';
-	//echo $error -> getTraceAsString().'<br />';
+	echo $error -> getTraceAsString().'<br />';
 }
 
 function classLoader($name)
@@ -152,4 +177,3 @@ function classLoader($name)
 		throw new Exception("Brak pliku z definicją klasy.");
 	  }
 }
-?>

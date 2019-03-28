@@ -34,7 +34,7 @@ class LoginValidation extends DataValidation
 
     public function getUserDataAssignedToLogin($dbo)
     {
-        $query = 'SELECT id, username, password FROM users WHERE login = :login';
+        $query = 'SELECT id, username FROM users WHERE login = :login';
         $myDB = new MyDB($dbo);
         $parametersToBind = array(':login' => $this -> data);
         

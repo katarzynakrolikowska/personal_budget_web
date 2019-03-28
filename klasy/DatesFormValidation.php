@@ -3,9 +3,9 @@
 class DatesFormValidation extends DataArrayValidation
 {
     private $dateValidation = null;
-    public function __construct($sendedFieldsFromForm, $namesOfRequiredFields, $dataValidation = null)
+    public function __construct($sendedFieldsFromForm, $namesOfRequiredFields)
     {
-        parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields, $dataValidation = null);
+        parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields);
         $this -> dateValidation = new DateValidation();
     }
 
@@ -14,28 +14,30 @@ class DatesFormValidation extends DataArrayValidation
         if ($this ->  isRequiredFieldsFromFormMissing()) {
             return  FORM_DATA_MISSING;
         }
-
-        if (!$this -> isValidDates()) {
-            return INVALID_DATA;
-        }
-
-        if (!$this -> isChronologicDates()) {
+        
+        if (!$this -> isValidDatesFromForm()) {
             return INVALID_DATA;
         }
 
         return ACTION_OK;
     }
 
-    private function isValidDates()
+    private function isValidDatesFromForm()
     {
-        foreach ($this -> sendedFieldsFromForm as $key => $value) {
-            $this -> dateValidation -> setData($value);
-            if (!$this -> dateValidation -> isValid()) {
-                return false;
-            }
+        if ($this -> isValidDataFromForm($this -> getValidationObjects()) && $this -> isChronologicDates()) {
+            return true;
+        } else {
+            return false;
         }
-       
-        return true;
+    }
+
+    private function getValidationObjects()
+    {
+        $startDateValidation = new DateValidation($this -> sendedFieldsFromForm['startDate'], 'startDate');
+        $endDateValidation = new DateValidation($this -> sendedFieldsFromForm['endDate'], 'endDate');
+
+        return $validationObjects = array($startDateValidation,
+                                        $endDateValidation);
     }
 
     private function isChronologicDates()

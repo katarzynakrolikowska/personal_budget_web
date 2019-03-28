@@ -2,13 +2,17 @@
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="selectPeriodModalLabel">Wybierz zakres</h5>
+                <h5 class="modal-title ml-4" id="selectPeriodModalLabel">Wybierz zakres 
+                    <a data-toggle="popover" data-content="Wpisz daty z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="index.php?action=showBalance&period=customPeriod" method="post"> 
+                <form action="index.php?action=setBalance&period=customPeriod" method="post"> 
                     <div class="form-group row pr-5">
                         <label class="col-form-label col-4 text-center" for="dateStart">Od dnia</label>
                         <input type="date" class="form-control col-8" id="dateStart" name="startDate">

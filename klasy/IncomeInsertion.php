@@ -64,11 +64,13 @@ class IncomeInsertion
 
     private function getValidationObjects()
     {
-        $amountValidation = new AmountValidation($this -> income -> getAmount());
-        $dateValidation = new DateValidation($this -> income -> getTransferDate());
-        $categoryValidation = new InputSelectValidation($this -> income -> getCategory(), $_SESSION['incomeCategories']);
+        $amountValidation = new AmountValidation($this -> income -> getAmount(), 'amount');
+        $dateValidation = new DateValidation($this -> income -> getTransferDate(), 'date');
+        $categoryValidation = new InputSelectValidation($this -> income -> getCategory(), 'category', $_SESSION['incomeCategories']);
 
-        return $validationObjects = array('errorAmount' => $amountValidation, 'errorDate' => $dateValidation, 'errorCategory' => $categoryValidation);
+        return $validationObjects = array($amountValidation, 
+                                        $dateValidation, 
+                                        $categoryValidation);
     }
 
 

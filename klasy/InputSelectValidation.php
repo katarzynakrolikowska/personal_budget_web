@@ -1,35 +1,33 @@
 <?php
 
 
-class InputSelectValidation
+class InputSelectValidation extends DataValidation
 {
-    private $selectedOption = null;
     private $arrayOptions = null;
 
-    public function __construct($selectedOption, $arrayOptions)
+    public function __construct($selectedOption, $fieldName, $arrayOptions)
     {
-        $this -> selectedOption = $selectedOption;
+        parent:: __construct($selectedOption, $fieldName);
         $this -> arrayOptions = $arrayOptions;
     }
 
     public function isValid()
     {
         foreach($this -> arrayOptions as $option) {
-            if($this -> selectedOption != $option['id']){
+            if($this -> data != $option['id']){
                 $optionOK = false; 
             } else {
-                unset($_SESSION['errorCategory']);
                 return true;
             }
         }
         
-        if(!$optionOK) {
+        if (!$optionOK) {
             return false;
         }
         
     }
 
-    public function setSessionError($name, $info = ''){
+    /*public function setSessionError($name, $info = ''){
         $name = ucfirst($name);
         $_SESSION['error'.$name] = $info;
     }
@@ -37,7 +35,7 @@ class InputSelectValidation
     public function unsetSessionError()
     {
 
-    }
+    }*/
 
     
 }

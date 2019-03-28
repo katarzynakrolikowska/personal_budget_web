@@ -14,7 +14,7 @@ class LogOperation
 
     public function logIn()
     {
-        if ($this -> isAllRequiredDataMissing()) {
+        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
             return FORM_DATA_MISSING;
         }
 
@@ -27,21 +27,12 @@ class LogOperation
         return ACTION_OK;
     }
 
-    private function isAllRequiredDataMissing()
-    {
-        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private function isValidDataFromLoginForm()
     {
         $loginValidation = new LoginValidation($_POST['login']);
         $results = $loginValidation -> getUserDataAssignedToLogin($this -> dbo);
 
-        if ($this -> isUserExists($results) && $this -> isCorrectPassword($results[0]['password'])) {
+        if ($this -> isUserExists($results) && $this -> isCorrectPassword($results[0]['id'])) {
             $this -> userDataFromDatabase = $results[0];
             return true;
         } else {
@@ -59,9 +50,11 @@ class LogOperation
         }
     }
 
-    private function isCorrectPassword($passwordFromDatabase)
+    private function isCorrectPassword($userId)
     {
-        if (password_verify($_POST['password'], $passwordFromDatabase)) {
+        $myDB = new MyDB($this -> dbo);
+        $passwordValidation = new PasswordValidation($_POST['password']);
+        if ($passwordValidation -> isCorrectPasswordAssignedToUser($userId, $myDB)) {
             return true;
         } else {
             return false;
@@ -70,6 +63,6 @@ class LogOperation
 
     private function setLoggedInUserData()
     {
-        $_SESSION['loggedInUser'] = new User($this -> userDataFromDatabase['id'], $this -> userDataFromDatabase['username'], $_SESSION['login']);
+        $_SESSION['loggedInUser'] = new User($this -> userDataFromDatabase['id'], $this -> userDataFromDatabase['username'], $_POST['login']);
     }
 }

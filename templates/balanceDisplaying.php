@@ -15,6 +15,8 @@
 				<?php
 				if ($portal -> getHtmlOfIncomeTable()) {
 					echo $portal -> getHtmlOfIncomeTable();
+				} else {
+					echo '<tr><td><b>RAZEM</b></td><td class="text-right"><b>0.00</b></td></tr>';
 				}
 				?>
 			</tbody>
@@ -34,6 +36,8 @@
 				<?php
 				if ($portal -> getHtmlOfExpensesTable()) {
 					echo $portal -> getHtmlOfExpensesTable();
+				} else {
+					echo '<tr><td><b>RAZEM</b></td><td class="text-right"><b>0.00</b></td></tr>';
 				}
 				?>
 			</tbody>
@@ -48,7 +52,7 @@
 		<div class="resultText shadow "<?=$portal -> getDifference() < 0 ? 'style="background:#EF5350"' : 'style="background:#4CAF50"'?>>
 			TWÓJ BILANS: <span>
 			<?php
-				echo $portal -> getDifference();
+				echo '<span class="nowrap">'.$portal -> getDifference().'</span>';
 			?>
 			</span> PLN
 		</div>
@@ -66,4 +70,5 @@
 if ($portal -> getHtmlOfExpensesTable()) {
 	require_once('templates/displayChart.php');
 }
+
 ?>

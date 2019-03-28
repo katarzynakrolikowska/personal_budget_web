@@ -66,7 +66,7 @@ class Balance
     {
         if (isset($_SESSION['balanceHeader'])) {
             $header = $_SESSION['balanceHeader'];
-            unset($_SESSION['balanceHeader']);
+            //unset($_SESSION['balanceHeader']);
             return $header;
         } else {
             return null;
@@ -147,8 +147,8 @@ class Balance
                 $expenseAmount = AmountModifier::getNumberFormatWithSpace($expense['eSum']);
                 $html .= '<tr><td>'.$expense['name'].'</td><td class="text-right"><b>'.$expenseAmount.'</b></td></tr>';
             }
-
-            $html .= '<tr><td><b>RAZEM</b></td><td class="text-right"><b>'.$this -> getSumOfExpenses().'</b></td></tr>';
+            $sum = AmountModifier::getNumberFormatWithSpace($this -> getSumOfExpenses());
+            $html .= '<tr><td><b>RAZEM</b></td><td class="text-right"><b>'.$sum.'</b></td></tr>';
             return $html;
         } else {
             return null;
@@ -163,13 +163,13 @@ class Balance
                 $sum += $expense['eSum'];
             }
         }
-        return AmountModifier::getNumberFormatWithSpace($sum);
+        return $sum;
     }
 
     public function getDifference()
     {
-        $incomes = (float)$this -> getSumOfIncomes();
-        $expenses = (float)$this -> getSumOfExpenses();
+        $incomes = $this -> getSumOfIncomes();
+        $expenses = $this -> getSumOfExpenses();
 
         return AmountModifier::getNumberFormatWithSpace($incomes - $expenses);
     }

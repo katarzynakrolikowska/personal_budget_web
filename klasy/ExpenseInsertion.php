@@ -64,14 +64,14 @@ class ExpenseInsertion
 
     private function getValidationObjects()
     {
-        $amountValidation = new AmountValidation($this -> expense -> getAmount());
-        $dateValidation = new DateValidation($this -> expense -> getTransferDate());
-        $paymentMethodValidation = new InputSelectValidation($this -> expense -> getPaymentMethod(), $_SESSION['paymentMethods']);
-        $categoryValidation = new InputSelectValidation($this -> expense -> getCategory(), $_SESSION['expenseCategories']);
+        $amountValidation = new AmountValidation($this -> expense -> getAmount(), 'amount');
+        $dateValidation = new DateValidation($this -> expense -> getTransferDate(), 'date');
+        $paymentMethodValidation = new InputSelectValidation($this -> expense -> getPaymentMethod(), 'paymentMethod', $_SESSION['paymentMethods']);
+        $categoryValidation = new InputSelectValidation($this -> expense -> getCategory(), 'category', $_SESSION['expenseCategories']);
 
-        return $validationObjects = array('errorAmount' => $amountValidation,                               'errorDate' => $dateValidation,
-                                    'errorPaymentMethod' => $paymentMethodValidation, 
-                                    'errorCategory' => $categoryValidation);
+        return $validationObjects = array($amountValidation,                                                      $dateValidation,
+                                          $paymentMethodValidation, 
+                                          $categoryValidation);
     }
 
     public function getExpenseCategoriesAssignedToUser($user)

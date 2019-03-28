@@ -5,7 +5,7 @@
 		<header><h2><b><a href="index.php?action=showMainForLoginUser" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
 	</div>
 	<div class="col-auto pt-4">
-		<a href="#" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> <?=$username ? $username : 'Użytkownik' ?></span></a>
+		<a href="index.php?action=showSettings&editionContent=userData" class="headerLink" id="linkUser"><i class="fas fa-user"></i><span> <?=$username ? $username : 'Użytkownik' ?></span></a>
 	</div>
 	<div class="col-auto pt-4 pr-4 pr-sm-4">
 		<a href="#" class="headerLink" id="linkLogOut" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i><span> Wyloguj się</span></a>
@@ -52,11 +52,11 @@
 			</li>
 			
 			<li class="nav-item <?=$action == 'showBalanceForSelectedPeriod' ? 'active' : ''?>" id="itemBalance">
-				<a class="nav-link " href="index.php?action=showBalance&period=currentMonth"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
+				<a class="nav-link " href="index.php?action=setBalance&period=currentMonth"><i class="icon-chart-bar"></i> Przeglądaj bilans</a>
 			</li>
 			
-			<li class="nav-item dropdown <?=isset($_SESSION['settings']) ? 'active' : ''?>">
-				<a class="nav-link " href="#" ><i class="icon-cog-alt"></i> Ustawienia</a>
+			<li class="nav-item dropdown <?=$action == 'showSettings' ? 'active' : ''?>">
+				<a class="nav-link " href="index.php?action=showSettings&editionContent=userData" ><i class="icon-cog-alt"></i> Ustawienia</a>
 				
 			</li>
 			

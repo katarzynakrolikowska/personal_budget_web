@@ -18,8 +18,11 @@ define('MAX_LENGTH_PASSWORD', 20);
 define('START_DATE', '1900-01-01');
 
 
-define('FORM_REGISTRATION_FIELDS', array('username', 'login', 'password1', 'password2'));
+define('REGISTRATION_FORM_FIELDS', array('username', 'login', 'password1', 'password2'));
 define('LOGIN_FORM_FIELDS', array('login', 'password'));
 define('INCOME_FORM_FIELDS', array('amount', 'date', 'category'));
 define('EXPENSE_FORM_FIELDS', array('amount', 'date', 'paymentMethod','category'));
 define('BALANCE_MODAL_FORM_FIELDS', array('startDate', 'endDate'));
+define('NAME_EDITION_FORM_FIELD', array('username'));
+define('LOGIN_EDITION_FORM_FIELD', array('login'));
+define('PASSWORD_EDITION_FORM_FIELDS', array('oldPassword', 'newPassword', 'newPasswordRepeated'));

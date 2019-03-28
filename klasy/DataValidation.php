@@ -3,16 +3,24 @@
 class DataValidation
 {
     protected $data = null;
+    protected $fieldName = null;
 
-    public function __construct($data = '')
+    public function __construct($data = '', $fieldName = '')
     {
         $this -> data = $data;
+        $this -> fieldName = $fieldName;
     }
 
     public function setData($data)
     {
         $this -> data = $data;
     }
+
+    public function setFieldName($fieldName)
+    {
+        $this -> fieldName = $fieldName;
+    }
+
 
     public function isValidLength($minLength, $maxLength)
     {
@@ -45,21 +53,18 @@ class DataValidation
         }
     }
 
-    public function getSanitizedValue()
+    public function isFieldFromFormMissing()
     {
-        return htmlentities($this -> data, ENT_QUOTES, 'UTF-8');
-    }
-
-    public function isEmpty()
-    {
-        if (empty(trim($this -> data))) {
-            return true;
-        } else {
+        if ($this -> isExist() && !$this -> isEmpty()) {
+            $this -> unsetSessionErrorOfFormField();
             return false;
+        } else {
+            $this -> setSessionErrorForFormField();
+            return  true;
         }
     }
-
-    public function isExist()
+    
+    protected function isExist()
     {
         if (isset($this -> data)) {
             return true;
@@ -68,9 +73,35 @@ class DataValidation
         }
     }
 
-    public function setSessionData($name)
+    protected function isEmpty()
     {
-        $_SESSION[$name] = $this -> getSanitizedValue();
+        if (empty(trim($this -> data))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function unsetSessionErrorOfFormField()
+    {
+        $this -> fieldName = ucfirst($this -> fieldName);
+        unset($_SESSION['error'.$this -> fieldName]);
+    }
+
+    public function setSessionErrorForFormField()
+    {
+        $this -> fieldName = ucfirst($this -> fieldName);
+        $_SESSION['error'.$this -> fieldName] = '';
+    }
+
+    public function setSessionData()
+    {
+        $_SESSION[$this -> fieldName] = $this -> getSanitizedValue();
+    }
+
+    public function getSanitizedValue()
+    {
+        return htmlentities($this -> data, ENT_QUOTES, 'UTF-8');
     }
 
     

@@ -1,8 +1,15 @@
+html{
+	height: 100%;
+}
+
 body{
-	position:relative;
+	display: table;
+	height: 100%;
 }
 
 .container-fluid{
+	
+    
 	background:white;
 	font-family:'Varela Round', sans-serif;
 }
@@ -47,13 +54,20 @@ body{
 }
 
 .footer{
+	display: table-row;
+	height: 60px;
 	background:#F2F2F2;
 	color:#6E6E6E;
 	font-family:'Varela Round', sans-serif;
 	width:100%;
+	
+	
 }
 
 .footerSticky{
+	position:fixed;
+	bottom:0;
+	left:0;
 	position:absolute;
 	bottom:0;
 	left:0;
@@ -135,45 +149,43 @@ img{
 }
 
 
-
-@media (max-width: 767.98px) {
-	.navbar header h2 a{
-		font-family: 'Montserrat', sans-serif;
-	}
-	.headerLink span{
-		display:none;
-	}
-	
-	.headerLink i{
-		margin-bottom:16px;
-		
-	}
-	
-	.containerHeaderMenu{
-		display:none;
-	}
-	
-	.modal-dialog{
-		left:12%; 
-		width:75%;
-	}
-	
-	.settingsNav .navTitleText{
-		display:none;
-	}
-	
-	.settingsNav .iconPenExpense,
-	.settingsNav .iconPenIncome{
-		font-size:10px;
-		position:absolute;
-		top:13px;
-		left:32px;
+@media (max-width: 575.98px) {
+	.sideBg{
+		display: none;
 	}
 
-	.settingsNav .kiconPenIncome{
-		left:33px;
-		top:14px;
+	.containerHeader header a,
+	header a{
+		font-size:22px;		
 	}
+
+	.footerLogin{
+		bottom:-30px;
+	}
+	
+	.textL,
+	.textR{
+		font-size:21px;
+	}
+	
+	.rowTables table{
+		font-size:15px;
+	}
+	
+	.contentText{
+		font-size:22px !important;
+		padding-top:20px !important;
+	}
+	
+	.resultText{
+		font-size:28px !important;
+		padding-left:10% !important;
+		padding-right:10% !important;
+	}
+	
+	#resultComment{
+		font-size:24px !important;
+	}	
 }
 
 @media (min-width: 767.98px) {
@@ -198,18 +210,55 @@ img{
 		left:32px;
 	}
 
-
 	.settingsNav .iconPenIncome{
 		left:33px;
 		top:15px;	
 	}
 	
-	#containerSettings .settingsNav li{
+	#rowSettings .settingsNav li{
 		width:100% !important;
 	}
 	
 	
 }
+
+@media (max-width: 767.98px) {
+	.navbar header h2 a{
+		font-family: 'Montserrat', sans-serif;
+	}
+	.headerLink span{
+		display:none;
+	}
+	
+	.headerLink i{
+		margin-bottom:16px;
+		
+	}
+	
+	.containerHeaderMenu{
+		display:none;
+	}
+	
+	
+	
+	.settingsNav .navTitleText{
+		display:none;
+	}
+	
+	.settingsNav .iconPenExpense,
+	.settingsNav .iconPenIncome{
+		font-size:10px;
+		position:absolute;
+		top:13px;
+		left:32px;
+	}
+
+	.settingsNav .kiconPenIncome{
+		left:33px;
+		top:14px;
+	}
+}
+
 
 @media (min-width: 991.98px) {
 	.navbar .show .mainSiteItem{
@@ -229,65 +278,6 @@ img{
 	
 }
 
-@media (max-width: 991.98px){
-	.modal-dialog{
-		left:17%; 
-		width:65%;
-	}
-}
-
-@media (max-width: 1199.98px) { 
-	.modal-dialog{
-		left:24%; 
-		width:55%;
-	}
-
-}
-
-@media (max-width: 575.98px) {
-	.sideBg{
-		display: none;
-	}
-
-	.containerHeader header a,
-	header a{
-		font-size:22px;		
-	}
-
-	.footerLogin{
-		bottom:-30px;
-	}
-	
-	.textL,
-	.textR{
-		font-size:21px;
-	}
-	
-	.modal-dialog{
-		left:1%;
-		width:95%;	
-	}
-	
-	.rowTables table{
-		font-size:15px;
-	}
-	
-	.contentText{
-		font-size:22px !important;
-		padding-top:20px !important;
-	}
-	
-	.resultText{
-		font-size:28px !important;
-		padding-left:10% !important;
-		padding-right:10% !important;
-	}
-	
-	#resultComment{
-		font-size:24px !important;
-	}
-	
-}
 
 
 
@@ -340,6 +330,7 @@ h2{
 	margin-bottom:0;
 }
 
+#containerUserData i,
 .formRegister i,
 #userLogin i{
 	width:14px;
@@ -506,10 +497,8 @@ label {
 	width:40%;
 }
 
-.modal-dialog{
-	position:absolute;
-	top:20%;
-	right:35%;
+.modal-header {
+	background: #FBFCFC;
 }
 
 .addDataRow{
@@ -592,14 +581,12 @@ label {
 
 td{
 	width:33%;
-	
 }
 
 th{
 	border-top:2px solid #2E7D32 !important;
 	border-bottom:2px solid #2E7D32 !important;
 	background:#66BB6A !important;
-	font-weight: 400 !important;	
 }
 
 td{
@@ -654,12 +641,16 @@ tbody tr:last-child{
 	font-size:27px;
 }
 
+.balanceNoData{
+	height: 400px !important;
+}
+
 .footerBalance{
-	bottom:-400px;
+	
 }
 
 
-#chartContainer{
+#chartPieContainer{
 	height:300px;
 	
 }
@@ -669,42 +660,42 @@ tbody tr:last-child{
 }
 
 
-#containerSettings .colMyAccount{
+.colSettingsMain{
 	border-radius:4px;
 	background:#F1F8E9;
 	margin-bottom:100px !important;	
 }
 
 
-#containerSettings .hideItem{
+#rowSettings .hideItem{
 	display:none;
 }
 
 
-#containerSettings .colMyAccount .btnSave{
+.colSettingsMain .btnSave{
 	background:#43A047;
 	width:100%;	
 }
 
 
-#containerSettings .colMyAccount .btnSave:hover{
+.colSettingsMain .btnSave:hover{
 	background:#388E3C;	
 }
 
-#containerSettings .colMyAccount .expenseUser,
-#containerSettings .colMyAccount .incomeUser,
-#containerSettings .colMyAccount .dataUser{
+.colSettingsMain .expenseUser,
+.colSettingsMain .incomeUser,
+.colSettingsMain .dataUser{
 	font-size:18px;	
 }
 
-#containerSettings .colMyAccount .dataUser span{
+.colSettingsMain .dataUser span{
 	font-size:19px;
 	margin-left:5px;	
 }
 
-#containerSettings .headerMyExpenses,
-#containerSettings .headerMyIncomes,
-#containerSettings .headerMyData{
+.headerMyExpenses,
+.headerMyIncomes,
+.headerMyData{
 	border-top:2px solid #81C784;
 	width:100%;
 	background:#C8E6C9;
@@ -717,16 +708,16 @@ tbody tr:last-child{
 	background:#81C784;
 }
 
-#containerSettings .settingsNav .active{
+.settingsNav .active{
 	background:#4CAF50;
 }
 
-#containerSettings .settingsNav li a{
+.settingsNav li a{
 	margin:0;	
 }
 
 
-#containerSettings .settingsNav .nav-link:hover{
+.settingsNav .nav-link:hover{
 	border-radius:0;
 	background:#4CAF50;
 }
@@ -745,6 +736,15 @@ tbody tr:last-child{
 	font-size:28px;
 }
 
+.colSettingsMain .inputLabel{
+	font-size: 20px;
+}
+
+.editForm{
+	
+
+}
+
 .error{
 	color:#F44336 !important;
 	text-align:center;
@@ -759,4 +759,8 @@ tbody tr:last-child{
 	text-align:center;
 	margin-top:50px;
 	padding:0;
+}
+
+.nowrap {
+	white-space: nowrap;
 }

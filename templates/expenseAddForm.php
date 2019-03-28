@@ -23,9 +23,12 @@
                         unset($_SESSION['amount']);
                     } 
                 ?>>
-                <div class="input-group-prepend ">
-                    <span class="input-group-text" id="amountExpense"><i class="fas fa-pen-alt" ></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz liczbę większą od zera.">
+                    
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
            						
             <div class="input-group 
@@ -44,9 +47,12 @@
                         echo date('Y-m-d');
                     }
                 ?>>
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                </div>
+                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
+                    
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
            	
             <div class="input-group 
@@ -69,9 +75,12 @@
                         }
                     ?>
                 </select>
-                <div class="input-group-prepend ">
-                    <span class="input-group-text " id="paymentMethods"><i class="fas fa-pen-alt "></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz metodę płatności.">
+                
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
             
             <div class="input-group 
@@ -94,9 +103,12 @@
                         }
                     ?>
                 </select>
-                <div class="input-group-prepend ">
-                    <span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">
+                
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
             					
             <div class="input-group ">
@@ -107,15 +119,18 @@
                         unset($_SESSION['comment']);
                     } 
                 ?>>
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest opcjonalne.">
+                
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
             
             
             <div class="row mx-0">
                 <div class="col px-0">
-                    <a href="#" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
+                    <a href="index.php?action=showExpenseAddForm" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
                 </div>
             
                 <div class="col px-0">

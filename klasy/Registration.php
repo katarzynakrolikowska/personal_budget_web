@@ -5,15 +5,15 @@ class Registration
     private $dbo = null;
     private $dataArrayValidation = null;
 
-    public function __construct($dbo, $dataArray)
+    public function __construct($dbo)
     {
         $this -> dbo = $dbo;
-        $this -> dataArrayValidation = new DataArrayValidation($dataArray, FORM_REGISTRATION_FIELDS);
+        $this -> dataArrayValidation = new DataArrayValidation($_POST, REGISTRATION_FORM_FIELDS);
     }
 
     public function registerUser()
     {
-        if ($this -> isAllRequiredDataMissing()) {
+        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
             return FORM_DATA_MISSING;
         }
         
@@ -35,15 +35,6 @@ class Registration
         return ACTION_OK;
     }
 
-    private function isAllRequiredDataMissing()
-    {
-        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private function isValidDataFromRegistrationForm()
     {
         if ($this -> dataArrayValidation -> isValidDataFromForm($this -> getValidationObjects())) {
@@ -55,19 +46,22 @@ class Registration
 
     private function getValidationObjects()
     {
-        $nameValidation = new NameValidation($_POST['username']);
-        $loginValidation = new LoginValidation($_POST['login']);
-        $passwordValidation = new PasswordValidation($_POST['password1']);
+        $nameValidation = new NameValidation($_POST['username'], 'username');
+        $loginValidation = new LoginValidation($_POST['login'], 'login');
+        $passwordValidation = new PasswordValidation($_POST['password1'], 'password1');
        
-        return $validationObjects = array('errorUsername' => $nameValidation,                               'errorLogin' => $loginValidation,
-                                    'errorPassword1' => $passwordValidation);
+        return $validationObjects = array($nameValidation,                                                        $loginValidation,
+                                          $passwordValidation);
     }
 
     private function isPasswordsMatched()
     {
-        if ($_POST['password1'] === $_POST['password2']) {
+        $passwordValidation = new PasswordValidation($_POST['password1']);
+
+        if ($passwordValidation -> isPasswordMatched($_POST['password2'])) {
             return true;
         }
+        
     }
 
     private function isUserExists()

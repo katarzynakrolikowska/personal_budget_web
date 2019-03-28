@@ -52,7 +52,7 @@ class PortalFront extends Portal
 
     public function registerUser()
     {
-        $registration = new Registration($this -> dbo, $_POST);
+        $registration = new Registration($this -> dbo);
         return $registration -> registerUser();
     }
 
@@ -128,4 +128,20 @@ class PortalFront extends Portal
     {
         return $this -> balance -> getDataPointsOfExpensesChart();
     }
+
+    public function editUserData($editedItem)
+    {
+       $settings = new Settings($this -> dbo, $this -> loggedInUser);
+
+        switch ($editedItem):
+            case 'name':
+                return $settings -> editUserName();
+            case 'login':
+                return $settings -> editUserLogin();
+            case 'password':
+                return $settings -> editUserPassword();
+        endswitch;
+    }
+
+        
 }

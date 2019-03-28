@@ -20,9 +20,9 @@
 <body class="container-fluid p-0">
     <?php
     if (isset($_SESSION['loggedInUser'])) {
-        require_once 'headerForLoginUser.php';
+        require_once 'headerForLogInUser.php';
     } else {
-        require_once 'headerForLogoutUser.php';
+        require_once 'headerForLogOutUser.php';
     }
     
     if (isset($messageOK)) {
@@ -37,7 +37,7 @@
             require_once 'templates/registrationForm.php';
             break;
         case 'showMainForLoginUser':
-            require_once 'templates/loginUserMainContent.php';
+            require_once 'templates/logInUserMainContent.php';
             break;
         case 'showIncomeAddForm':
             $portal -> setSessionForIncomeOptionsAssignedToUser();
@@ -50,25 +50,29 @@
         case 'showBalanceForSelectedPeriod':
             require_once 'templates/balanceSite.php';
             break;
+        case 'showSettings':
+            require_once 'templates/settingsForm.php';
+            break;
         case 'showMain':
         default:
             require_once 'templates/startContent.php';
     endswitch;
     ?>
-
-        <div class="row mx-0">
-            <footer class="col footer text-center py-2 <?=$action === 'showLoginForm' ? 'footerLogin' : ''?> <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
+    </div>
+        <div class="row mx-0 footer mb-0">
+            <footer class="col  text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
                 <p class="text-muted">2018 &copy; fullWallet.pl</p>	
             </footer>	
         </div>
-    </div>
+    
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <?php
 	if (($portal -> getHtmlOfExpensesTable()) && ($action === 'showBalanceForSelectedPeriod')) {
-		require_once('setChart.php');
+        echo '<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>';
+        require_once('chartSettings.php');
 	}
 ?>
 
