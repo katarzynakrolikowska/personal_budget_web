@@ -18,7 +18,6 @@ class EditPasswordFormValidation extends DataArrayValidation
             $_SESSION['errorOldPassword'] = '';
             return INVALID_DATA;
         }
-
         return ACTION_OK;
     }
 

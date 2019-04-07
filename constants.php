@@ -5,6 +5,8 @@ define('SERVER_ERROR', 3);
 define('FORM_DATA_MISSING', 4);
 define('PASSWORDS_DO_NOT_MATCH', 5);
 define('LOGIN_ALREADY_EXISTS', 6);
+define('REPEATED_OPTION', 7);
+define('OPTION_USED', 8);
 
 define('MIN_LENGTH_USERNAME', 3);
 define('MAX_LENGTH_USERNAME', 50);
@@ -26,3 +28,6 @@ define('BALANCE_MODAL_FORM_FIELDS', array('startDate', 'endDate'));
 define('NAME_EDITION_FORM_FIELD', array('username'));
 define('LOGIN_EDITION_FORM_FIELD', array('login'));
 define('PASSWORD_EDITION_FORM_FIELDS', array('oldPassword', 'newPassword', 'newPasswordRepeated'));
+define('OPTION_EDITION_FORM_FIELDS', array('selectedOption', 'newOption'));
+define('OPTION_ADDITION_FORM_FIELD', array('newOption'));
+define('OPTION_DELETION_FORM_FIELD', array('selectedOption'));

@@ -3,15 +3,15 @@
 class IncomeInsertion
 {
     private $dbo = null;
-    private $myDB = null;
     private $income = null;
     private $dataArrayValidation = null;
+    private $userId = null;
         
    
-    public function __construct($dbo)
+    public function __construct($dbo, $id)
     {
         $this -> dbo = $dbo;
-        $this -> myDB = new MyDB($this -> dbo);
+        $this -> userId = $id;
         $this -> income = new Income();
         $this -> dataArrayValidation = new DataArrayValidation($_POST, INCOME_FORM_FIELDS);
     }
@@ -37,7 +37,6 @@ class IncomeInsertion
 
     private function isRequiredDataMissing()
     {
-        
         if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
             return true;
         } else {
@@ -64,37 +63,28 @@ class IncomeInsertion
 
     private function getValidationObjects()
     {
+        $personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> userId);
         $amountValidation = new AmountValidation($this -> income -> getAmount(), 'amount');
         $dateValidation = new DateValidation($this -> income -> getTransferDate(), 'date');
-        $categoryValidation = new InputSelectValidation($this -> income -> getCategory(), 'category', $_SESSION['incomeCategories']);
+        $categoryValidation = new InputSelectValidation($this -> income -> getCategory(), 'category', $personalisedOptions -> getIncomeCategoriesAssignedToUser());
 
         return $validationObjects = array($amountValidation, 
                                         $dateValidation, 
                                         $categoryValidation);
     }
 
-
-
-    public function getIncomeCategoriesAssignedToUser($user)
-    {
-        $query = 'SELECT id, name FROM incomes_category_assigned_to_users WHERE user_id=:id';
-
-        $parametersToBind = array(':id' => $user -> getId());
-
-        return $this -> myDB -> getQueryResult($query, $parametersToBind);
-    }
-
     private function insertDataIntoDatabase()
     {
+        $myDB = new MyDB($this -> dbo);
         $query = 'INSERT INTO incomes VALUES(NULL, :userID, :categoryID, :amount, :date, :comment)';
 
-        $parametersToBind = array(':userID' => $_SESSION['loggedInUser'] ->                          getId(), 
+        $parametersToBind = array(':userID' => $this -> userId, 
                             ':categoryID' => $this -> income -> getCategory(),
                             ':amount' => $this -> income -> getAmount(), 
                             ':date' => $this -> income -> getTransferDate(), 
                             ':comment' => $this -> income -> getComment());
 
-        $this -> myDB -> executeQuery($query, $parametersToBind);
+        $myDB -> executeQuery($query, $parametersToBind);
     }
     
 }

@@ -83,7 +83,9 @@
                 <label for="settingsExpensePaymentSelect" class="col-sm-2 col-md-3 col-lg-2">Metody płatności</label>
                 <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
                     <select class="custom-select setPaymentMethods" id="settingsExpensePaymentSelect">
-                        
+                    <?php
+                        echo $portal -> getHtmlOfOptionsForPaymentMethods();
+                    ?>
                     </select>
                 </div>
                 
@@ -112,7 +114,9 @@
                 <label for="settingsExpenseCategorySelect" class="col-sm-2 col-md-3 col-lg-2">Kategorie</label>
                 <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
                     <select class="custom-select setExpenseCategories" id="settingsIExpenseCategorySelect">
-                        
+                    <?php
+                        echo $portal -> getHtmlOfOptionsForExpenseCategories();
+                    ?>  
                     </select>
                 </div>
                 

@@ -1,99 +1,74 @@
-<div id="containerMyIncomes">
-    <div class="row headerMyIncomes mx-0 py-2">
-        <div class="col" >
-            <header>Ustawienia przychodów</header>
+        <div id="containerMyIncomes">
+            <div class="row headerMyIncomes mx-0 py-2">
+                <div class="col-10" >
+                    <header>Moje kategorie przychodu</header>
+                </div>
+                <div class="col-2">
+                    <div class="dropdown mr-1">
+                        <i class="fas fa-ellipsis-h menuDots" data-toggle="dropdown"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsIncomeModal" id="editIncomeLink">Edytuj</a>
+                            <a class="dropdown-item" href="#" id="addIncomeLink" data-toggle="modal" data-target="#settingsIncomeModal">Dodaj</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsIncomeModal" id="deleteIncomeLink">Usuń</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row mt-3 ml-1">
+                <div class="col-10 settingsFormOptions">	
+                    <?=$portal -> getHtmlOfIncomeList()?>
+                </div>
+            </div> <?php
+            /*if(isset($_SESSION['test'])) {
+                echo $_SESSION['test'];
+            }*/?>
         </div>
     </div>
-    
-    <div class="row mx-0 pr-4 mb-5">
-        <div class="col-12 ">
-            
-            <div class="row incomeUser mt-5 ">
-            
-                <label for="settingsLastIncomeSelect" class="col-sm-2 col-md-3 col-lg-2">Ostatnie przychody</label>
-                <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
-                    <select class="custom-select" id="settingsLastIncomeSelect">
-                        <option value="1">data przychód</option>
-                        <option value="2">data przychód</option>
-                        <option value="3">data przychód</option>
-                        <option value="4">data przychód</option>
-                    </select>
-                </div>
-                <div class="col-1 pl-1 pl-sm-3">
-                    <a href="#" id="editLastIncomeLink" title="Edytuj"><i class="fas fa-edit"></i></a>
-                </div>
-                <div class="col-1">
-                    <a href="#" id="deleteLastIncomeLink" title="Usuń" class="linkDelete" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-trash-alt"></i></a>
-                </div>
+</div>
+		
+		
+<div class="modal fade" id="settingsIncomeModal" tabindex="-1" role="dialog" aria-labelledby="settingsIncomeModal" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             
-            <form class="row incomeUser mt-3 hideItem" id="editDataIncome">
-            
-                <div class="col-12 col-sm-8 mb-2 input-group">
-                    <input type="number" class="form-control" placeholder="Podaj nową kwotę">
-                    <div class="input-group-prepend ">
-                    <span class="input-group-text " id="amountIncome"><i class="fas fa-pen-alt"></i></span>
+            <div class="modal-body mx-4">
+                <div id="info"></div>
+                <form method="post">
+                    <div class="input-group mb-3" id="settingsIncomeSelect">
+                        <select class="custom-select" name="selectedOption">
+                        <?php
+                            echo $htmlOfOptions;
+                        ?>
+                        </select>
+                        <a class="input-group-prepend" data-toggle="popover">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                </div>
-                
-                        
-                        
-                <div class="col-12 col-sm-8 mb-2 input-group ">	
-                    <input type="date" class="form-control" id="date" placeholder="Data">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
+                    
+                    <div class="input-group mb-1 inputOption">
+						<input type="text" class="form-control" id="inputEdition" placeholder="Wpisz nową kategorię"  name="newOption">
+						<a class="input-group-prepend" data-toggle="popover" data-content="Dozwolone są małe i duże litery.">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                </div>
-                
-    
-                <div class="col-12 col-sm-8 mb-2 input-group ">
-                    <select class="custom-select setIncomeCategories" id="category">
-                    </select>
-                    <div class="input-group-prepend ">
-                        <span class="input-group-text " id="categoriesIncome"><i class="fas fa-pen-alt "></i></span>
+                    <div class="row justify-content-center">
+                        <div class="col-8 input-group my-3">
+                            <button type="submit" class="btn btn-primary mt-4 text-white">Zapisz</button>
+                        </div>
                     </div>
-                </div>
-                
-                <div class=" col-12 col-sm-8 mb-2 input-group">
-                    <input type="text" class="form-control" placeholder="Komentarz (opcjonalnie)">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-                <div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
-                    <button type="submit" class="btn text-white btnChangeIncome btnSave" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-plus"></i> Zapisz</button>
-                </div>
-                
-                
-            </form>
-            
-            <div class="row incomeUser mt-4 mb-3">	
-                <label for="settingsIncomeCategorySelect" class="col-sm-2 col-md-3 col-lg-2">Kategorie</label>
-                <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
-                    <select class="custom-select setIncomeCategories" id="settingsIncomeCategorySelect">
-                        
-                    </select>
-                </div>
-                
-                <div class="col-1 pl-1 pl-sm-3">
-                    <a href="#" id="addCategoryIncomeLink" title="Dodaj"><i class="fas fa-plus"></i></a>
-                </div>
-                <div class="col-1">
-                    <a href="#" id="deleteCategoryIncomeLink" title="Usuń" class="linkDelete" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-trash-alt"></i></a>
-                </div>
+                </form>     
             </div>
-            <form class="row incomeUser hideItem" id="addCategoryIncome">
-                <div class=" col-12 col-sm-8 mb-2 input-group">
-                    <input type="text" class="form-control" placeholder="Podaj nową kategorię">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-                <div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
-                    <button type="submit" class="btn text-white btnAddCategoryIncome btnSave" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-plus"></i> Zapisz</button>
-                </div>
-            </form>
-            
         </div>
     </div>
 </div>

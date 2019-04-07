@@ -65,14 +65,7 @@
                 <select class="custom-select" id="paymentMethod" name="paymentMethod">
                     <option disabled selected value="n">Wybierz metodę płatności</option>
                     <?php
-                        foreach ($_SESSION['paymentMethods'] as $method) {
-                            if (isset($_SESSION['paymentMethod']) && ($_SESSION['paymentMethod'] == $method['id'])) {
-                                echo '<option value='.$method['id'].' selected>'.$method['name'].'</option>';
-                                unset($_SESSION['paymentMethod']);
-                            } else {
-                                echo '<option value='.$method['id'].'>'.$method['name'].'</option>';
-                            }
-                        }
+                        echo $portal -> getHtmlOfOptionsForPaymentMethods();
                     ?>
                 </select>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz metodę płatności.">
@@ -93,14 +86,7 @@
                 <select class="custom-select" id="category" name="category">
                     <option disabled selected>Wybierz kategorię</option>
                     <?php
-                        foreach ($_SESSION['expenseCategories'] as $category) {
-                            if (isset($_SESSION['category']) && ($_SESSION['category'] == $category['id'])) {
-                                echo '<option value='.$category['id'].' selected>'.$category['name'].'</option>';
-                                unset($_SESSION['category']);
-                            } else {
-                                echo '<option value='.$category['id'].'>'.$category['name'].'</option>';
-                            }
-                        }
+                        echo $portal -> getHtmlOfOptionsForExpenseCategories();
                     ?>
                 </select>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">

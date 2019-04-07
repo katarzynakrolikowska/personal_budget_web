@@ -1,109 +1,134 @@
-<div id="containerUserData">
-    <div class="row headerMyData mx-0 py-2 pl-3">
-        <div class="col" >
-            <header>Ustawienia danych</header>
+    <div id="containerUserData">
+        <div class="row headerMyData mx-0 py-2 pl-3">
+            <div class="col-10" >
+                <header>Moje imię</header>
+            </div>
+    
+            <div class="col-2">
+                <div class="dropdown mr-1">
+                    <i class="fas fa-ellipsis-h menuDots" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsUserDataModal" id="editUsernameLink">Edytuj</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-0 pr-4 pl-3 mb-5">
+            <div class="col-12 col-sm-8 col-md-10 mt-4 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>            
+                <input type="text" disabled class="form-control" value="<?= $portal -> loggedInUser -> getName()?>">
+            </div>
+        </div>
+
+        <div class="row headerMyData mx-0 py-2 pl-3">
+            <div class="col-10" >
+                <header>Mój login</header>
+            </div>
+    
+            <div class="col-2">
+                <div class="dropdown mr-1">
+                    <i class="fas fa-ellipsis-h menuDots" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsUserDataModal" id="editLoginLink">Edytuj</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-0 pr-4 pl-3  mb-5">
+            <div class="col-12 col-sm-8 col-md-10 mt-4 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
+                </div>            
+                <input type="text" disabled class="form-control" value="<?= $portal -> loggedInUser -> getLogin()?>">
+            </div>
+        </div>
+
+        <div class="row headerMyData mx-0 py-2 pl-3">
+            <div class="col-10" >
+                <header>Moje hasło</header>
+            </div>
+    
+            <div class="col-2">
+                <div class="dropdown mr-1">
+                    <i class="fas fa-ellipsis-h menuDots" data-toggle="dropdown"></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsUserDataModal" id="editPasswordLink">Edytuj</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-0 pr-4 pl-3  mb-5">
+            <div class="col-12 col-sm-8 col-md-10 mt-4 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>            
+                <input type="password" disabled class="form-control">
+            </div>
         </div>
     </div>
-    <div class="row mx-0 pr-4 pl-3">
-        <div class="col-12 ">
+</div>
+
+<div class="modal fade" id="settingsUserDataModal" tabindex="-1" role="dialog" aria-labelledby="settingsUserDataModal" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             
-            <form method="post" action="index.php?action=editUserData&editedItem=name">
-                <div class="row mt-5 editForm">
-                    <label class="col-12 col-sm-8 inputLabel" for="inputEditName">Imię</label>
-                    <div class="col-12 col-sm-8 col-md-10 input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="inputEditName" placeholder="Podaj nowe imię" name="username" value="<?php
-                        if (isset($_SESSION['username'])) {
-                            echo $_SESSION['username'];
-                            unset($_SESSION['username']);
-                        } else {
-                            echo $portal -> loggedInUser -> getName();
-                        }?>">
+            <div class="modal-body mx-4">
+                <form method="post">
+                    <div class="input-group mb-3 editNameField">
+						<input type="text" class="form-control" placeholder="Wpisz nowe imię" name="username">
+						<a class="input-group-prepend" data-toggle="popover" data-content="Imię powinno składać się z samych liter (minimum 3 znaki).">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
+                    <div>
                     
-                    <div class="col-12 col-sm-8 col-md-10">
-                        <?php
-                            if (isset($messageError) && isset($_SESSION['errorUsername'])) {
-                                echo '<h6 class="error mt-2">'.$messageError.'</h6>';
-                                unset($_SESSION['errorUsername']);
-                            }
-                        ?>
-                        <div class="row justify-content-center">
-                        
-                            <div class="col-8 col-sm-6 col-lg-5 input-group my-3">
-                                <button type="submit" class="btn text-white btnChangeUserPassword btnSave"><i class="fas fa-plus"></i> Zapisz</button>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </form>
-                
-                    
-            <form method="post" action="index.php?action=editUserData&editedItem=login">
-                <div class="row mt-4 editForm">
-                    <label class="col-12 col-sm-8 inputLabel" for="inputEditLogin">Login</label>
-                    <div class="col-12 col-sm-8 col-md-10 input-group">
+                    </div>
+                    <div class="input-group mb-3 editLoginField">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="inputEditLogin" placeholder="Podaj nowy login" name="login" value="<?php
-                        if (isset($_SESSION['login'])) {
-                            echo $_SESSION['login'];
-                            unset($_SESSION['login']);
-                        } else {
-                            echo $portal -> loggedInUser -> getLogin();
-                        }?>">
+                        <input type="text" class="form-control" id="inputEditLogin" placeholder="Podaj nowy login" name="login">
+                        <a class="input-group-prepend" data-toggle="popover" data-content="Login powinien składać sie z minimum 3 znaków, może zawierać litery (bez polskich znaków), cyfry oraz znaki _ lub .">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                    <div class="col-12 col-sm-8 col-md-10">
-                        <?php
-                            if (isset($messageError) && isset($_SESSION['errorLogin'])) {
-                                echo '<h6 class="error mt-2">'.$messageError.'</h6>';
-                                unset($_SESSION['errorLogin']);
-                            }
-                        ?>
-                    
-                        <div class="row justify-content-center">
-                            <div class="col-8 col-sm-6 col-lg-5 input-group my-3">
-                                <button type="submit" class="btn text-white btnChangeUserPassword btnSave"><i class="fas fa-plus"></i> Zapisz</button>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </form>
-            
-            <form method="post" action="index.php?action=editUserData&editedItem=password">
-                <div class="row mt-4 editForm">
-                   
-                    <label class="col-12 col-sm-8 inputLabel" for="oldPassword">Hasło</label>
-                    
-                    <div class="col-12 col-sm-8 col-md-10 input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        </div>
+                    <div class="input-group mb-3 editPasswordField">
                         <input type="password" class="form-control inputEditPassword password 
                         " id="oldPasword" name ="oldPassword" placeholder="Podaj stare hasło">
+                        <a class="input-group-prepend" data-toggle="popover" data-content="Wpisz stare hasło.">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                    <div class="col-12 col-sm-8 col-md-10 input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        </div>
-                        <input type="password" class="form-control inputEditPassword password" name="newPassword" placeholder="Podaj nowe hasło">
+                    <div class="input-group mb-3 editPasswordField">
+                        <input type="password" class="form-control password" name="newPassword" placeholder="Podaj nowe hasło">
+                        <a class="input-group-prepend" data-toggle="popover" data-content="Hasło powinno składać się od 8 do 20 znaków.">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                    <div class="col-12 col-sm-8 col-md-10 input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        </div>
-                        <input type="password" class="form-control inputEditPassword password" name="newPasswordRepeated" placeholder="Powtórz nowe hasło">
-                        <?php
-                            if (isset($messageError) && isset($_SESSION['errorOldPassword'])) {
-                                echo '<div class="col-12"><h6 class="error mt-2">'.$messageError.'</h6></div>';
-                                unset($_SESSION['errorOldPassword']);
-                            }
-                        ?>
+                    <div class="input-group mb-3 editPasswordField">
+                        <input type="password" class="form-control password" name="newPasswordRepeated" placeholder="Powtórz nowe hasło">
+                        <a class="input-group-prepend" data-toggle="popover" data-content="Powtórz nowe hasło.">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                    
                     <div class="form-check mt-2 ml-3">
 						<input class="form-check-input showPasswordCheckbox" type="checkbox" value="" id="showPasswordCheckbox">
 						<label class="form-check-label" for="showPasswordCheckbox">
@@ -111,21 +136,13 @@
 						</label>
                         
                     </div>
-                    
-                    <div class="col-12 col-sm-8 col-md-10">
-                        
-                        <div class="row justify-content-center">
-                            <div class="col-8 col-sm-6 col-lg-5 input-group my-3">
-                                <button type="submit" class="btn text-white btnChangeUserPassword btnSave"><i class="fas fa-plus"></i> Zapisz</button>
-                            </div>
+                    <div class="row justify-content-center editPasswordField">
+                        <div class="col-8 input-group my-3">
+                            <button type="submit" class="btn btn-primary mt-4 text-white">Zapisz</button>
                         </div>
-                    </div>  
-                </div>
-            </form>
-                
-            
+                    </div>
+                </form>     
+            </div>
         </div>
     </div>
-    
-    
 </div>

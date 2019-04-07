@@ -13,29 +13,24 @@ class InputSelectValidation extends DataValidation
 
     public function isValid()
     {
-        foreach($this -> arrayOptions as $option) {
-            if($this -> data != $option['id']){
+        foreach ($this -> arrayOptions as $option) {
+            if ($this -> data != $option['id']){
                 $optionOK = false; 
             } else {
                 return true;
             }
         }
-        
-        if (!$optionOK) {
-            return false;
-        }
-        
+       return false;
     }
 
-    /*public function setSessionError($name, $info = ''){
-        $name = ucfirst($name);
-        $_SESSION['error'.$name] = $info;
-    }
-
-    public function unsetSessionError()
+    public function isSelectedOptionExistsInArrayOptions()
     {
-
-    }*/
-
+        foreach ($this -> arrayOptions as $option) {
+            if ($this -> data === $option['name']){
+                return true;
+            }
+        }
+        return false;
+    }
     
 }

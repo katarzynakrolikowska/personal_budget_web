@@ -120,68 +120,72 @@ $(function(){
 	$dateEnd.on('change', function() {
 		$dateStart.attr('max', $dateEnd.val());	
 	});
-	
-	
-	//edit incomes
-	var $containerMyIncomes = $('#containerMyIncomes');
-	var $formIncomes = $containerMyIncomes.find('form');
-	$containerMyIncomes.find('#editLastIncomeLink').on('click', function(e) {
-		e.preventDefault();
-		$formIncomes.eq(0).removeClass('hideItem');
-	});
-	 
-	$containerMyIncomes.find('.btnChangeIncome').on('click', function(e) {
-		e.preventDefault();
-		$formIncomes.eq(0).addClass('hideItem');
-	});
-	
-	$containerMyIncomes.find('#addCategoryIncomeLink').on('click', function(e) {
-		e.preventDefault();
-		$formIncomes.eq(1).removeClass('hideItem');
-	});
-	 
-	$containerMyIncomes.find('.btnAddCategoryIncome').on('click', function(e) {
-		e.preventDefault();
-		$formIncomes.eq(1).addClass('hideItem');
-	});
-	
-	
-	//edit expenses
-	
-	var $containerMyExpenses = $('#containerMyExpenses');
-	var $formExpenses = $containerMyExpenses.find('form');
-	$containerMyExpenses.find('#editLastExpenseLink').on('click', function(e) {
-		e.preventDefault();
-		$formExpenses.eq(0).removeClass('hideItem');
-	});
-	 
-	$containerMyExpenses.find('.btnChangeExpense').on('click', function(e) {
-		e.preventDefault();
-		$formExpenses.eq(0).addClass('hideItem');
-	});
-	
-	
-	$containerMyExpenses.find('#addPaymentExpenseLink').on('click', function(e) {
-		e.preventDefault();
-		$formExpenses.eq(1).removeClass('hideItem');
-	});
-	 
-	$containerMyExpenses.find('.btnAddPaymentExpense').on('click', function(e) {
-		e.preventDefault();
-		$formExpenses.eq(1).addClass('hideItem');
-	});
-	
-	
-	$containerMyExpenses.find('#addCategoryExpenseLink').on('click', function(e) {
-		e.preventDefault();
-		$formExpenses.eq(2).removeClass('hideItem');
-	});
-	 
-	$containerMyExpenses.find('.btnAddCategoryExpense').on('click', function(e) {
-		e.preventDefault();
-		$formExpenses.eq(2).addClass('hideItem');
+
+
+	var $inputSelectOption = $('#settingsIncomeSelect');
+	var $inputOption = $('.inputOption');
+	var $settingsModal = $('#settingsIncomeModal');
+	var $info = $settingsModal.find('#info');
+
+	$('#editIncomeLink').on('click', function() {
+		$settingsModal.find('h5').text('Edytuj kategorię przychodu');
+		$info.addClass('hideItem');
+		$inputSelectOption.removeClass('hideItem');
+		$inputOption.removeClass('hideItem');
+		$inputSelectOption.find('a').attr('data-content', 'Wybierz kategorię, którą chcesz edytować.');
+		$settingsModal.find('.btn').text('Edytuj kategorię');
+		$settingsModal.find('form').attr('action', 'index.php?action=editOption&editionContent=income');
+
 	});
 
+	$('#addIncomeLink').on('click', function() {
+		$settingsModal.find('h5').text('Dodaj kategorię przychodu');
+		$info.addClass('hideItem');
+		$inputSelectOption.addClass('hideItem');
+		$inputOption.removeClass('hideItem');
+		$settingsModal.find('.btn').text('Dodaj kategorię');
+		$settingsModal.find('form').attr('action', 'index.php?action=addOption&editionContent=income');
+	});
+
+	$('#deleteIncomeLink').on('click', function() {
+		$settingsModal.find('h5').text('Usuń kategorię przychodu');
+		$info.addClass('hideItem');
+		$inputSelectOption.removeClass('hideItem');
+		$inputOption.addClass('hideItem');
+		$inputSelectOption.find('a').attr('data-content', 'Wybierz kategorię, którą chcesz usunąć.');
+		$settingsModal.find('.btn').text('Usuń kategorię');
+		$settingsModal.find('form').attr('action', 'index.php?action=deleteOption&editionContent=income');
+	});
+
+
+	var $settingsUserDataModal = $('#settingsUserDataModal');
+
+	$('#editUsernameLink').on('click', function() {
+		$settingsUserDataModal.find('h5').text('Edytuj imię');
+		$settingsUserDataModal.find('.editNameField').removeClass('hideItem');
+		$settingsUserDataModal.find('.editLoginField').addClass('hideItem');
+		$settingsUserDataModal.find('.editPasswordField').addClass('hideItem');
+		$settingsUserDataModal.find('form').attr('action', 'index.php?action=editUserData&editedItem=name');
+	});
+
+	$('#editLoginLink').on('click', function() {
+		$settingsUserDataModal.find('h5').text('Edytuj login');
+		$settingsUserDataModal.find('.editNameField').addClass('hideItem');
+		$settingsUserDataModal.find('.editLoginField').removeClass('hideItem');
+		$settingsUserDataModal.find('.editPasswordField').addClass('hideItem');
+		$settingsUserDataModal.find('form').attr('action', 'index.php?action=editUserData&editedItem=login');
+	});
+
+	$('#editPasswordLink').on('click', function() {
+		$settingsUserDataModal.find('h5').text('Edytuj hasło');
+		$settingsUserDataModal.find('.editNameField').addClass('hideItem');
+		$settingsUserDataModal.find('.editLoginField').addClass('hideItem');
+		$settingsUserDataModal.find('.editPasswordField').removeClass('hideItem');
+		$settingsUserDataModal.find('form').attr('action', 'index.php?action=editUserData&editedItem=password');
+	});
+
+
+	
 });
 	
 	

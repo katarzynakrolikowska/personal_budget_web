@@ -330,7 +330,7 @@ h2{
 	margin-bottom:0;
 }
 
-#containerUserData i,
+
 .formRegister i,
 #userLogin i{
 	width:14px;
@@ -667,16 +667,19 @@ tbody tr:last-child{
 }
 
 
-#rowSettings .hideItem{
+.hideItem{
 	display:none;
 }
 
 
 .colSettingsMain .btnSave{
 	background:#43A047;
-	width:100%;	
+	width:100%;
 }
 
+#rowSettings .btn-primary {
+	width:100%;
+}
 
 .colSettingsMain .btnSave:hover{
 	background:#388E3C;	
@@ -696,10 +699,9 @@ tbody tr:last-child{
 .headerMyExpenses,
 .headerMyIncomes,
 .headerMyData{
-	border-top:2px solid #81C784;
 	width:100%;
 	background:#C8E6C9;
-	font-size:26px;
+	font-size:24px;
 	color:#424242;	
 }
 
@@ -740,10 +742,22 @@ tbody tr:last-child{
 	font-size: 20px;
 }
 
-.editForm{
+.menuDots {
+	padding: 6px;
+	font-size: 23px;
+	color: #2C3E50;
+	cursor: pointer;
+	border-radius: 4px;
+	border: 1px solid #9FD3A1;
+	background: #A7D7A8;
 	
-
 }
+
+.menuDots:hover {
+	
+	background: #9FD3A1;
+}
+
 
 .error{
 	color:#F44336 !important;
@@ -764,3 +778,9 @@ tbody tr:last-child{
 .nowrap {
 	white-space: nowrap;
 }
+
+.settingsFormOptions {
+	font-size: 19px;
+}
+
+

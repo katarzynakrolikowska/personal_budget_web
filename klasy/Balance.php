@@ -66,7 +66,6 @@ class Balance
     {
         if (isset($_SESSION['balanceHeader'])) {
             $header = $_SESSION['balanceHeader'];
-            //unset($_SESSION['balanceHeader']);
             return $header;
         } else {
             return null;

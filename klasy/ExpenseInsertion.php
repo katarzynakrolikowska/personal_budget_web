@@ -3,15 +3,14 @@
 class ExpenseInsertion
 {
     private $dbo = null;
-    private $myDB = null;
     private $expense = null;
     private $dataArrayValidation = null;
-        
+    private $userId = null;
    
-    public function __construct($dbo)
+    public function __construct($dbo, $id)
     {
         $this -> dbo = $dbo;
-        $this -> myDB = new MyDB($this -> dbo);
+        $this -> userId = $id;
         $this -> expense = new Expense();
         $this -> dataArrayValidation = new DataArrayValidation($_POST, EXPENSE_FORM_FIELDS);
     }
@@ -64,45 +63,30 @@ class ExpenseInsertion
 
     private function getValidationObjects()
     {
+        $personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> userId);
+
         $amountValidation = new AmountValidation($this -> expense -> getAmount(), 'amount');
         $dateValidation = new DateValidation($this -> expense -> getTransferDate(), 'date');
-        $paymentMethodValidation = new InputSelectValidation($this -> expense -> getPaymentMethod(), 'paymentMethod', $_SESSION['paymentMethods']);
-        $categoryValidation = new InputSelectValidation($this -> expense -> getCategory(), 'category', $_SESSION['expenseCategories']);
+        $paymentMethodValidation = new InputSelectValidation($this -> expense -> getPaymentMethod(), 'paymentMethod', $personalisedOptions -> getPaymentMethodsAssignedToUser());
+        $categoryValidation = new InputSelectValidation($this -> expense -> getCategory(), 'category', $personalisedOptions -> getExpenseCategoriesAssignedToUser());
 
         return $validationObjects = array($amountValidation,                                                      $dateValidation,
                                           $paymentMethodValidation, 
                                           $categoryValidation);
     }
 
-    public function getExpenseCategoriesAssignedToUser($user)
-    {
-        $query = 'SELECT id, name FROM expenses_category_assigned_to_users WHERE user_id=:id';
-
-        $parametersToBind = array(':id' => $user -> getId());
-
-        return $this -> myDB -> getQueryResult($query, $parametersToBind);
-    }
-
-    public function getPaymentMethodsAssignedToUser($user)
-    {
-        $query = 'SELECT id, name FROM payment_methods_assigned_to_users WHERE user_id=:id';
-
-        $parametersToBind = array(':id' => $user -> getId());
-
-        return $this -> myDB -> getQueryResult($query, $parametersToBind);
-    }
-
     private function insertDataIntoDatabase()
     {
+        $myDB = new MyDB($this -> dbo);
         $query = 'INSERT INTO expenses VALUES(NULL, :userID, :categoryID, :paymentID, :amount, :date, :comment)';
 
-        $parametersToBind = array(':userID' => $_SESSION['loggedInUser'] ->                          getId(), 
+        $parametersToBind = array(':userID' => $this -> userId, 
                             ':categoryID' => $this -> expense -> getCategory(),
                             ':paymentID' => $this -> expense -> getPaymentMethod(),
                             ':amount' => $this -> expense -> getAmount(), 
                             ':date' => $this -> expense -> getTransferDate(), 
                             ':comment' => $this -> expense -> getComment());
 
-        $this -> myDB -> executeQuery($query, $parametersToBind);
+        $myDB -> executeQuery($query, $parametersToBind);
     }
 }

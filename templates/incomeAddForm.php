@@ -66,16 +66,7 @@
                 <select class="custom-select" id="category" name="category">
                     <option disabled selected value='0'>Wybierz kategorię</option>
                     <?php
-                        foreach($_SESSION['incomeCategories'] as $category) {
-                            
-                            if (isset($_SESSION['category']) && 
-                            ($_SESSION['category'] == $category['id'])) {
-                                echo '<option value='.$category['id'].' selected>'.$category['name'].'</option>';
-                                unset($_SESSION['category']);
-                            } else {
-                                echo '<option value='.$category['id'].'>'.$category['name'].'</option>';
-                            }
-                        }
+                        echo $portal -> getHtmlOfOptionsForIncomeCategories();
                     ?>
                 </select>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">

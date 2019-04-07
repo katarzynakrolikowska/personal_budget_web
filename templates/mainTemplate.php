@@ -40,18 +40,30 @@
             require_once 'templates/logInUserMainContent.php';
             break;
         case 'showIncomeAddForm':
-            $portal -> setSessionForIncomeOptionsAssignedToUser();
             require_once 'templates/incomeAddForm.php';
             break;
         case 'showExpenseAddForm':
-            $portal -> setSessionForExpenseOptionsAssignedToUser();
             require_once 'templates/expenseAddForm.php';
             break;
         case 'showBalanceForSelectedPeriod':
             require_once 'templates/balanceSite.php';
             break;
         case 'showSettings':
-            require_once 'templates/settingsForm.php';
+            require_once 'templates/settingsMenu.php';
+            switch ($editionContent):
+                case 'income':
+                    $htmlOfOptions = $portal -> getHtmlOfOptionsForIncomeCategories();
+                    require_once 'incomesSettingsForm.php';
+                    break;
+                case 'expense':
+                case 'paymentMethod':
+                     require_once 'expensesSettingsForm.php';
+                     break;
+                case 'userData':
+                default:
+                    require_once 'userDataSettingsForm.php';
+                    break;
+            endswitch;
             break;
         case 'showMain':
         default:
@@ -73,7 +85,13 @@
 	if (($portal -> getHtmlOfExpensesTable()) && ($action === 'showBalanceForSelectedPeriod')) {
         echo '<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>';
         require_once('chartSettings.php');
-	}
+    }
+    
+    if (isset($modal) && $modal === 'show') {
+        require_once('showingModal.php');
+    }
+
+    
 ?>
 
 <script type="text/javascript" src="js/personalBudget.js"></script>

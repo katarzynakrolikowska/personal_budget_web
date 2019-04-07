@@ -11,6 +11,10 @@ try {
 		$action = $_GET['action'];
 	}
 
+	if ($portal -> loggedInUser) {
+		$username = $portal -> loggedInUser -> getName();
+	}
+
 	if (isset($_GET['result'])) {
 		$messageOK = $portal -> getMessage();
 	} else {
@@ -32,17 +36,21 @@ try {
 		$editionContent = 'userData';
 	}
 	
-
-	if ($portal -> loggedInUser) {
-		$username = $portal -> loggedInUser -> getName();
+	if (isset($_GET['modal'])) {
+		$modal = $_GET['modal'];
 	}
+
+	if (isset($_GET['id'])) {
+		$optionIdToRemove = $_GET['id'];
+	}
+	
 
 	if (($action == 'showLoginForm' || $action == 'showRegistrationForm' || $action == 'showMain') && $portal -> loggedInUser){
 		header('Location:index.php?action=showMainForLoginUser');
 		return;
 	}
 
-	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalanceForSelectedPeriod' || $action == 'showMainForLoginUser') && !($portal -> loggedInUser)){
+	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalanceForSelectedPeriod' || $action == 'showMainForLoginUser' || $action == 'showSettings') && !($portal -> loggedInUser)){
 		header('Location:index.php?action=showMain');
 		return;
 	}
@@ -150,13 +158,81 @@ try {
 					header('Location:index.php?action=showSettings&result=OK');
 					return;
 				case FORM_DATA_MISSING:
-					$portal -> setMessage('Uzupełnij wymagane dane!');
+					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
 					break;
 				case INVALID_DATA:
-					$portal -> setMessage('Nieprawidłowe dane!');
+					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
-			break;	
+			break;
+		case 'editOption':
+			switch ($portal -> editOption($editionContent)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				default:
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się!');
+					break;
+				break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'addOption':
+			switch ($portal -> addOption($editionContent)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				default:
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się!');
+					break;
+				break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'deleteOption':
+			switch ($portal -> deleteOption($editionContent)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				case OPTION_USED:
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&modal=show');
+					return;
+				default:
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się!');
+					break;
+				break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'deleteOptionConfirmed':
+			$portal -> deleteOptionWithoutValidation($editionContent, $optionIdToRemove);
+			$portal -> setMessage('Dane zostały zaktualizowane!');
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+			return;
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;
