@@ -3,66 +3,37 @@
 class LogOperation
 {
     private $dbo =null;
-    private $userDataFromDatabase = null;
-    private $dataArrayValidation = null;
+    private $userDataAssignedToLogin = null;
+    private $userDataQueryGenerator = null;
 
     public function __construct($dbo)
     {
         $this -> dbo = $dbo;
-        $this -> dataArrayValidation = new DataArrayValidation($_POST, LOGIN_FORM_FIELDS);
+        $this -> userDataQueryGenerator = new UserDataQueryGenerator($this -> dbo);
     }
 
     public function logIn()
     {
-        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
-            return FORM_DATA_MISSING;
-        }
+        $loginFormValidation = new LoginFormValidation($_POST, LOGIN_FORM_FIELDS);
 
-        if (!$this -> isValidDataFromLoginForm()) {
-            return INVALID_DATA;
+        $message = $loginFormValidation -> getMessageOfFormValidation($this -> userDataQueryGenerator);
+        if ($message === ACTION_OK) {
+            $_SESSION = array();
+            $this -> setUserDataAssignedToLogin();
+            $this -> setLoggedInUser();
         }
-
-        $_SESSION = array();
-        $this -> setLoggedInUserData();
-        return ACTION_OK;
+ 
+         return $message;
     }
 
-    private function isValidDataFromLoginForm()
+    private function setUserDataAssignedToLogin()
     {
-        $loginValidation = new LoginValidation($_POST['login']);
-        $results = $loginValidation -> getUserDataAssignedToLogin($this -> dbo);
-
-        if ($this -> isUserExists($results) && $this -> isCorrectPassword($results[0]['id'])) {
-            $this -> userDataFromDatabase = $results[0];
-            return true;
-        } else {
-           $this -> dataArrayValidation -> setSessionErrorForRequiredFields();
-            return false;
-        }
+        $dataFromDatabase = $this -> userDataQueryGenerator -> getUserDataAssignedToLogin($_POST['login']);
+        $this -> userDataAssignedToLogin = $dataFromDatabase[0];
     }
 
-    private function isUserExists($results)
+    private function setLoggedInUser()
     {
-        if (sizeof($results) === 1 ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private function isCorrectPassword($userId)
-    {
-        $myDB = new MyDB($this -> dbo);
-        $passwordValidation = new PasswordValidation($_POST['password']);
-        if ($passwordValidation -> isCorrectPasswordAssignedToUser($userId, $myDB)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private function setLoggedInUserData()
-    {
-        $_SESSION['loggedInUser'] = new User($this -> userDataFromDatabase['id'], $this -> userDataFromDatabase['username'], $_POST['login']);
+        $_SESSION['loggedInUser'] = new User($this -> userDataAssignedToLogin['id'], $this -> userDataAssignedToLogin['username'], $_POST['login']);
     }
 }

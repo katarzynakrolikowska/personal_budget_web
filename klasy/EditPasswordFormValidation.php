@@ -7,34 +7,34 @@ class EditPasswordFormValidation extends DataArrayValidation
         parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields);
     }
 
-    public function getMessageOfFormValidation($id, $myDB)
+    public function getMessageOfFormValidation($userDataQueryGenerator)
     {
         if ($this ->  isRequiredFieldsFromFormMissing()) {
             $_SESSION['errorOldPassword'] = '';
             return  FORM_DATA_MISSING;
         }
         
-        if (!$this -> isValidDataFromEditPasswordForm($id, $myDB)) {
+        if (!$this -> isValidDataFromEditPasswordForm($userDataQueryGenerator)) {
             $_SESSION['errorOldPassword'] = '';
             return INVALID_DATA;
         }
         return ACTION_OK;
     }
 
-    private function isValidDataFromEditPasswordForm($id, $myDB)
+    private function isValidDataFromEditPasswordForm($userDataQueryGenerator)
     {
-        if ($this -> isCorrectPasswordAssignedToUser($id, $myDB) && $this -> isValidNewPassword()) {
+        if ($this -> isPasswordAssignedToUser($userDataQueryGenerator) && $this -> isValidNewPassword()) {
             return true;
         } else {
             return false;
         }
     }
 
-    private function isCorrectPasswordAssignedToUser($id, $myDB)
+    private function isPasswordAssignedToUser($userDataQueryGenerator)
     {
         $passwordValidation = new PasswordValidation($this -> sendedFieldsFromForm['oldPassword']);
 
-        if ($passwordValidation -> isCorrectPasswordAssignedToUser($id, $myDB)) {
+        if ($passwordValidation -> isPasswordAssignedToLogInUser($userDataQueryGenerator)) {
             return true;
         } else {
             return false;

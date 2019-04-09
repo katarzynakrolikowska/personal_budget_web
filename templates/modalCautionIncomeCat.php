@@ -3,17 +3,17 @@
     $(function(){
         var $inputSelectOption = $('#settingsIncomeSelect');
         var $inputOption = $('.inputOption');
-        var $settingsModal = $('#settingsIncomeModal');
-        var $info = $settingsModal.find('#info');
+        var $settingsIncomeModal = $('#settingsIncomeModal');
+        var $info = $settingsIncomeModal.find('#info');
 
-        $settingsModal.find('h5').text('Usuń kategorię przychodu');
+        $settingsIncomeModal.find('h5').text('Usuń kategorię przychodu');
         $inputOption.addClass('hideItem');
         $inputSelectOption.addClass('hideItem');
         $info.removeClass('hideItem');
         $info.html('Usunięcie wybranej kategorii spowoduje usunięcie przychodów związanych z tą kategorią!<br />Czy chcesz usunąć wybraną kategorię?');
-        $settingsModal.find('.btn').text('Usuń kategorię');
+        $settingsIncomeModal.find('.btn').text('Usuń kategorię');
         $('#settingsIncomeModal').modal('show');
-        $settingsModal.find('form').attr('action', 'index.php?action=deleteOptionConfirmed&editionContent=income&id=<?=$_SESSION['selectedOption']?>');
+        $settingsIncomeModal.find('form').attr('action', 'index.php?action=deleteOptionUsed&editionContent=income&id=<?=$_SESSION['selectedOption']?>');
     });
 
 </script>

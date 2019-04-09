@@ -124,37 +124,37 @@ $(function(){
 
 	var $inputSelectOption = $('#settingsIncomeSelect');
 	var $inputOption = $('.inputOption');
-	var $settingsModal = $('#settingsIncomeModal');
-	var $info = $settingsModal.find('#info');
+	var $settingsModalIncome = $('#settingsIncomeModal');
+	var $info = $settingsModalIncome.find('#info');
 
 	$('#editIncomeLink').on('click', function() {
-		$settingsModal.find('h5').text('Edytuj kategorię przychodu');
+		$settingsModalIncome.find('h5').text('Edytuj kategorię przychodu');
 		$info.addClass('hideItem');
 		$inputSelectOption.removeClass('hideItem');
 		$inputOption.removeClass('hideItem');
 		$inputSelectOption.find('a').attr('data-content', 'Wybierz kategorię, którą chcesz edytować.');
-		$settingsModal.find('.btn').text('Edytuj kategorię');
-		$settingsModal.find('form').attr('action', 'index.php?action=editOption&editionContent=income');
+		$settingsModalIncome.find('.btn').text('Edytuj kategorię');
+		$settingsModalIncome.find('form').attr('action', 'index.php?action=editOption&editionContent=income');
 
 	});
 
 	$('#addIncomeLink').on('click', function() {
-		$settingsModal.find('h5').text('Dodaj kategorię przychodu');
+		$settingsModalIncome.find('h5').text('Dodaj kategorię przychodu');
 		$info.addClass('hideItem');
 		$inputSelectOption.addClass('hideItem');
 		$inputOption.removeClass('hideItem');
-		$settingsModal.find('.btn').text('Dodaj kategorię');
-		$settingsModal.find('form').attr('action', 'index.php?action=addOption&editionContent=income');
+		$settingsModalIncome.find('.btn').text('Dodaj kategorię');
+		$settingsModalIncome.find('form').attr('action', 'index.php?action=addOption&editionContent=income');
 	});
 
 	$('#deleteIncomeLink').on('click', function() {
-		$settingsModal.find('h5').text('Usuń kategorię przychodu');
+		$settingsModalIncome.find('h5').text('Usuń kategorię przychodu');
 		$info.addClass('hideItem');
 		$inputSelectOption.removeClass('hideItem');
 		$inputOption.addClass('hideItem');
 		$inputSelectOption.find('a').attr('data-content', 'Wybierz kategorię, którą chcesz usunąć.');
-		$settingsModal.find('.btn').text('Usuń kategorię');
-		$settingsModal.find('form').attr('action', 'index.php?action=deleteOption&editionContent=income');
+		$settingsModalIncome.find('.btn').text('Usuń kategorię');
+		$settingsModalIncome.find('form').attr('action', 'index.php?action=deleteOption&editionContent=income');
 	});
 
 
@@ -184,6 +184,91 @@ $(function(){
 		$settingsUserDataModal.find('form').attr('action', 'index.php?action=editUserData&editedItem=password');
 	});
 
+
+	var $inputSelectPaymentMethod = $('#settingsPaymentMethodSelect');
+	var $inputSelectExpenseCategory = $('#settingsExpenseCategorySelect');
+	var $inputOption = $('.inputOption');
+	var $settingsModalExpense = $('#settingsExpenseModal');
+	var $info = $settingsModalExpense.find('#info');
+
+	$('#editMethodLink').on('click', function() {
+		$settingsModalExpense.find('h5').text('Edytuj metodę płatności');
+		$inputSelectExpenseCategory.addClass('hideItem');
+		$inputSelectPaymentMethod.removeClass('hideItem');$inputSelectExpenseCategory.find('.custom-select').removeAttr('name');
+		$inputSelectPaymentMethod.find('.custom-select').attr('name', 'selectedOption');
+		$info.addClass('hideItem');
+		$inputOption.removeClass('hideItem');
+		$inputSelectPaymentMethod.find('a').attr('data-content', 'Wybierz metodę płatności, którą chcesz edytować.');
+		$inputOption.find('#inputEdition').attr('placeholder', 'Wpisz nową metodę płatności');
+		$settingsModalExpense.find('.btn').text('Edytuj metodę płatności');
+		$settingsModalExpense.find('form').attr('action', 'index.php?action=editOption&editionContent=paymentMethod');
+
+	});
+
+	$('#addMethodLink').on('click', function() {
+		$settingsModalExpense.find('h5').text('Dodaj metodę płatności');
+		$info.addClass('hideItem');
+		$inputSelectExpenseCategory.addClass('hideItem');
+		$inputSelectPaymentMethod.addClass('hideItem');
+		$inputOption.removeClass('hideItem');
+		$settingsModalExpense.find('.btn').text('Dodaj metodę');
+		$inputOption.find('#inputEdition').attr('placeholder', 'Wpisz nową metodę płatności');
+		$settingsModalExpense.find('form').attr('action', 'index.php?action=addOption&editionContent=paymentMethod');
+	});
+
+	$('#deleteMethodLink').on('click', function() {
+		$settingsModalExpense.find('h5').text('Usuń metodę płatności');
+		$info.addClass('hideItem');
+		$inputSelectPaymentMethod.removeClass('hideItem');
+		$inputOption.addClass('hideItem');
+		$inputSelectExpenseCategory.addClass('hideItem');
+		$inputSelectExpenseCategory.find('.custom-select').removeAttr('name');
+		$inputSelectPaymentMethod.find('.custom-select').attr('name', 'selectedOption');
+		$inputSelectPaymentMethod.find('a').attr('data-content', 'Wybierz metodę płatności, którą chcesz usunąć.');
+		$settingsModalExpense.find('.btn').text('Usuń metodę płatności');
+		$settingsModalExpense.find('form').attr('action', 'index.php?action=deleteOption&editionContent=paymentMethod');
+	});
+
+
+
+	$('#editExpenseCategoryLink').on('click', function() {
+		$settingsModalExpense.find('h5').text('Edytuj kategorię wydatku');
+		$info.addClass('hideItem');
+		$inputSelectPaymentMethod.addClass('hideItem');
+		$inputSelectExpenseCategory.removeClass('hideItem');
+		$inputOption.removeClass('hideItem');
+		$inputSelectPaymentMethod.find('.custom-select').removeAttr('name');
+		$inputSelectExpenseCategory.find('.custom-select').attr('name', 'selectedOption');
+		$inputSelectExpenseCategory.find('a').attr('data-content', 'Wybierz kategorię, którą chcesz edytować.');
+		$inputOption.find('#inputEdition').attr('placeholder', 'Wpisz nową kategorię');
+		$settingsModalExpense.find('.btn').text('Edytuj kategorię');
+		$settingsModalExpense.find('form').attr('action', 'index.php?action=editOption&editionContent=expense');
+
+	});
+
+	$('#addExpenseCategoryLink').on('click', function() {
+		$settingsModalExpense.find('h5').text('Dodaj kategorię wydatku');
+		$info.addClass('hideItem');
+		$inputSelectPaymentMethod.addClass('hideItem');
+		$inputSelectExpenseCategory.addClass('hideItem');
+		$inputOption.removeClass('hideItem');
+		$inputOption.find('#inputEdition').attr('placeholder', 'Wpisz nową kategorię');
+		$settingsModalExpense.find('.btn').text('Dodaj kategorię');
+		$settingsModalExpense.find('form').attr('action', 'index.php?action=addOption&editionContent=expense');
+	});
+
+	$('#deleteExpenseCategoryLink').on('click', function() {
+		$settingsModalExpense.find('h5').text('Usuń kategorię wydatku');
+		$info.addClass('hideItem');
+		$inputSelectPaymentMethod.addClass('hideItem');
+		$inputSelectExpenseCategory.removeClass('hideItem');
+		$inputOption.addClass('hideItem');
+		$inputSelectPaymentMethod.find('.custom-select').removeAttr('name');
+		$inputSelectExpenseCategory.find('.custom-select').attr('name', 'selectedOption');
+		$inputSelectExpenseCategory.find('a').attr('data-content', 'Wybierz kategorię, którą chcesz usunąć.');
+		$settingsModalExpense.find('.btn').text('Usuń kategorię');
+		$settingsModalExpense.find('form').attr('action', 'index.php?action=deleteOption&editionContent=expense');
+	});
 
 	
 });

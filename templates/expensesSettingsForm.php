@@ -1,145 +1,115 @@
-<div id="containerMyExpenses">
-    <div class="row headerMyExpenses mx-0 py-2">
-        <div class="col" >
-            <header>Ustawienia wydatków</header>
+        <div id="containerMyExpenses">
+            <div class="row headerMyExpenses mx-0 py-2 pl-3">
+                <div class="col-10" >
+                    <header>Metody płatności</header>
+                </div>
+                <div class="col-2">
+                    <div class="dropdown mr-1">
+                        <i class="fas fa-ellipsis-h menuDots" data-toggle="dropdown"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsExpenseModal" id="editMethodLink">Edytuj</a>
+                            <a class="dropdown-item" href="#" id="addMethodLink" data-toggle="modal" data-target="#settingsExpenseModal">Dodaj</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsExpenseModal" id="deleteMethodLink">Usuń</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row mt-3 mb-4 ml-1">
+                <div class="col-10 settingsFormOptions">	
+                    <?=$portal -> getHtmlOfPaymentMethodsList()?>
+                </div>
+            </div>
+
+            <div class="row headerMyExpenses mx-0 py-2 pl-3">
+                <div class="col-10" >
+                    <header>Kategorie wydatku</header>
+                </div>
+                <div class="col-2">
+                    <div class="dropdown mr-1">
+                        <i class="fas fa-ellipsis-h menuDots" data-toggle="dropdown"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsExpenseModal" id="editExpenseCategoryLink">Edytuj</a>
+                            <a class="dropdown-item" href="#" id="addExpenseCategoryLink" data-toggle="modal" data-target="#settingsExpenseModal">Dodaj</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsExpenseModal" id="deleteExpenseCategoryLink">Usuń</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row mt-3 mb-4 ml-1">
+                <div class="col-10 settingsFormOptions">	
+                    <?=$portal -> getHtmlOfExpenseCategoriesList()?>
+                </div>
+            </div>
+            <?php
+            /*if(isset($_SESSION['test'])) {
+                echo $_SESSION['test'];
+            }*/?>
         </div>
     </div>
-    
-    <div class="row mx-0 pr-4 mb-5">
-        <div class="col-12 ">
-            
-            <div class="row expenseUser mt-5">
-            
-                <label for="settingsLastExpenseSelect" class="col-sm-2 col-md-3 col-lg-2">Ostatnie wydatki</label>
-                <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
-                    <select class="custom-select" id="settingsLastExpenseSelect">
-                        <option value="1">data wydatek</option>
-                        <option value="2">data wydatek</option>
-                        <option value="3">data wydatek</option>
-                        <option value="4">data wydatek</option>
-                    </select>
-                </div>
-                <div class="col-1 pl-1 pl-sm-3">
-                    <a href="#" id="editLastExpenseLink" title="Edytuj"><i class="fas fa-edit"></i></a>
-                </div>
-                <div class="col-1">
-                    <a href="#" id="deleteLastExpenseLink" title="Usuń" class="linkDelete" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-trash-alt"></i></a>
-                </div>
-            </div>
-            
-            <form class="row expenseUser mt-3 hideItem" id="editDataExpense">
-            
-                <div class="col-12 col-sm-8 mb-2 input-group">
-                    <input type="number" class="form-control" placeholder="Podaj nową kwotę">
-                    <div class="input-group-prepend ">
-                    <span class="input-group-text " id="amountExpense"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-                
-                        
-                        
-                <div class="col-12 col-sm-8 mb-2 input-group ">	
-                    <input type="date" class="form-control" id="date" placeholder="Data">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-                
-                
-                <div class="col-12 col-sm-8 mb-2 input-group">	
-                    <select class="custom-select setPaymentMethods" id="settingsExpensePaymentSelect">
-                        
-                    </select>
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-    
-                <div class="col-12 col-sm-8 mb-2 input-group ">
-                    <select class="custom-select setExpenseCategories" id="category">
-                        
-                    </select>
-                    <div class="input-group-prepend ">
-                        <span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
-                    </div>
-                </div>
-                
+</div>          
 
-                
-                <div class=" col-12 col-sm-8 mb-2 input-group">
-                    <input type="text" class="form-control" placeholder="Komentarz (opcjonalnie)">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-                <div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
-                    <button type="submit" class="btn text-white btnChangeExpense btnSave" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-plus"></i> Zapisz</button>
-                </div>
-                
-                
-            </form>
-            
-            <div class="row expenseUser mt-4 mb-3 mb-sm-0">	
-                <label for="settingsExpensePaymentSelect" class="col-sm-2 col-md-3 col-lg-2">Metody płatności</label>
-                <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
-                    <select class="custom-select setPaymentMethods" id="settingsExpensePaymentSelect">
-                    <?php
-                        echo $portal -> getHtmlOfOptionsForPaymentMethods();
-                    ?>
-                    </select>
-                </div>
-                
-                <div class="col-1 pl-1 pl-sm-3">
-                    <a href="#" id="addPaymentExpenseLink" title="Dodaj"><i class="fas fa-plus"></i></a>
-                </div>
-                <div class="col-1">
-                    <a href="#" id="deletePaymentExpenseLink" title="Usuń" class="linkDelete" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-trash-alt"></i></a>
-                </div>
+<div class="modal fade" id="settingsExpenseModal" tabindex="-1" role="dialog" aria-labelledby="settingsExpenseModal" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title text-center"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             
-            <form class="row expenseUser hideItem" id="addPaymentExpense">
-                <div class=" col-12 col-sm-8 mb-2 input-group">
-                    <input type="text" class="form-control" placeholder="Podaj nową metodę płatności">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
+            <div class="modal-body mx-2">
+                <div id="info"></div>
+                <form method="post">
+                    <div class="input-group mb-3" id="settingsPaymentMethodSelect">
+                        <select class="custom-select">
+                        <?php
+                            echo $htmlOfPaymentMethods;
+                        ?>
+                        </select>
+                        <a class="input-group-prepend" data-toggle="popover">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
                     </div>
-                </div>
-                <div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
-                    <button type="submit" class="btn text-white btnAddPaymentExpense btnSave" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-plus"></i> Zapisz</button>
-                </div>
-            </form>
-            
-            
-            <div class="row expenseUser mt-4 mb-3">	
-                <label for="settingsExpenseCategorySelect" class="col-sm-2 col-md-3 col-lg-2">Kategorie</label>
-                <div class="col-10 col-sm-8 col-md-7 col-lg-8">	
-                    <select class="custom-select setExpenseCategories" id="settingsIExpenseCategorySelect">
-                    <?php
-                        echo $portal -> getHtmlOfOptionsForExpenseCategories();
-                    ?>  
-                    </select>
-                </div>
-                
-                <div class="col-1 pl-1 pl-sm-3">
-                    <a href="#" id="addCategoryExpenseLink" title="Dodaj"><i class="fas fa-plus"></i></a>
-                </div>
-                <div class="col-1">
-                    <a href="#" id="deleteCategoryExpenseLink" title="Usuń" class="linkDelete" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-trash-alt"></i></a>
-                </div>
+
+                    <div class="input-group mb-3" id="settingsExpenseCategorySelect">
+                        <select class="custom-select">
+                        <?php
+                            echo $htmlOfExpenseCategory;
+                        ?>
+                        </select>
+                        <a class="input-group-prepend" data-toggle="popover">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
+                    </div>
+                    
+                    <div class="input-group mb-1 inputOption">
+						<input type="text" class="form-control" id="inputEdition" name="newOption">
+						<a class="input-group-prepend" data-toggle="popover" data-content="Dozwolone są małe i duże litery.">
+							<span class="input-group-text">
+								<i class="fas fa-info-circle"></i>
+							</span>
+						</a>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-8 input-group my-3">
+                            <button type="submit" class="btn btn-primary max-width mt-4 text-white">Zapisz</button>
+                        </div>
+                    </div>
+                </form>     
             </div>
-            
-            <form class="row expenseUser hideItem" id="addCategoryExpense">
-                <div class=" col-12 col-sm-8 mb-2 input-group">
-                    <input type="text" class="form-control" placeholder="Podaj nową kategorię">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                    </div>
-                </div>
-                <div class="col-6 offset-3 mt-2 mt-sm-0 col-sm-4 offset-sm-0">
-                    <button type="submit" class="btn text-white btnAddCategoryExpense btnSave" data-toggle="modal" data-target="#settingsModal"><i class="fas fa-plus"></i> Zapisz</button>
-                </div>
-            </form>
-            
         </div>
     </div>
 </div>
+
+<?php
+/*if (isset($_SESSION['test'])) {
+    echo $_SESSION['test'];
+}*/
+?>

@@ -55,10 +55,13 @@
                     $htmlOfOptions = $portal -> getHtmlOfOptionsForIncomeCategories();
                     require_once 'incomesSettingsForm.php';
                     break;
-                case 'expense':
                 case 'paymentMethod':
-                     require_once 'expensesSettingsForm.php';
-                     break;
+                     
+                case 'expense':
+                    $htmlOfPaymentMethods = $portal -> getHtmlOfOptionsForPaymentMethods();
+                    $htmlOfExpenseCategory = $portal -> getHtmlOfOptionsForExpenseCategories();
+                    require_once 'expensesSettingsForm.php';
+                    break;
                 case 'userData':
                 default:
                     require_once 'userDataSettingsForm.php';
@@ -71,11 +74,13 @@
     endswitch;
     ?>
     </div>
-        <div class="row mx-0 footer mb-0">
-            <footer class="col  text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
-                <p class="text-muted">2018 &copy; fullWallet.pl</p>	
-            </footer>	
-        </div>
+    <div class="row mx-0 footer mb-0">
+        <footer class="col  text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
+            <p class="text-muted">2018 &copy; fullWallet.pl</p>	
+        </footer>	
+    </div>
+
+
     
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -83,12 +88,22 @@
 
 <?php
 	if (($portal -> getHtmlOfExpensesTable()) && ($action === 'showBalanceForSelectedPeriod')) {
-        echo '<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>';
+        echo '<script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>';
         require_once('chartSettings.php');
     }
     
     if (isset($modal) && $modal === 'show') {
-        require_once('showingModal.php');
+        switch ($editionContent):
+            case 'income':
+                require_once('modalCautionIncomeCat.php');
+                break;
+            case 'expense':
+                require_once('modalCautionExpenseCat.php');
+                break;
+            case 'paymentMethod':
+                require_once('modalCautionPayMethod.php');
+                break;
+        endswitch;
     }
 
     

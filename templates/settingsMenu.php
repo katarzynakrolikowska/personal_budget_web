@@ -15,7 +15,11 @@
                 <a class="nav-link navLinkIncome <?=$editionContent === 'income' ? 'active' : ''?>" href="index.php?action=showSettings&editionContent=income"><i class="far fa-money-bill-alt"></i><i class="fas fa-pen iconPenIncome"></i><span class="navTitleText"> Moje przychody</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navLinkExpense <?=$editionContent === 'expense' ? 'active' : ''?>" href="index.php?action=showSettings&editionContent=expense"><i class="fas fa-shopping-basket"></i><i class="fas fa-pen iconPenExpense"></i> <span class="navTitleText">Moje wydatki</span></a>
+                <a class="nav-link navLinkExpense 
+                <?php if($editionContent === 'expense' ||  $editionContent === 'paymentMethod') {
+                    echo 'active';
+                }
+                ?>" href="index.php?action=showSettings&editionContent=expense"><i class="fas fa-shopping-basket"></i><i class="fas fa-pen iconPenExpense"></i> <span class="navTitleText">Moje wydatki</span></a>
             </li>
         </ul>
     </div>

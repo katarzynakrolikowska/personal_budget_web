@@ -1,54 +1,28 @@
 <?php
 
-class LoginEdition extends UserDataEdition
+class LoginEdition
 {
-    public function __construct($dataFromForm, $user, $dbo)
+    public function __construct($dataFromForm)
     {
-        parent:: __construct($user, $dbo);
-        $this -> dataArrayValidation = new DataArrayValidation($_POST, LOGIN_EDITION_FORM_FIELD);
         $this -> dataFromForm = $dataFromForm;
     }
 
-    public function editUserData()
+    public function editUserData($userDataQueryGenerator)
     {
-        if ($this -> dataArrayValidation -> isRequiredFieldsFromFormMissing()) {
-            return FORM_DATA_MISSING;
+        $editLoginFormValidation = new EditLoginFormValidation($_POST, LOGIN_EDITION_FORM_FIELD);
+
+        $message = $editLoginFormValidation -> getMessageOfFormValidation($userDataQueryGenerator);
+
+        if ($message === ACTION_OK) {
+            $this -> updateUserDataInDatabase($userDataQueryGenerator);
+            $this -> setUserDataAfterEdition();
         }
-
-        if (!$this -> isValidDataFromForm()) {
-			return INVALID_DATA;
-        }
-
-        $this -> updateUserDataInDatabase();
-        $this -> setUserDataAfterEdition();
-
-        return ACTION_OK;
+        return $message;
     }
 
-    private function isValidDataFromForm()
+    private function updateUserDataInDatabase($userDataQueryGenerator)
     {
-        if ($this -> dataArrayValidation -> isValidDataFromForm($this -> getValidationObjects())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private function getValidationObjects()
-    {
-        $loginValidation = new LoginValidation($this -> dataFromForm, 'login');
-        
-        return $validationObjects = array($loginValidation);
-    }
-
-    private function updateUserDataInDatabase()
-    {
-        $query = 'UPDATE users SET login = :login WHERE id = :id';
-
-        $parametersToBind = array(':login' => $this -> dataFromForm,
-                            ':id' => $this -> user -> getId());
-        
-        $this -> myDB -> executeQuery($query, $parametersToBind);
+        $userDataQueryGenerator -> updateLoginInDatabase($this -> dataFromForm);
     }
 
     private function setUserDataAfterEdition()

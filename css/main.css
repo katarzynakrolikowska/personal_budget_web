@@ -677,7 +677,7 @@ tbody tr:last-child{
 	width:100%;
 }
 
-#rowSettings .btn-primary {
+.max-width{
 	width:100%;
 }
 
@@ -781,6 +781,10 @@ tbody tr:last-child{
 
 .settingsFormOptions {
 	font-size: 19px;
+}
+
+.modal {
+	padding-right: 17px;
 }
 
 

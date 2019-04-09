@@ -2,6 +2,20 @@
 
 class HtmlGenerator
 {
+    public function getHtmlOfOptionsForIncomeCategories($categories)
+    {
+        if (!isset($_SESSION['category'])) {
+            $_SESSION['category'] = null;
+        }
+        $html = self::getHtmlOfOptionsWithSelectedOption($categories, $_SESSION['category']);
+        
+        unset($_SESSION['category']);
+
+        return $html;
+
+
+    }
+
     public static function getHtmlOfOptionsWithSelectedOption($dataArray, $selectedItem)
     {
         $html = '';

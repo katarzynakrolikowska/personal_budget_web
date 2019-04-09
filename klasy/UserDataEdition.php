@@ -1,5 +1,5 @@
 <?php
-
+//nie potrzebna
 class UserDataEdition
 {
     protected $user = null;

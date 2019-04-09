@@ -1,35 +1,29 @@
 <?php
 
-class PasswordEdition extends UserDataEdition
+class PasswordEdition
 {
-    public function __construct($dataFromForm, $user, $dbo)
+    public function __construct($dataFromForm)
     {
-        parent:: __construct($user, $dbo);
         $this -> dataFromForm = $dataFromForm;
     }
 
-    public function editUserData()
+    public function editUserData($userDataQueryGenerator)
     {
         $editPasswordFormValidation = new EditPasswordFormValidation($this -> dataFromForm, PASSWORD_EDITION_FORM_FIELDS);
 
-        $message = $editPasswordFormValidation -> getMessageOfFormValidation($this -> user -> getId(), $this -> myDB);
+        $message = $editPasswordFormValidation -> getMessageOfFormValidation($userDataQueryGenerator);
 
         if ($message === ACTION_OK) {
-           $this -> updateUserDataInDatabase();
+           $this -> updateUserDataInDatabase($userDataQueryGenerator);
         }
 
         return $message;
     }
 
-    private function updateUserDataInDatabase()
+    private function updateUserDataInDatabase($userDataQueryGenerator)
     {
         $newPassword = TextTransformation::getHashText($this -> dataFromForm['newPassword']);
-        $query = 'UPDATE users SET password = :password WHERE id = :id';
-
-        $parametersToBind = array(':password' => $newPassword,
-                            ':id' => $this -> user -> getId());
-        
-        $this -> myDB -> executeQuery($query, $parametersToBind);
+        $userDataQueryGenerator -> updatePasswordInDatabase($newPassword);
     }
 
 }

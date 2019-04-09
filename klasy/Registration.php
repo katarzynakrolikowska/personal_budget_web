@@ -4,11 +4,14 @@ class Registration
 {
     private $dbo = null;
     private $dataArrayValidation = null;
+    private $userDataQueryGenerator = null;
 
     public function __construct($dbo)
     {
         $this -> dbo = $dbo;
         $this -> dataArrayValidation = new DataArrayValidation($_POST, REGISTRATION_FORM_FIELDS);
+        $this -> userDataQueryGenerator = new UserDataQueryGenerator($this -> dbo);
+
     }
 
     public function registerUser()
@@ -67,7 +70,7 @@ class Registration
     private function isUserExists()
     {
         $loginValidation = new LoginValidation($_POST['login']);
-        if ($loginValidation -> isLoginExists($this -> dbo)) {
+        if ($loginValidation -> isLoginAlreadyExistsInDatabase($this -> userDataQueryGenerator)) {
             return true;
         } else {
             return false;

@@ -20,9 +20,9 @@ class LoginValidation extends DataValidation
         }
     }
 
-    public function isLoginExists($dbo)
+    public function isLoginAlreadyExistsInDatabase($userDataQueryGenerator)
     {
-        $results = $this -> getUserDataAssignedToLogin($dbo);
+        $results = $this -> getUserDataAssignedToLogin($userDataQueryGenerator);
 
         if (sizeof($results) > 0) {
             $_SESSION['errorLogin'] = true;
@@ -32,13 +32,9 @@ class LoginValidation extends DataValidation
         }
     }
 
-    public function getUserDataAssignedToLogin($dbo)
+    public function getUserDataAssignedToLogin($userDataQueryGenerator)
     {
-        $query = 'SELECT id, username FROM users WHERE login = :login';
-        $myDB = new MyDB($dbo);
-        $parametersToBind = array(':login' => $this -> data);
-        
-        return $myDB -> getQueryResult($query, $parametersToBind);
+        return $userDataQueryGenerator -> getUserDataAssignedToLogin($this -> data);
     }
 
 }

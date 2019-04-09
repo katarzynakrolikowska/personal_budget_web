@@ -20,23 +20,22 @@ class PasswordValidation extends DataValidation
         }
     }
 
-    public function isCorrectPasswordAssignedToUser($userId, $myDB)
+    public function isPasswordAssignedToLogInUser($userDataQueryGenerator)
     {
-        $passwordFromDatabase = $this -> getPasswordFromDatabase($userId, $myDB);
-        if (password_verify($this -> data, $passwordFromDatabase)) {
+        $passwordFromDatabase = $userDataQueryGenerator -> getPasswordAssignedToLogInUser();
+        if ($this -> isPasswordAssignedToUser($passwordFromDatabase)) {
             return true;
         } else {
             return false;
         }
     }
 
-    private function getPasswordFromDatabase($userId, $myDB)
+    public function isPasswordAssignedToUser($passwordToCompare)
     {
-        $query = 'SELECT password FROM users WHERE id = :id';
-        $parametersToBind = array(':id' => $userId);
-        
-        $results = $myDB -> getQueryResult($query, $parametersToBind);
-        return $results[0]['password'];
+        if (password_verify($this -> data, $passwordToCompare)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
 }

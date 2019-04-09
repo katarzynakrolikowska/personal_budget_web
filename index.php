@@ -228,7 +228,7 @@ try {
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
 			break;
-		case 'deleteOptionConfirmed':
+		case 'deleteOptionUsed':
 			$portal -> deleteOptionWithoutValidation($editionContent, $optionIdToRemove);
 			$portal -> setMessage('Dane zostały zaktualizowane!');
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');

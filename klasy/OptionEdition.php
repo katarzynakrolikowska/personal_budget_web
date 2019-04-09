@@ -17,6 +17,7 @@ class OptionEdition
            $this -> updateData($incomeQueryGenerator);
         }
 
+        $_SESSION['test'] = $this -> dataFromForm['newOption'];
         return $message;
     }
 
