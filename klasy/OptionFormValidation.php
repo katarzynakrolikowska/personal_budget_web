@@ -22,7 +22,6 @@ class OptionFormValidation extends DataArrayValidation
     public function isNewOptionAlreadyAssignedToUser()
     {
         $this -> sendedFieldsFromForm['newOption'] = TextTransformation::getUppercaseFirstLetterAndLowercaseOtherLetters($this -> sendedFieldsFromForm['newOption']);
-        
 
         $optionValidation = new InputSelectValidation($this -> sendedFieldsFromForm['newOption'], 'newOption', $this -> optionsAssignedToUser);
 

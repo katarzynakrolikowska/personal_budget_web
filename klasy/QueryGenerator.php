@@ -17,5 +17,4 @@ class QueryGenerator
             return $this -> user = new User($user -> getId(), $user -> getName(), $user -> getLogin());
         }
     }
-
 }

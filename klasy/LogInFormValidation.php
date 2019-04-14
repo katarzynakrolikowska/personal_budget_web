@@ -2,11 +2,6 @@
 
 class LogInFormValidation extends DataArrayValidation
 {
-    public function __construct($sendedFieldsFromForm, $namesOfRequiredFields)
-    {
-        parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields);
-    }
-
     public function getMessageOfFormValidation($userDataQueryGenerator)
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {
@@ -55,5 +50,4 @@ class LogInFormValidation extends DataArrayValidation
             return false;
         }
     }
-
 }

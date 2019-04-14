@@ -41,7 +41,6 @@
 								<i class="fas fa-info-circle"></i>
 							</span>
 						</a>
-		
 					</div>				
 					
 					<div class="input-group mb-1 mt-3
@@ -119,7 +118,6 @@
 					<button type="submit" class="btn btn-default mt-4 text-white">Zarejestruj się</button>	
 				</form>
 			</div>
-			
 		</div>
 	</div>
 </div>

@@ -11,20 +11,24 @@ class PortalFront extends Portal
     {
         $this -> dbo = $this -> connect($host, $user, $pass, $db);
         $this -> loggedInUser = $this -> getActualUser();
-        $this -> balance = new Balance($this -> dbo);
-        if (isset($this -> loggedInUser)) {
-            $this -> settings = new Settings($this -> dbo, $this -> loggedInUser);
-        }
-        
+        $this -> initiateForLogInUser();
     }
 
-    
     public function getActualUser()
     {
         if (isset($_SESSION['loggedInUser'])) {
             return $_SESSION['loggedInUser'];
         } else {
             return null;
+        }
+    }
+
+    private function initiateForLogInUser()
+    {
+        if (isset($this -> loggedInUser)) {
+            $this -> balance = new Balance($this -> dbo, $this -> loggedInUser);
+            $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser);
+            $this -> settings = new Settings($this -> dbo, $this -> loggedInUser);
         }
     }
 
@@ -65,69 +69,67 @@ class PortalFront extends Portal
     public function getHtmlOfOptionsForIncomeCategories()
     {
         $this -> setIncomeCategoriesAssignedToUser();
+        $categories = $this -> getIncomeCategoriesAssignedToUser();
 
-        $htmlGenerator = new HtmlGenerator();
-
-        $categories = $this -> personalisedOptions -> getIncomeCategoriesAssignedToUser();
-        return $htmlGenerator -> getHtmlOfOptionsForIncomeCategories($categories);
+        return HtmlGenerator::getHtmlOfOptionsForIncomeCategories($categories);
     }
 
-    public function setIncomeCategoriesAssignedToUser()
+    private function setIncomeCategoriesAssignedToUser()
     {
-        $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser -> getId());
         $this -> personalisedOptions -> setIncomeCategoriesAssignedToUser($this -> loggedInUser);
     }
 
-    public function addIncome()
+    private function getIncomeCategoriesAssignedToUser()
     {
-        $incomeInsertion = new IncomeInsertion($this -> dbo, $this -> loggedInUser -> getId());
-        return $incomeInsertion -> addIncome();
+        return $this -> personalisedOptions -> getIncomeCategoriesAssignedToUser();
     }
 
     public function getHtmlOfOptionsForExpenseCategories()
     {
-        if (!isset($_SESSION['category'])) {
-            $_SESSION['category'] = null;
-        }
         $this -> setExpenseCategoriesAssignedToUser();
+        $categories = $this -> getExpenseCategoriesAssignedToUser();
 
-        $html = HtmlGenerator::getHtmlOfOptionsWithSelectedOption($this -> personalisedOptions -> getExpenseCategoriesAssignedToUser(), $_SESSION['category']);
-
-        unset($_SESSION['category']);
-
-        return $html;
+        return HtmlGenerator::getHtmlOfOptionsForExpenseCategories($categories);
     }
 
-    public function setExpenseCategoriesAssignedToUser()
-    {
-        $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser -> getId());
+    private function setExpenseCategoriesAssignedToUser()
+    { 
         $this -> personalisedOptions -> setExpenseCategoriesAssignedToUser($this -> loggedInUser);
+    }
+
+    private function getExpenseCategoriesAssignedToUser()
+    {
+        return $this -> personalisedOptions -> getExpenseCategoriesAssignedToUser();
     }
 
     public function getHtmlOfOptionsForPaymentMethods()
     {
-        if (!isset($_SESSION['paymentMethod'])) {
-            $_SESSION['paymentMethod'] = null;
-        }
         $this -> setPaymentMethodsAssignedToUser();
+        $methods = $this -> getPaymentMethodsAssignedToUser();
 
-        $html = HtmlGenerator::getHtmlOfOptionsWithSelectedOption($this -> personalisedOptions -> getPaymentMethodsAssignedToUser(), $_SESSION['paymentMethod']);
-
-        unset($_SESSION['paymentMethod']);
-        
-        return $html;
+        return HtmlGenerator::getHtmlOfOptionsForPaymentMethods($methods);
     }
 
-    public function setPaymentMethodsAssignedToUser()
+    private function setPaymentMethodsAssignedToUser()
     {
-        $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser -> getId());
         $this -> personalisedOptions -> setPaymentMethodsAssignedToUser($this -> loggedInUser);
+    }
+
+    private function getPaymentMethodsAssignedToUser()
+    {
+        return $this -> personalisedOptions -> getPaymentMethodsAssignedToUser();
+    }
+
+    public function addIncome()
+    {
+        $incomeAddition = new IncomeAddition($this -> dbo, $this -> loggedInUser);
+        return $incomeAddition -> addIncome();
     }
 
     public function addExpense()
     {
-        $expenseInsertion = new ExpenseInsertion($this -> dbo, $this -> loggedInUser -> getId());
-        return $expenseInsertion -> addExpense();
+        $expenseAddition = new ExpenseAddition($this -> dbo, $this -> loggedInUser);
+        return $expenseAddition -> addExpense();
     }
 
     public function setBalanceForCurrentMonth()
@@ -145,19 +147,19 @@ class PortalFront extends Portal
         $this -> balance -> setBalanceForCurrentYear();
     }
 
-    public function setBalanceForCustomPeriod()
+    public function getMessageOfBalanceSettingsForCustomPeriod()
     {
-        return $this -> balance -> setBalanceForCustomPeriod();
+        return $this -> balance -> getMessageOfBalanceSettingsForCustomPeriod();
     }
 
-    public function getHtmlOfIncomeTable()
+    public function getHtmlOfIncomesTableRows()
     {
-        return $this -> balance -> getHtmlOfIncomesTable();
+        return $this -> balance -> getHtmlOfIncomesTableRows();
     }
 
-    public function getHtmlOfExpensesTable()
+    public function getHtmlOfExpensesTableRows()
     {
-        return $this -> balance -> getHtmlOfExpensesTable();
+        return $this -> balance -> getHtmlOfExpensesTableRows();
     }
 
     public function getDifference()
@@ -175,6 +177,30 @@ class PortalFront extends Portal
         return $this -> balance -> getDataPointsOfExpensesChart();
     }
 
+    public function editIncome($incomeId)
+    {
+        $incomeEdition = new IncomeEdition($this -> dbo, $this -> loggedInUser);
+        return $incomeEdition -> editIncome($incomeId);
+    }
+
+    public function deleteIncome($incomeId)
+    {
+        $incomeDeletion = new IncomeDeletion($this -> dbo, $this -> loggedInUser);
+        $incomeDeletion -> deleteIncome($incomeId);
+    }
+
+    public function editExpense($expenseId)
+    {
+        $expenseEdition = new ExpenseEdition($this -> dbo, $this -> loggedInUser);
+        return $expenseEdition -> editExpense($expenseId);
+    }
+
+    public function deleteExpense($expenseId)
+    {
+        $expenseDeletion = new ExpenseDeletion($this -> dbo, $this -> loggedInUser);
+        $expenseDeletion -> deleteExpense($expenseId);
+    }
+
     public function editUserData($editedItem)
     {
         switch ($editedItem):
@@ -190,58 +216,54 @@ class PortalFront extends Portal
     public function getHtmlOfIncomeCategoriesList()
     {
         $this -> setIncomeCategoriesAssignedToUser();
-        return HtmlGenerator::getHtmlOfDataArrayList($this -> personalisedOptions -> getIncomeCategoriesAssignedToUser());
+        return HtmlGenerator::getHtmlOfDataArrayList($this -> getIncomeCategoriesAssignedToUser());
     }
 
     public function getHtmlOfPaymentMethodsList()
     {
         $this -> setPaymentMethodsAssignedToUser();
-        return HtmlGenerator::getHtmlOfDataArrayList($this -> personalisedOptions -> getPaymentMethodsAssignedToUser());
+        return HtmlGenerator::getHtmlOfDataArrayList($this -> getPaymentMethodsAssignedToUser());
     }
 
     public function getHtmlOfExpenseCategoriesList()
     {
         $this -> setExpenseCategoriesAssignedToUser();
-        return HtmlGenerator::getHtmlOfDataArrayList($this -> personalisedOptions -> getExpenseCategoriesAssignedToUser());
+        return HtmlGenerator::getHtmlOfDataArrayList($this -> getExpenseCategoriesAssignedToUser());
     }
 
     public function editOption($editionContent)
     {
-        $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser -> getId());
         switch ($editionContent):
             case 'income':
-                return $this -> settings -> editIncomeCategory($this -> personalisedOptions -> getIncomeCategoriesAssignedToUser());
+                return $this -> settings -> editIncomeCategory($this -> getIncomeCategoriesAssignedToUser());
             case 'expense':
-                return $this -> settings -> editExpenseCategory($this -> personalisedOptions -> getExpenseCategoriesAssignedToUser());
+                return $this -> settings -> editExpenseCategory($this -> getExpenseCategoriesAssignedToUser());
             case 'paymentMethod':
-                return $this -> settings -> editPaymentMethod($this -> personalisedOptions -> getPaymentMethodsAssignedToUser());
+                return $this -> settings -> editPaymentMethod($this -> getPaymentMethodsAssignedToUser());
         endswitch;
     }
 
     public function addOption($editionContent)
     {
-        $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser -> getId());
         switch ($editionContent):
             case 'income':
-                return $this -> settings -> addIncomeCategory($this -> personalisedOptions -> getIncomeCategoriesAssignedToUser());
+                return $this -> settings -> addIncomeCategory($this -> getIncomeCategoriesAssignedToUser());
             case 'expense':
-                return $this -> settings -> addExpenseCategory($this -> personalisedOptions -> getExpenseCategoriesAssignedToUser());
+                return $this -> settings -> addExpenseCategory($this -> getExpenseCategoriesAssignedToUser());
             case 'paymentMethod':
-                return $this -> settings -> addPaymentMethod($this -> personalisedOptions -> getPaymentMethodsAssignedToUser());
+                return $this -> settings -> addPaymentMethod($this -> getPaymentMethodsAssignedToUser());
         endswitch;
     }
 
     public function deleteOption($editionContent)
     {
-        $this -> personalisedOptions = new PersonalisedOptions($this -> dbo, $this -> loggedInUser -> getId());
-       
         switch ($editionContent):
             case 'income':
-                return $this -> settings -> deleteIncomeCategory($this -> personalisedOptions -> getIncomeCategoriesAssignedToUser());
+                return $this -> settings -> deleteIncomeCategory($this -> getIncomeCategoriesAssignedToUser());
             case 'expense':
-                return $this -> settings -> deleteExpenseCategory($this -> personalisedOptions -> getExpenseCategoriesAssignedToUser());
+                return $this -> settings -> deleteExpenseCategory($this -> getExpenseCategoriesAssignedToUser());
             case 'paymentMethod':
-                return $this -> settings -> deletePaymentMethod($this -> personalisedOptions -> getPaymentMethodsAssignedToUser());
+                return $this -> settings -> deletePaymentMethod($this -> getPaymentMethodsAssignedToUser());
         endswitch;
     }
 
@@ -256,8 +278,4 @@ class PortalFront extends Portal
                 return $this -> settings -> deletePaymentMethodWithoutValidation($optionIdToRemove);
         endswitch;
     }
-
-
-
-        
 }

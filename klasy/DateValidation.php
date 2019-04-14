@@ -3,7 +3,6 @@
 
 class DateValidation extends DataValidation
 {
-   
     private $dateModifier = null;
 
     public function __construct($data = '', $fieldName = '')
@@ -67,7 +66,6 @@ class DateValidation extends DataValidation
         $endDate = DateModifier::getLastDateOfCurrentMonth();
         
         if ($this -> isEarlierThanStartDate($startDate) || $this -> isLatterThanEndDate($endDate)) {
-            
             return true;
         } else {
             return false;
@@ -103,5 +101,4 @@ class DateValidation extends DataValidation
             return false;
         }
     }
-
 }

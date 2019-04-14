@@ -1,5 +1,3 @@
-
-
 <div class="row pl-3 m-0 containerHeaderMenu">
 	<div class="col py-3 my-2">
 		<header><h2><b><a href="index.php?action=showMainForLoginUser" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
@@ -57,7 +55,6 @@
 			
 			<li class="nav-item dropdown <?=$action == 'showSettings' ? 'active' : ''?>">
 				<a class="nav-link " href="index.php?action=showSettings&editionContent=userData" ><i class="icon-cog-alt"></i> Ustawienia</a>
-				
 			</li>
 			
 			<li class="nav-item" id="logOutItemNav">
@@ -66,7 +63,7 @@
 		</ul>
 		<?php 
 			if ($action === 'showBalanceForSelectedPeriod') {
-				require_once('templates/navHeaderBalanceSite.php');
+				require_once('templates/selectPeriodMenu.php');
 			}
 		?>
 	</div>

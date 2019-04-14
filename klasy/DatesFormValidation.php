@@ -42,7 +42,10 @@ class DatesFormValidation extends DataArrayValidation
 
     private function isChronologicDates()
     {
-        if ($this -> dateValidation -> isFirstDateEarlierThanSecondDate($this -> sendedFieldsFromForm['startDate'], $this -> sendedFieldsFromForm['endDate'])) {
+        $firstDate = $this -> sendedFieldsFromForm['startDate'];
+        $secondDate = $this -> sendedFieldsFromForm['endDate'];
+
+        if ($this -> dateValidation -> isFirstDateEarlierThanSecondDate($firstDate, $secondDate)) {
             return true;
         } else {
             return false;

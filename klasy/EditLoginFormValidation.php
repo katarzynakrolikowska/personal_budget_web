@@ -2,11 +2,6 @@
 
 class EditLoginFormValidation extends DataArrayValidation
 {
-    public function __construct($sendedFieldsFromForm, $namesOfRequiredFields)
-    {
-        parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields);
-    }
-
     public function getMessageOfFormValidation($userDataQueryGenerator)
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {
@@ -16,13 +11,17 @@ class EditLoginFormValidation extends DataArrayValidation
         if (!$this -> isValidDataFromEditLoginForm($userDataQueryGenerator)) {
 			return INVALID_DATA;
         }
+
+        if ($this -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
+            return LOGIN_ALREADY_EXISTS;
+        }
         
         return ACTION_OK;
     }
 
     private function isValidDataFromEditLoginForm($userDataQueryGenerator)
     {
-        if ($this -> isValidDataFromForm($this -> getValidationObjects()) && !$this -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
+        if ($this -> isValidDataFromForm($this -> getValidationObjects())) {
             return true;
         } else {
             return false;

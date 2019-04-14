@@ -1,7 +1,6 @@
 <script type="text/javascript">
     
     $(function(){
-
         var $inputSelectPaymentMethod = $('#settingsPaymentMethodSelect');
         var $inputSelectExpenseCategory = $('#settingsExpenseCategorySelect');
         var $inputOption = $('.inputOption');

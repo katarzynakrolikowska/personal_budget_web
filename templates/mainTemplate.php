@@ -26,7 +26,7 @@
     }
     
     if (isset($messageOK)) {
-        echo '<h4 class="my-5 text-center">'.$messageOK.'</h4>';
+        echo '<h4 class="my-4 text-center">'.$messageOK.'</h4>';
     }
 
     switch ($action):
@@ -53,18 +53,17 @@
             switch ($editionContent):
                 case 'income':
                     $htmlOfOptions = $portal -> getHtmlOfOptionsForIncomeCategories();
-                    require_once 'incomesSettingsForm.php';
+                    require_once 'templates/incomeCategoriesSettingsForm.php';
                     break;
                 case 'paymentMethod':
-                     
                 case 'expense':
                     $htmlOfPaymentMethods = $portal -> getHtmlOfOptionsForPaymentMethods();
-                    $htmlOfExpenseCategory = $portal -> getHtmlOfOptionsForExpenseCategories();
-                    require_once 'expensesSettingsForm.php';
+                    $htmlOfExpenseCategories = $portal -> getHtmlOfOptionsForExpenseCategories();
+                    require_once 'templates/expenseOptionsSettingsForm.php';
                     break;
                 case 'userData':
                 default:
-                    require_once 'userDataSettingsForm.php';
+                    require_once 'templates/userDataSettingsForm.php';
                     break;
             endswitch;
             break;
@@ -75,19 +74,17 @@
     ?>
     </div>
     <div class="row mx-0 footer mb-0">
-        <footer class="col  text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
+        <footer class="col text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
             <p class="text-muted">2018 &copy; fullWallet.pl</p>	
         </footer>	
     </div>
 
-
-    
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <?php
-	if (($portal -> getHtmlOfExpensesTable()) && ($action === 'showBalanceForSelectedPeriod')) {
+	if (($action === 'showBalanceForSelectedPeriod') && ($portal -> getHtmlOfExpensesTableRows())) {
         echo '<script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>';
         require_once('chartSettings.php');
     }
@@ -95,18 +92,16 @@
     if (isset($modal) && $modal === 'show') {
         switch ($editionContent):
             case 'income':
-                require_once('modalCautionIncomeCat.php');
+                require_once('templates/modalCautionIncomeCat.php');
                 break;
             case 'expense':
-                require_once('modalCautionExpenseCat.php');
+                require_once('templates/modalCautionExpenseCat.php');
                 break;
             case 'paymentMethod':
-                require_once('modalCautionPayMethod.php');
+                require_once('templates/modalCautionPayMethod.php');
                 break;
-        endswitch;
-    }
-
-    
+        endswitch;     
+    }    
 ?>
 
 <script type="text/javascript" src="js/personalBudget.js"></script>

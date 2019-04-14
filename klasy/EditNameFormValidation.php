@@ -2,11 +2,6 @@
 
 class EditNameFormValidation extends DataArrayValidation
 {
-    public function __construct($sendedFieldsFromForm, $namesOfRequiredFields)
-    {
-        parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields);
-    }
-
     public function getMessageOfFormValidation()
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {

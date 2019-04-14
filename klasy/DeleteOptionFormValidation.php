@@ -53,5 +53,4 @@ class DeleteOptionFormValidation
             return false;
         }
     }
-
 }

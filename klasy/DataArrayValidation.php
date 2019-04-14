@@ -21,7 +21,6 @@ class DataArrayValidation
         }
     }
 
-
     public function isRequiredFieldsFromFormMissing()
     {
         $isMissing = false;
@@ -32,7 +31,6 @@ class DataArrayValidation
                 $isMissing = true;
             }
         }
-
         if ($isMissing) {
              return true;
         } else {
@@ -53,7 +51,6 @@ class DataArrayValidation
         $userDataOk = true;
 
         foreach ($validationObjects as $validationObj) {
-            
             if (!$validationObj -> isValid()) {
                 $validationObj -> setSessionErrorForFormField();
                 $userDataOk = false;
@@ -70,5 +67,12 @@ class DataArrayValidation
             unset($_SESSION[$name]);
         }
     }
-    
+
+    public function unsetSessionErrorsOfFieldsFromForm()
+    {
+        foreach ($this -> sendedFieldsFromForm as $name => $value) {
+            $this -> dataValidation -> setFieldName($name);
+            $this -> dataValidation -> unsetSessionErrorOfFormField();
+        }
+    }   
 }

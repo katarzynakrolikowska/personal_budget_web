@@ -1,6 +1,6 @@
 
 <?php
-require_once 'templates/balanceModal.php';
+require_once 'templates/selectPeriodModal.php';
 
 if (isset($messageError)) {
     echo '<h6 class="error mt-4">'.$messageError.'</h6>';
@@ -26,5 +26,4 @@ if(empty($_SESSION['incomes']) && empty($_SESSION['expenses'])) {
 } else {
     require_once('templates/balanceDisplaying.php');
 }
-
 ?>

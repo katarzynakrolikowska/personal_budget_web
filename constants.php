@@ -24,7 +24,7 @@ define('REGISTRATION_FORM_FIELDS', array('username', 'login', 'password1', 'pass
 define('LOGIN_FORM_FIELDS', array('login', 'password'));
 define('INCOME_FORM_FIELDS', array('amount', 'date', 'category'));
 define('EXPENSE_FORM_FIELDS', array('amount', 'date', 'paymentMethod','category'));
-define('BALANCE_MODAL_FORM_FIELDS', array('startDate', 'endDate'));
+define('SELECT_PERIOD_MODAL_FORM_FIELDS', array('startDate', 'endDate'));
 define('NAME_EDITION_FORM_FIELD', array('username'));
 define('LOGIN_EDITION_FORM_FIELD', array('login'));
 define('PASSWORD_EDITION_FORM_FIELDS', array('oldPassword', 'newPassword', 'newPasswordRepeated'));

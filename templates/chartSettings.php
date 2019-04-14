@@ -3,9 +3,7 @@
 	$(document).ready(function () {
 		var chart = new CanvasJS.Chart("chartPieContainer", {
 			legend:{
-				
 				fontSize: 13
-				
 			},
 			animationEnabled: true,
 			
@@ -22,11 +20,7 @@
 				indexLabelWrap: false,
 				dataPoints: <?php echo json_encode($portal -> getDataPointsForExpensesChart(), JSON_NUMERIC_CHECK); ?>
 			}]
-			
 		});
-
 		chart.render();
    });
-
-	
 </script>

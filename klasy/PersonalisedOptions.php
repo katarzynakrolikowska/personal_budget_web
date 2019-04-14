@@ -2,13 +2,13 @@
 
 class PersonalisedOptions
 {
-    private $myDB = null;
-    private $userId = null;
+    private $dbo = null;
+    private $user = null;
 
-    public function __construct($dbo, $id)
+    public function __construct($dbo, $user)
     {
-        $this -> myDB = new MyDB($dbo);
-        $this -> userId = $id;
+        $this -> dbo = $dbo;
+        $this -> user = new User($user -> getId(), $user -> getName(), $user -> getLogin());
     }
 
     public function getIncomeCategoriesAssignedToUser()
@@ -22,11 +22,9 @@ class PersonalisedOptions
 
     public function setIncomeCategoriesAssignedToUser()
     {
-        $query = 'SELECT id, name FROM incomes_category_assigned_to_users WHERE user_id=:id';
+        $incomeCategoryQueryGenerator = new IncomeCategoryQueryGenerator($this -> dbo, $this -> user);
 
-        $parametersToBind = array(':id' => $this -> userId);
-
-        $_SESSION['incomeCategories'] = $this -> myDB -> getQueryResult($query, $parametersToBind);
+        $_SESSION['incomeCategories'] = $incomeCategoryQueryGenerator -> getIncomeCategoriesAssignedToUser();
     }
 
     public function getPaymentMethodsAssignedToUser()
@@ -46,22 +44,18 @@ class PersonalisedOptions
             return null;
         }
     }
+
     public function setExpenseCategoriesAssignedToUser()
     {
-        $query = 'SELECT id, name FROM expenses_category_assigned_to_users WHERE user_id=:id';
+        $expenseCategoryQueryGenerator = new ExpenseCategoryQueryGenerator($this -> dbo, $this -> user);
 
-        $parametersToBind = array(':id' => $this -> userId);
-
-        $_SESSION['expenseCategories'] = $this -> myDB -> getQueryResult($query, $parametersToBind);
+        $_SESSION['expenseCategories'] = $expenseCategoryQueryGenerator -> getExpenseCategoriesAssignedToUser();
     }
 
     public function setPaymentMethodsAssignedToUser()
     {
-        $query = 'SELECT id, name FROM payment_methods_assigned_to_users WHERE user_id=:id';
+        $paymentMethodQueryGenerator = new PaymentMethodQueryGenerator($this -> dbo, $this -> user);
 
-        $parametersToBind = array(':id' => $this -> userId);
-
-        $_SESSION['paymentMethods'] = $this -> myDB -> getQueryResult($query, $parametersToBind);
+        $_SESSION['paymentMethods'] = $paymentMethodQueryGenerator -> getPaymentMethodsAssignedToUser();
     }
-
 }

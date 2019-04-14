@@ -2,21 +2,17 @@
 
 class Settings
 {
-    private $dbo = null;
-    private $user = null;
     private $userDataQueryGenerator = null;
-    private $incomeQueryGenerator = null;
+    private $incomeCategoryQueryGenerator = null;
     private $paymentMethodQueryGenerator = null;
     private $expenseCategoryQueryGenerator = null;
 
     public function __construct($dbo, $user)
     {
         $this -> userDataQueryGenerator = new UserDataQueryGenerator($dbo, $user);
-        $this -> incomeQueryGenerator = new IncomeQueryGenerator($dbo, $user);
+        $this -> incomeCategoryQueryGenerator = new IncomeCategoryQueryGenerator($dbo, $user);
         $this -> paymentMethodQueryGenerator = new PaymentMethodQueryGenerator($dbo, $user);
         $this -> expenseCategoryQueryGenerator = new ExpenseCategoryQueryGenerator($dbo, $user);
-        
-        
     }
 
     public function editUserName()
@@ -44,21 +40,21 @@ class Settings
     {
         $incomeCategoryEdition = new OptionEdition($_POST);
 
-        return $incomeCategoryEdition -> editOption($optionsAssignedToUser, $this -> incomeQueryGenerator);
+        return $incomeCategoryEdition -> editOption($optionsAssignedToUser, $this -> incomeCategoryQueryGenerator);
     }
 
     public function addIncomeCategory($optionsAssignedToUser)
     {  
         $incomeCategoryAddition = new OptionAddition($_POST);
 
-        return $incomeCategoryAddition -> addOption($optionsAssignedToUser, $this -> incomeQueryGenerator);
+        return $incomeCategoryAddition -> addOption($optionsAssignedToUser, $this -> incomeCategoryQueryGenerator);
     }
     
     public function deleteIncomeCategory($optionsAssignedToUser)
     {
         $incomeCategoryDeletion = new OptionDeletion($_POST);
         
-        return $incomeCategoryDeletion -> deleteOption($optionsAssignedToUser, $this -> incomeQueryGenerator);
+        return $incomeCategoryDeletion -> deleteOption($optionsAssignedToUser, $this -> incomeCategoryQueryGenerator);
     }
 
     public function deleteIncomeCategoryWithoutValidation($optionIdToRemove)
@@ -66,7 +62,7 @@ class Settings
         $dataFromForm['selectedOption'] = $optionIdToRemove;
         $incomeCategoryDeletion = new OptionDeletion($dataFromForm);
         
-        return $incomeCategoryDeletion -> deleteOptionWithoutValidation($this -> incomeQueryGenerator);
+        return $incomeCategoryDeletion -> deleteOptionWithoutValidation($this -> incomeCategoryQueryGenerator);
     }
 
     public function editPaymentMethod($optionsAssignedToUser)
@@ -126,6 +122,4 @@ class Settings
         
         return $expenseCategoryDeletion -> deleteOptionWithoutValidation($this -> expenseCategoryQueryGenerator);
     }
-
-
 }

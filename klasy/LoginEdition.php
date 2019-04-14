@@ -2,6 +2,8 @@
 
 class LoginEdition
 {
+    private $dataFromForm = null;
+    
     public function __construct($dataFromForm)
     {
         $this -> dataFromForm = $dataFromForm;

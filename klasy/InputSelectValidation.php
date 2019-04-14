@@ -32,5 +32,4 @@ class InputSelectValidation extends DataValidation
         }
         return false;
     }
-    
 }

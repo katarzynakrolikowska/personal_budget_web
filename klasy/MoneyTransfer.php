@@ -34,34 +34,4 @@ class MoneyTransfer
     {
         return $this -> comment;
     }
-
-    public function setAmount($amount)
-    {
-        if (isset($amount)) {
-            $this -> amount = $amount;
-        }
-    }
-
-    public function setTransferDate($date)
-    {
-        if (isset($date)) {
-            $this -> date = $date;
-        }  
-    }
-
-    public function setCategory($category)
-    {
-        if (isset($category)) {
-            $this -> category = $category;
-        }
-    }
-
-    public function setComment($comment)
-    {
-        if (isset($comment)) {
-            $this -> comment = $comment;
-        } else {
-            $this -> comment = '';
-        }
-    }
 }

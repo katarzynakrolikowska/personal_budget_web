@@ -43,7 +43,14 @@ try {
 	if (isset($_GET['id'])) {
 		$optionIdToRemove = $_GET['id'];
 	}
-	
+
+	if (isset($_GET['category'])) {
+		$category = $_GET['category'];
+	}
+
+	if (isset($_GET['itemId'])) {
+		$itemId = $_GET['itemId'];
+	}
 
 	if (($action == 'showLoginForm' || $action == 'showRegistrationForm' || $action == 'showMain') && $portal -> loggedInUser){
 		header('Location:index.php?action=showMainForLoginUser');
@@ -136,21 +143,62 @@ try {
 					$portal -> setBalanceForCurrentYear();
 					break;
 				case 'customPeriod':
-					switch ($portal -> setBalanceForCustomPeriod()):
+					switch ($portal -> getMessageOfBalanceSettingsForCustomPeriod()):
 						case ACTION_OK:
 							header('Location:index.php?action=showBalanceForSelectedPeriod');
 							return;
 						case FORM_DATA_MISSING:
-							$portal -> setMessage('Uzupełnij wszystkie pola!');
+							$portal -> setMessage('Wszystkie pola są obowiązkowe!');
 							break;
 						case INVALID_DATA:
-							$portal -> setMessage('Nieprawidłowe dane!');
+							$portal -> setMessage('Wpisano nieprawidłowe dane!');
+							break;
 					endswitch;
 				default:
 					$portal -> setBalanceForCurrentMonth();
 			endswitch;
 			header('Location:index.php?action=showBalanceForSelectedPeriod');
 			break;
+		case 'editIncome':
+			switch($portal -> editIncome($itemId)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showBalanceForSelectedPeriod');
+			break;
+		case 'deleteIncome':
+			$portal -> deleteIncome($itemId);
+			$portal -> setMessage('Dane zostały zmienione!');
+			header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+			return;
+		case 'editExpense':
+			switch($portal -> editExpense($itemId)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showBalanceForSelectedPeriod');
+			break;
+		case 'deleteExpense':
+			$portal -> deleteExpense($itemId);
+			$portal -> setMessage('Dane zostały zmienione!');
+			header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+			return;
 		case 'editUserData':
 			switch ($portal -> editUserData($editedItem)):
 				case ACTION_OK:
@@ -162,6 +210,10 @@ try {
 					break;
 				case INVALID_DATA:
 					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+					break;
+				case LOGIN_ALREADY_EXISTS:
+					$portal -> setMessage('Operacja nie powiodła się! Podany login jest zajęty!');
+					break;
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
 			break;

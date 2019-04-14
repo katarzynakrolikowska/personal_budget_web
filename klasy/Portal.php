@@ -18,6 +18,4 @@ class Portal
             return null;
         }
     }
-
-    
 }

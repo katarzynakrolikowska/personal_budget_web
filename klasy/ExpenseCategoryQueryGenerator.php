@@ -2,9 +2,13 @@
 
 class ExpenseCategoryQueryGenerator extends QueryGenerator
 {
-    public function __construct($dbo, $user)
+    public function getExpenseCategoriesAssignedToUser()
     {
-        parent:: __construct($dbo, $user);
+        $query = 'SELECT id, name FROM expenses_category_assigned_to_users WHERE user_id=:id';
+
+        $parametersToBind = array(':id' => $this -> user -> getId());
+
+        return $this -> myDB -> getQueryResult($query, $parametersToBind);
     }
 
     public function editOptionInDatabase($optionId, $newOptionName)

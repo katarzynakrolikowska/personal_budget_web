@@ -2,6 +2,8 @@
 
 class PasswordEdition
 {
+    private $dataFromForm = null;
+    
     public function __construct($dataFromForm)
     {
         $this -> dataFromForm = $dataFromForm;
@@ -25,5 +27,4 @@ class PasswordEdition
         $newPassword = TextTransformation::getHashText($this -> dataFromForm['newPassword']);
         $userDataQueryGenerator -> updatePasswordInDatabase($newPassword);
     }
-
 }

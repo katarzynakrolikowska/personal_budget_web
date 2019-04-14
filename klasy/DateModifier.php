@@ -9,7 +9,6 @@ class DateModifier
     {
         self::$today = new DateTime();
         $this -> initDateObj($date);
-        
     }
 
     public function initDateObj($date)

@@ -2,14 +2,12 @@
 
 class LogOperation
 {
-    private $dbo =null;
     private $userDataAssignedToLogin = null;
     private $userDataQueryGenerator = null;
 
     public function __construct($dbo)
     {
-        $this -> dbo = $dbo;
-        $this -> userDataQueryGenerator = new UserDataQueryGenerator($this -> dbo);
+        $this -> userDataQueryGenerator = new UserDataQueryGenerator($dbo);
     }
 
     public function logIn()
@@ -22,7 +20,6 @@ class LogOperation
             $this -> setUserDataAssignedToLogin();
             $this -> setLoggedInUser();
         }
- 
          return $message;
     }
 

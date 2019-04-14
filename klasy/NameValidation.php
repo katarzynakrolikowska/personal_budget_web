@@ -19,6 +19,4 @@ class NameValidation extends DataValidation
             return false;
         }
     }
-    
-    
 }

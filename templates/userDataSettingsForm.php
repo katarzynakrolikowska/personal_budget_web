@@ -28,9 +28,8 @@
 
         <div class="row  mx-0 py-2 pl-3">
             <div class="col-12" >
-                <header>Mój login</header>
+                <header>Login</header>
             </div>
-    
             
         </div>
         <div class="row mx-0 pr-4 pl-3 mb-5">
@@ -52,9 +51,8 @@
 
         <div class="row mx-0 py-2 pl-3">
             <div class="col-12">
-                <header>Moje hasło</header>
+                <header>Hasło</header>
             </div>
-    
             
         </div>
         <div class="row mx-0 pr-4 pl-3 mb-5">
@@ -100,9 +98,7 @@
                     
                     </div>
                     <div class="input-group mb-3 editLoginField">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
-                        </div>
+                        
                         <input type="text" class="form-control" id="inputEditLogin" placeholder="Podaj nowy login" name="login">
                         <a class="input-group-prepend" data-toggle="popover" data-content="Login powinien składać sie z minimum 3 znaków, może zawierać litery (bez polskich znaków), cyfry oraz znaki _ lub .">
 							<span class="input-group-text">

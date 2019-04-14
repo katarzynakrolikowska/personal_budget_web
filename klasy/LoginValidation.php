@@ -36,5 +36,4 @@ class LoginValidation extends DataValidation
     {
         return $userDataQueryGenerator -> getUserDataAssignedToLogin($this -> data);
     }
-
 }

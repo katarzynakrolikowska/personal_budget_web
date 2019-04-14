@@ -36,8 +36,7 @@
 								echo $_SESSION['login'];
 								unset($_SESSION['login']);
 							}  
-						?>
-						>
+						?>>
 					</div>
 									
 					<div class="input-group mb-1 mt-3

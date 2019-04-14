@@ -113,7 +113,6 @@
                 </a>
             </div>
             
-            
             <div class="row mx-0">
                 <div class="col px-0">
                     <a href="index.php?action=showExpenseAddForm" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
@@ -124,7 +123,5 @@
                 </div>
             </div>
         </form>
-        
     </div>
-    
 </div>

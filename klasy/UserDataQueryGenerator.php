@@ -2,6 +2,34 @@
 
 class UserDataQueryGenerator extends QueryGenerator
 {
+    public function insertDataOfNewUserIntoDatabase($name, $login, $password)
+    {
+        $query = 'INSERT INTO users VALUES(NULL, :username, :password, :login)';
+        $parametersToBind = array(':username' => $name,
+                            ':password' => $password,
+                            ':login' => $login);
+        
+        $this -> myDB -> executeQuery($query, $parametersToBind);
+    }
+
+    public function setDefaultOptionsForNewUser($login)
+    {
+        $parametersToBind = array(':login' => $login);
+
+        $query = 'INSERT INTO expenses_category_assigned_to_users(user_id,              name) SELECT (SELECT id FROM users WHERE login=:login),
+                name FROM expenses_category_default as e_def ORDER BY     e_def.id';
+        $this -> myDB -> executeQuery($query, $parametersToBind);
+
+        $query = 'INSERT INTO incomes_category_assigned_to_users(user_id, name)         SELECT (SELECT id FROM users WHERE login=:login),
+                name FROM incomes_category_default as i_def ORDER BY i_def.id';
+        $this -> myDB -> executeQuery($query, $parametersToBind);
+
+        $query = 'INSERT INTO payment_methods_assigned_to_users(user_id, name)          SELECT (SELECT id FROM users WHERE login=:login),
+                name FROM payment_methods_default as pm_def ORDER BY pm_def.id';
+        $this -> myDB -> executeQuery($query, $parametersToBind);
+
+    }
+
     public function updateUserNameInDatabase($newName)
     {
         $query = 'UPDATE users SET username = :name WHERE id = :id';
@@ -50,7 +78,6 @@ class UserDataQueryGenerator extends QueryGenerator
         
         $this -> myDB -> executeQuery($query, $parametersToBind);
     }
-
 
     public function getPasswordAssignedToLogInUser()
     {
