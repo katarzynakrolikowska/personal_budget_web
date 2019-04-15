@@ -23,4 +23,18 @@ class User
         return $this -> id;
     }
     
+    public function getLogin()
+    {
+        return $this -> login;
+    }
+
+    public function setName($name)
+    {
+        $this -> name = $name;
+    }
+
+    public function setLogin($login)
+    {
+        $this -> login = $login;
+    }
 }

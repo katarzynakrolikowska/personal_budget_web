@@ -1,6 +1,6 @@
 
 <?php
-require_once 'templates/balanceModal.php';
+require_once 'templates/selectPeriodModal.php';
 
 if (isset($messageError)) {
     echo '<h6 class="error mt-4">'.$messageError.'</h6>';
@@ -13,10 +13,10 @@ if (isset($messageError)) {
         </h3></header>
     </div>
 </div>
+
 <?php
-/**/
 if(empty($_SESSION['incomes']) && empty($_SESSION['expenses'])) {
-    echo '<div class="row justify-content-center pt-5 mx-0">
+    echo '<div class="row justify-content-center pt-5 mx-0 balanceNoData">
             <div class="col-auto headerOption">
                 <header><h5 class="text-center">
                     W wybranym okresie nie wprowdziłeś danych!
@@ -24,7 +24,6 @@ if(empty($_SESSION['incomes']) && empty($_SESSION['expenses'])) {
             </div>
         </div>';
 } else {
-    require_once('templates/displayBalance.php');
+    require_once('templates/balanceDisplaying.php');
 }
-
 ?>

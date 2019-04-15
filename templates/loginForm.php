@@ -36,8 +36,7 @@
 								echo $_SESSION['login'];
 								unset($_SESSION['login']);
 							}  
-						?>
-						>
+						?>>
 					</div>
 									
 					<div class="input-group mb-1 mt-3
@@ -56,8 +55,8 @@
 					</div>
 					
 					<div class="form-check mt-3">
-						<input class="form-check-input" type="checkbox" value="" id="showPassword">
-						<label class="form-check-label" for="showPassword">
+						<input class="form-check-input showPasswordCheckbox" type="checkbox" value="" id="showPasswordCheckbox">
+						<label class="form-check-label" for="showPasswordCheckbox">
 							Pokaż hasło
 						</label>
 					</div>

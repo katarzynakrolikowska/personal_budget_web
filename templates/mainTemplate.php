@@ -20,13 +20,13 @@
 <body class="container-fluid p-0">
     <?php
     if (isset($_SESSION['loggedInUser'])) {
-        require_once 'headerForLoginUser.php';
+        require_once 'headerForLogInUser.php';
     } else {
-        require_once 'headerForLogoutUser.php';
+        require_once 'headerForLogOutUser.php';
     }
     
     if (isset($messageOK)) {
-        echo '<h4 class="my-5 text-center">'.$messageOK.'</h4>';
+        echo '<h4 class="my-4 text-center">'.$messageOK.'</h4>';
     }
 
     switch ($action):
@@ -37,39 +37,71 @@
             require_once 'templates/registrationForm.php';
             break;
         case 'showMainForLoginUser':
-            require_once 'templates/loginUserMainContent.php';
+            require_once 'templates/logInUserMainContent.php';
             break;
         case 'showIncomeAddForm':
-            $portal -> setSessionForIncomeOptionsAssignedToUser();
             require_once 'templates/incomeAddForm.php';
             break;
         case 'showExpenseAddForm':
-            $portal -> setSessionForExpenseOptionsAssignedToUser();
             require_once 'templates/expenseAddForm.php';
             break;
         case 'showBalanceForSelectedPeriod':
             require_once 'templates/balanceSite.php';
+            break;
+        case 'showSettings':
+            require_once 'templates/settingsMenu.php';
+            switch ($editionContent):
+                case 'income':
+                    $htmlOfOptions = $portal -> getHtmlOfOptionsForIncomeCategories();
+                    require_once 'templates/incomeCategoriesSettingsForm.php';
+                    break;
+                case 'paymentMethod':
+                case 'expense':
+                    $htmlOfPaymentMethods = $portal -> getHtmlOfOptionsForPaymentMethods();
+                    $htmlOfExpenseCategories = $portal -> getHtmlOfOptionsForExpenseCategories();
+                    require_once 'templates/expenseOptionsSettingsForm.php';
+                    break;
+                case 'userData':
+                default:
+                    require_once 'templates/userDataSettingsForm.php';
+                    break;
+            endswitch;
             break;
         case 'showMain':
         default:
             require_once 'templates/startContent.php';
     endswitch;
     ?>
-
-        <div class="row mx-0">
-            <footer class="col footer text-center py-2 <?=$action === 'showLoginForm' ? 'footerLogin' : ''?> <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
-                <p class="text-muted">2018 &copy; fullWallet.pl</p>	
-            </footer>	
-        </div>
     </div>
+    <div class="row mx-0 footer mb-0">
+        <footer class="col text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
+            <p class="text-muted">2018 &copy; fullWallet.pl</p>	
+        </footer>	
+    </div>
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <?php
-	if (($portal -> getHtmlOfExpensesTable()) && ($action === 'showBalanceForSelectedPeriod')) {
-		require_once('setChart.php');
-	}
+	if (($action === 'showBalanceForSelectedPeriod') && ($portal -> getHtmlOfExpensesTableRows())) {
+        echo '<script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>';
+        require_once('chartSettings.php');
+    }
+    
+    if (isset($modal) && $modal === 'show') {
+        switch ($editionContent):
+            case 'income':
+                require_once('templates/modalCautionIncomeCat.php');
+                break;
+            case 'expense':
+                require_once('templates/modalCautionExpenseCat.php');
+                break;
+            case 'paymentMethod':
+                require_once('templates/modalCautionPayMethod.php');
+                break;
+        endswitch;     
+    }    
 ?>
 
 <script type="text/javascript" src="js/personalBudget.js"></script>

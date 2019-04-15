@@ -1,320 +1,286 @@
-body{
-	position:relative;
+html {
+	height: 100%;
 }
 
-.container-fluid{
-	background:white;
-	font-family:'Varela Round', sans-serif;
+body {
+	display: table;
+	height: 100%;
+}
+
+.container-fluid {
+	background: white;
+	font-family: 'Varela Round', sans-serif;
 }
 
 .containerHeaderMenu,
 .containerHeader {
-	border-bottom:2px solid #F2F2F2;
-	background:#FAFAFA;
+	border-bottom: 2px solid #F2F2F2;
+	background: #FAFAFA;
 }
 
 
-.activeLink{
-	background:white;
-	padding:3px;
-	border-bottom:2px solid #585858;
+.activeLink {
+	background: white;
+	padding: 3px;
+	border-bottom: 2px solid #585858;
 }
 
-.containerHeaderMenu header a{
-	font-size:25px;
+.containerHeaderMenu header a {
+	font-size: 25px;
 }
 
-.containerHeader header a{
-	font-size:30px;
+.containerHeader header a {
+	font-size: 30px;
 }
 
 .containerHeaderMenu header a,
-.containerHeader header a{
-	color:#FE2E2E;
-	opacity:0.9;
-	background:white;
-	padding:10px;
+.containerHeader header a {
+	color: #FE2E2E;
+	opacity: 0.9;
+	background :white;
+	padding: 10px;
 	border: 1px solid #F2F2F2;
-	border-radius:5px;
+	border-radius: 5px;
 	font-family: 'Montserrat', sans-serif;
 
 }
 
 .containerHeaderMenu header a:hover,
-.containerHeader header a:hover{
-	color:#DF0101;
-	text-decoration:none;
+.containerHeader header a:hover {
+	color: #DF0101;
+	text-decoration: none;
 }
 
-.footer{
-	background:#F2F2F2;
-	color:#6E6E6E;
-	font-family:'Varela Round', sans-serif;
-	width:100%;
+.footer {
+	display: table-row;
+	height: 60px;
+	background: #F2F2F2;
+	color: #6E6E6E;
+	font-family: 'Varela Round', sans-serif;
+	width: 100%;
 }
 
-.footerSticky{
-	position:absolute;
-	bottom:0;
-	left:0;
-}
-
-img{
-	position:relative;
-	width:100%;
+img {
+	position: relative;
+	width: 100%;
 }
 
 #imgLeft,
-#imgRight{
-	height:300px;
+#imgRight {
+	height: 300px;
 }
 
-#textRightBg{
-	position:absolute;
-	top:0;
-	background:#01A9DB;
-	opacity:0.93;
-	width:100%;
-	height:100%;
+#textRightBg {
+	position: absolute;
+	top: 0;
+	background: #01A9DB;
+	opacity: 0.93;
+	width: 100%;
+	height: 100%;
 }
 
-#textLeftBg{
-	position:absolute;
-	top:0;
-	background:#FE2E2E;
-	opacity:0.93;
-	width:100%;
-	height:100%;	
+#textLeftBg {
+	position: absolute;
+	top: 0;
+	background: #FE2E2E;
+	opacity: 0.93;
+	width: 100%;
+	height: 100%;	
 }
 
 .textL,
-.textR{
-	position:absolute;
-	top:0;
-	color:white;
-	font-family:'Varela Round', sans-serif;
-	font-size:23px;
-	padding:15px;
-	text-align:center;
-	height:100%;
-	width:100%;	
+.textR {
+	position: absolute;
+	top: 0;
+	color: white;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 23px;
+	padding: 15px;
+	text-align: center;
+	height: 100%;
+	width: 100%;	
 }
 
 #startButtons p,
-#textCenter{
-	color:#6E6E6E;
-	font-family:'Varela Round', sans-serif;
-	font-size:30px;
-	background:white;
-	text-align:center;	
+#textCenter {
+	color: #6E6E6E;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 30px;
+	background: white;
+	text-align: center;	
 }
 
-#textCenter i{
-	color:#424242;
+#textCenter i {
+	color: #424242;
 }
 
-#startButtons{
-	padding-top:20px;
-	margin-bottom:60px;
+#startButtons {
+	padding-top: 20px;
+	margin-bottom: 60px;
 }
 
-#startButtons p{
-	font-size:22px;
-	margin-bottom:5px;
+#startButtons p {
+	font-size: 22px;
+	margin-bottom: 5px;
 }
 
-
-.headerLink{
-	color:#6E6E6E;
-	font-weight:bold;
+.headerLink {
+	color: #6E6E6E;
+	font-weight: bold;
 }
 
-.headerLink:hover{
-	text-decoration:none;
-	color:#424242;
-}
-
-
-
-@media (max-width: 767.98px) {
-	.navbar header h2 a{
-		font-family: 'Montserrat', sans-serif;
-	}
-	.headerLink span{
-		display:none;
-	}
-	
-	.headerLink i{
-		margin-bottom:16px;
-		
-	}
-	
-	.containerHeaderMenu{
-		display:none;
-	}
-	
-	.modal-dialog{
-		left:12%; 
-		width:75%;
-	}
-	
-	.settingsNav .navTitleText{
-		display:none;
-	}
-	
-	.settingsNav .iconPenExpense,
-	.settingsNav .iconPenIncome{
-		font-size:10px;
-		position:absolute;
-		top:13px;
-		left:32px;
-	}
-
-	.settingsNav .kiconPenIncome{
-		left:33px;
-		top:14px;
-	}
-}
-
-@media (min-width: 767.98px) {
-	.navbar header h2 a{
-		display:none;
-	}
-	
-	.navbar .show .mainSiteItem{
-	border-top: 1px solid #0489B1;
-	padding-top:5px;
-	}
-	
-	#logOutItemNav{
-		display:none;
-	}
-	
-	.settingsNav .iconPenExpense,
-	.settingsNav .iconPenIncome{
-		font-size:10px;
-		position:absolute;
-		top:16px;
-		left:32px;
-	}
-
-
-	.settingsNav .iconPenIncome{
-		left:33px;
-		top:15px;	
-	}
-	
-	#containerSettings .settingsNav li{
-		width:100% !important;
-	}
-	
-	
-}
-
-@media (min-width: 991.98px) {
-	.navbar .show .mainSiteItem{
-		border-top: none;
-		padding-top:0;
-	}
-	
-	.periodNavItem .dropdown-menu{
-		position:absolute !important;
-		left:-120px;
-	
-	}
-	
-	.periodNavItem span{
-		display:none;
-	}
-	
-}
-
-@media (max-width: 991.98px){
-	.modal-dialog{
-		left:17%; 
-		width:65%;
-	}
-}
-
-@media (max-width: 1199.98px) { 
-	.modal-dialog{
-		left:24%; 
-		width:55%;
-	}
-
+.headerLink:hover {
+	text-decoration: none;
+	color: #424242;
 }
 
 @media (max-width: 575.98px) {
-	.sideBg{
+	.sideBg {
 		display: none;
 	}
 
 	.containerHeader header a,
-	header a{
-		font-size:22px;		
+	header a {
+		font-size: 22px;		
 	}
 
-	.footerLogin{
-		bottom:-30px;
+	.footerLogin {
+		bottom: -30px;
 	}
 	
 	.textL,
-	.textR{
-		font-size:21px;
+	.textR {
+		font-size: 21px;
 	}
 	
-	.modal-dialog{
-		left:1%;
-		width:95%;	
+	.rowTables table {
+		font-size: 15px;
 	}
 	
-	.rowTables table{
-		font-size:15px;
+	.contentText {
+		font-size: 22px !important;
+		padding-top: 20px !important;
 	}
 	
-	.contentText{
-		font-size:22px !important;
-		padding-top:20px !important;
+	.resultText {
+		font-size: 28px !important;
+		padding-left: 10% !important;
+		padding-right: 10% !important;
 	}
 	
-	.resultText{
-		font-size:28px !important;
-		padding-left:10% !important;
-		padding-right:10% !important;
+	#resultComment {
+		font-size: 24px !important;
+	}	
+}
+
+@media (min-width: 767.98px) {
+	.navbar header h2 a {
+		display: none;
 	}
 	
-	#resultComment{
-		font-size:24px !important;
+	.navbar .show .mainSiteItem{
+	border-top: 1px solid #0489B1;
+	padding-top: 5px;
 	}
 	
+	#logOutItemNav {
+		display:none;
+	}
+	
+	.settingsNav .iconPenExpense,
+	.settingsNav .iconPenIncome {
+		font-size: 10px;
+		position: absolute;
+		top: 16px;
+		left: 32px;
+	}
+
+	.settingsNav .iconPenIncome {
+		left: 33px;
+		top: 15px;	
+	}
+	
+	#rowSettings .settingsNav li {
+		width: 100% !important;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.navbar header h2 a {
+		font-family: 'Montserrat', sans-serif;
+	}
+
+	.headerLink span{ 
+		display: none;
+	}
+	
+	.headerLink i {
+		margin-bottom: 16px;
+	}
+	
+	.containerHeaderMenu {
+		display: none;
+	}
+	
+	.settingsNav .navTitleText {
+		display: none;
+	}
+	
+	.settingsNav .iconPenExpense,
+	.settingsNav .iconPenIncome {
+		font-size: 10px;
+		position: absolute;
+		top: 13px;
+		left: 32px;
+	}
+
+	.settingsNav .kiconPenIncome {
+		left: 33px;
+		top: 14px;
+	}
 }
 
 
-
-#startButtons .btn{
-	width:60%;
-	border:none;
-	color:white;
-	font-family:'Varela Round', sans-serif;
+@media (min-width: 991.98px) {
+	.navbar .show .mainSiteItem {
+		border-top: none;
+		padding-top: 0;
+	}
+	
+	.periodNavItem .dropdown-menu {
+		position: absolute !important;
+		left: -120px;
+	}
+	
+	.periodNavItem span {
+		display: none;
+	}	
 }
 
-.btnRegister{
-	background:#01A9DB;
+#startButtons .btn {
+	width: 60%;
+	border: none;
+	color: white;
+	font-family: 'Varela Round', sans-serif;
 }
 
-.btnRegister:hover{
-	background:#0080FF;
+.btnRegister {
+	background: #01A9DB;
 }
 
-.btnLogin{
-	background:#FE2E2E;
+.btnRegister:hover {
+	background: #0080FF;
 }
 
-.btnLogin:hover{
-	background:#FF0000;
+.btnLogin {
+	background: #FE2E2E;
 }
 
-.login{
+.btnLogin:hover {
+	background: #FF0000;
+}
+
+.login {
 	height:370px;
 }
 
@@ -323,431 +289,436 @@ img{
 }
 
 .login .sideBg,
-.registration .sideBg{
-	background:#01A9DB;
-	opacity:0.6;
-	height:100%;
-	
+.registration .sideBg {
+	background: #01A9DB;
+	opacity: 0.6;
+	height: 100%;
 }
 
-h3{
-	font-family:'Varela Round', sans-serif;
-	padding-bottom:20px;
-	color:#585858;
+h3 {
+	font-family: 'Varela Round', sans-serif;
+	padding-bottom: 20px;
+	color: #585858;
 }
 
-h2{
-	margin-bottom:0;
+h2 {
+	margin-bottom: 0;
 }
+
 
 .formRegister i,
-#userLogin i{
-	width:14px;
+#userLogin i {
+	width: 14px;
 }
 
+.balanceEditForm,
 .formAddData a,
-.formRegister a{
-	cursor:pointer;
-	
+.formRegister a {
+	cursor: pointer;
 }
 
-
-.formRegister a span{
-	background:#FBFCFC;
-	border-left:0;
+.formRegister a span {
+	background: #FBFCFC;
+	border-left: 0;
 	border-bottom-right-radius: 4px !important;
 	border-top-right-radius: 4px !important;
 }
 
 .formAddData a span:hover,
-.formRegister a span:hover{
-	background:#F7F9F9;
-	
+.formRegister a span:hover {
+	background: #F7F9F9;
 }
 
-.formRegister input{
-	border-right:0;
+.formRegister input {
+	border-right: 0;
 }
 
 .input-group-prepend {
 	margin-right: 0;
 }
 
-#containerMain form .btn{
-	width:100%;
-	background:#01A9DB;
+#containerMain form .btn {
+	width: 100%;
+	background: #01A9DB;
 }
 
-
-#containerMain form .btn:hover{
-	background:#0080FF;
+#containerMain form .btn:hover {
+	background: #0080FF;
 }
 
 label {
-	color:#585858;
+	color: #585858;
 }
 
 .navbar {
-	opacity:0.85;
-	background:#01A9DB;
+	opacity: 0.85;
+	background: #01A9DB;
 }
 
-
-.nav-link{
-	color:#FAFAFA;
-	margin-left:5px;
-	margin-right:5px;
-	font-size:17px;
-	margin-bottom:3px;
-	margin-top:3px;	
+.nav-link {
+	color: #FAFAFA;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-size: 17px;
+	margin-bottom: 3px;
+	margin-top: 3px;	
 }
 
-.dropdown-item{
-	
-	font-size:17px;
+.dropdown-item {
+	font-size: 17px;
 }
 
-.navbar-toggler-icon{
-	color:white;
-	font-size:27px;
-	padding-top:7px;
+.navbar-toggler-icon {
+	color: white;
+	font-size: 27px;
+	padding-top: 7px;
 }
 
-.navbar-toggler{
-	
-	padding:0;
+.navbar-toggler {
+	padding: 0;
 }
 
-.navbar-toggler:focus{
-	
-	outline:none;
+.navbar-toggler:focus {
+	outline: none;
 }
 
-.navbar header h2 a{
-	font-size:22px;
-	color:#FE2E2E;
-	transition:all 0.3s ease-out;
-	background:white;
-	padding:5px;
+.navbar header h2 a {
+	font-size: 22px;
+	color: #FE2E2E;
+	transition: all 0.3s ease-out;
+	background: white;
+	padding: 5px;
 	border: 1px solid #F2F2F2;
-	border-radius:5px;
+	border-radius: 5px;
 }
 
-
-.navbar header h2 a:hover{
-	text-decoration:none;
-	font-size:24px;
-	transition:all 0.3s ease-out;
+.navbar header h2 a:hover {
+	text-decoration: none;
+	font-size: 24px;
+	transition: all 0.3s ease-out;
 }
 
-.navbar .show li{
-	padding-bottom:2px;
-	padding-top:2px;	
+.navbar .show li {
+	padding-bottom: 2px;
+	padding-top: 2px;	
 }
 
-.navbar .show #logOutItemNav{
-	padding-bottom:0;
+.navbar .show #logOutItemNav {
+	padding-bottom: 0;
 	border-top: 1px solid #0489B1;	
 }
 
-.navbar .show li:last-child a i{
-	padding-left:5px;
+.navbar .show li:last-child a i {
+	padding-left: 5px;
 }
 
 
 .dropdown-item:hover,
-.nav-link:hover{
-	color:white;
-	background:#0489B1;
-	border-radius:3px;
+.nav-link:hover {
+	color: white;
+	background: #0489B1;
+	border-radius: 3px;
 }
 
-.active .nav-link{
-	background:#0489B1;
-	border-radius:3px;
+.active .nav-link {
+	background: #0489B1;
+	border-radius: 3px;
 }
 
-.dropdown-menu{
-	background:#FAFAFA;
+.dropdown-menu {
+	background: #FAFAFA;
 }
 
-
-.contentBg{
-	position:absolute;
-	background:#FE2E2E;
-	opacity:0.86;
-	border-radius:3px;
-	top:15%;
-	left:15%;
-	height:70%;
-	width:70%;	
+.contentBg {
+	position: absolute;
+	background: #FE2E2E;
+	opacity: 0.86;
+	border-radius: 3px;
+	top: 15%;
+	left: 15%;
+	height: 70%;
+	width: 70%;	
 }
 
-.contentText{
-	top:15%;
-	left:15%;
-	height:70%;
-	width:70%;
-	position:absolute;
-	color:white;
-	text-align:center;
-	font-weight:bold;
-	font-size:28px;
-	z-index:10;
-	padding:20px;
-	padding-top:50px;	
+.contentText {
+	top: 15%;
+	left: 15%;
+	height: 70%;
+	width: 70%;
+	position: absolute;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 28px;
+	z-index: 10;
+	padding: 20px;
+	padding-top: 50px;	
 }
 
-.modal-footer{
-	justify-content:space-around;
+.modal-footer {
+	justify-content: space-around;
 }
 
-.modal-footer a{
-	width:40%;
+.modal-footer a {
+	width: 40%;
 }
 
-.modal-dialog{
-	position:absolute;
-	top:20%;
-	right:35%;
+.modal-header {
+	background: #FBFCFC;
 }
 
-.addDataRow{
-	padding:0;	
+.addDataRow {
+	padding: 0;	
 }
 
-.containerAddData{
-	padding:0;
+.containerAddData {
+	padding: 0;
 }
 
-.formAddData{
-	background:#F7F9F9;
-	padding:8% 0 0 0;
-	margin-top:0;
-	margin-bottom:10%;
-	font-family:'Varela Round', sans-serif;
+.formAddData {
+	background: #F7F9F9;
+	padding: 8% 0 0 0;
+	margin-top: 0;
+	margin-bottom: 10%;
+	font-family: 'Varela Round', sans-serif;
 }
 
-.formAddData h3{
-	margin-left:10%;
-	padding-bottom:5px;
+.formAddData h3 {
+	margin-left: 10%;
+	padding-bottom: 5px;
 }
 
-.formAddData .input-group{
-	width:80%;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top:4%;
-	margin-bottom:1%;
-	
+.formAddData .input-group {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 4%;
+	margin-bottom: 1%;
 }
 
 .formAddData .input-group-text,
 .formAddData select,
-.formAddData input{
-	border:none;
+.formAddData input {
+	border: none;
 	border-bottom: 1px solid #6E6E6E;
-	border-radius:0;
-	background:white;	
+	border-radius: 0;
+	background: white;	
 }
 
 .formAddData select:focus,
-.formAddData input:focus{
-	box-shadow:none;
+.formAddData input:focus {
+	box-shadow: none;
 	border-bottom: 2px solid #0B3861;
-	background:white;	
+	background: white;	
 }
 
-.inputGroupPrependFocus{
-	border:none !important;
+.inputGroupPrependFocus {
+	border: none !important;
 }
 
-.inputGroupTextFocus{
+.inputGroupTextFocus {
 	border-bottom: 2px solid #0B3861 !important;
-	background:white !important;	
+	background: white !important;	
 }
 
+.balanceEditForm button,
 .formAddData .reset,
-.formAddData button{
-	width:100%;	
-	font-size:20px;
-	border-radius:0;	
+.formAddData button {
+	width: 100%;	
+	font-size: 20px;
+	border-radius: 0;	
 }
 
-.formAddData .reset:hover{
-	background:#E64A19;
+.formAddData .reset:hover {
+	background: #E64A19;
 }
 
-.formAddData .reset{
-	background:#F4511E;
+.formAddData .reset {
+	background: #F4511E;
 }
 
-.formAddData [type="submit"]{
-	background:#43A047;
+.balanceEditForm [type="submit"],
+.formAddData [type="submit"] {
+	background: #43A047;
 }
 
-.formAddData [type="submit"]:hover{
-	background:#388E3C;
+.balanceEditForm [type="submit"]:hover,
+.formAddData [type="submit"]:hover {
+	background: #388E3C;
 }
 
-td{
-	width:33%;
-	
+th {
+	border-top: 2px solid #2E7D32 !important;
+	border-bottom: 2px solid #2E7D32 !important;
+	background: #66BB6A !important;
 }
 
-th{
-	border-top:2px solid #2E7D32 !important;
-	border-bottom:2px solid #2E7D32 !important;
-	background:#66BB6A !important;
-	font-weight: 400 !important;	
+td {
+	border-top: 1px solid #2E7D32 !important;
 }
 
-td{
-	border-top:1px solid #2E7D32 !important;
+tbody tr:last-child {
+	font-size: 20px;
 }
 
-tbody tr:last-child{
-	font-size:20px;
+#containerBalance h3 {
+	font-size: 32px;
 }
 
-#containerBalance h3{
-	font-size:32px;
+.rowTables h4 {
+	padding-left: 2%;
 }
 
-.rowTables h4{
-	padding-left:2%;
+#selectPeriodModal .modal-header {
+	color: #2C3E50;
 }
 
-#selectPeriodModal  .modal-header{
-	color:#2C3E50;
+.headerOption h3 {
+	text-align: center !important;
 }
 
-.headerOption h3{
-	text-align:center !important;
+.headerOption .customPeriodHeader {
+	font-size: 28px !important;
 }
 
-.headerOption .customPeriodHeader{
-	font-size:28px !important;
+#resultBg {
+	background: #F5F5F5;
+	height: 300px;
+	margin-bottom: 10%;
+	border-radius: 4px;
+	border: 1px solid #E6E6E6;	
 }
 
-#resultBg{
-	background:#F5F5F5;
-	height:300px;
-	margin-bottom:10%;
-	border-radius:4px;
-	border:1px solid #E6E6E6;	
+.resultText {
+	height: 50%;
+	text-align: center;
+	font-size: 35px;
+	padding-top: 5%;
+	font-weight: 700;
+	color: white;
+	margin: 30px;
+	border-radius: 4px;
 }
 
-.resultText{
-	height:50%;
-	text-align:center;
-	font-size:35px;
-	padding-top:5%;
-	font-weight:700;
-	color:white;
-	margin:30px;
-	border-radius:4px;
+#resultComment {
+	color: #424242;
+	font-size: 27px;
 }
 
-#resultComment{
-	color:#424242;
-	font-size:27px;
+.balanceNoData {
+	height: 400px !important;
 }
 
-.footerBalance{
-	bottom:-400px;
+#chartPieContainer {
+	height: 300px;
 }
 
-
-#chartContainer{
-	height:300px;
-	
+.rowChart {
+	margin-bottom: 100px;
 }
 
-.rowChart{
-	margin-bottom:100px;
+.colSettingsMain {
+	border-radius: 4px;
+	background: #F1F8E9;
+	margin-bottom: 100px !important;	
 }
 
-
-#containerSettings .colMyAccount{
-	border-radius:4px;
-	background:#F1F8E9;
-	margin-bottom:100px !important;	
+.hideItem {
+	display: none;
 }
 
-
-#containerSettings .hideItem{
-	display:none;
+.colSettingsMain .btnSave {
+	background: #43A047;
+	width: 100%;
 }
 
-
-#containerSettings .colMyAccount .btnSave{
-	background:#43A047;
-	width:100%;	
+.max-width {
+	width: 100%;
 }
 
-
-#containerSettings .colMyAccount .btnSave:hover{
-	background:#388E3C;	
+.colSettingsMain .btnSave:hover {
+	background: #388E3C;	
 }
 
-#containerSettings .colMyAccount .expenseUser,
-#containerSettings .colMyAccount .incomeUser,
-#containerSettings .colMyAccount .dataUser{
-	font-size:18px;	
+.colSettingsMain .expenseUser,
+.colSettingsMain .incomeUser,
+.colSettingsMain .dataUser {
+	font-size: 18px;	
 }
 
-#containerSettings .colMyAccount .dataUser span{
-	font-size:19px;
-	margin-left:5px;	
+.colSettingsMain .dataUser span{
+	font-size: 19px;
+	margin-left: 5px;	
 }
 
-#containerSettings .headerMyExpenses,
-#containerSettings .headerMyIncomes,
-#containerSettings .headerMyData{
-	border-top:2px solid #81C784;
-	width:100%;
-	background:#C8E6C9;
-	font-size:26px;
-	color:#424242;	
+.headerMyExpenses,
+.headerMyIncomes,
+.headerMyData {
+	width: 100%;
+	background: #C8E6C9;
+	font-size: 24px;
+	color: #424242;	
 }
-
 
 .settingsNav {
-	background:#81C784;
+	background: #81C784;
 }
 
-#containerSettings .settingsNav .active{
-	background:#4CAF50;
+.settingsNav .active {
+	background: #4CAF50;
 }
 
-#containerSettings .settingsNav li a{
-	margin:0;	
+.settingsNav li a {
+	margin: 0;	
 }
 
-
-#containerSettings .settingsNav .nav-link:hover{
-	border-radius:0;
-	background:#4CAF50;
+.settingsNav .nav-link:hover {
+	border-radius: 0;
+	background: #4CAF50;
 }
 
 .settingsNav .navLinkIncome,
 .settingsNav .navLinkExpense,
 .settingsNav .navLinkData{
-	position:relative;
+	position: relative;
 }
 
-.settingsNav .navTitleText{
-	margin-left:5px;
+.settingsNav .navTitleText {
+	margin-left: 5px;
 }
 
-#settingsModal p{
-	font-size:28px;
+#settingsModal p {
+	font-size: 28px;
 }
 
-.error{
-	color:#F44336 !important;
-	text-align:center;
+.colSettingsMain .inputLabel {
+	font-size: 20px;
+}
+
+.menuDots {
+	padding: 6px;
+	font-size: 23px;
+	color: #2C3E50;
+	cursor: pointer;
+	border-radius: 4px;
+	background: #a7d6a8;
+}
+
+#containerUserData .menuDots {
+	background: #cae6ca;
+}
+
+.menuDots:hover {
+	background: #9FD3A1;
+}
+
+#containerUserData .menuDots:hover {
+	background: #b9deb9;
+}
+
+.error {
+	color: #F44336 !important;
+	text-align: center;
 }
 
 .errorBorder {
@@ -756,7 +727,40 @@ tbody tr:last-child{
 }
 
 .newUserInfo {
-	text-align:center;
-	margin-top:50px;
-	padding:0;
+	text-align: center;
+	margin-top: 50px;
+	padding: 0;
 }
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.settingsFormOptions {
+	font-size: 19px;
+}
+
+.cellArrowsIcon {
+	font-size: 18px;
+	width: 55px !important;
+	text-align: center;
+}
+
+.detailedRow td {
+	font-size: 14px;
+}
+
+.menuDotsBalance,
+.cellArrowsIcon span {
+	cursor: pointer;
+}
+
+#settingsIncomeModal {
+	right: 0;
+	padding: 0;
+}
+
+
+
+
+

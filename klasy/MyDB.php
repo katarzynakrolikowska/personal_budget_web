@@ -28,5 +28,4 @@ class MyDB
         }
         $command -> execute();
     }
-
 }

@@ -14,11 +14,4 @@ class Expense extends MoneyTransfer
     {
         return $this -> paymentMethod;
     }
-
-    public function setPaymentMethod($paymentMethod)
-    {
-        if (isset($paymentMethod)) {
-            $this -> paymentMethod = $paymentMethod;
-        }
-    }
 }

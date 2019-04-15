@@ -43,7 +43,6 @@
             <a class="btn btn-lg py-2 btnRegister shadow" href="index.php?action=showRegistrationForm" role="button"><i class="fas fa-clipboard-list"></i> Zarejestruj się</a>
             </div>
         
-        
         <div class="col-12 col-md-6 text-center">
             <p>Masz już konto?</p>
             <a class="btn btn-lg py-2 btnLogin shadow" href="index.php?action=showLoginForm" role="button"><i class="fas fa-sign-in-alt"></i> Zaloguj się</a>

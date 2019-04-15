@@ -1,12 +1,9 @@
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function () {
 		var chart = new CanvasJS.Chart("chartPieContainer", {
 			legend:{
-				
 				fontSize: 13
-				
 			},
 			animationEnabled: true,
 			
@@ -23,11 +20,7 @@
 				indexLabelWrap: false,
 				dataPoints: <?php echo json_encode($portal -> getDataPointsForExpensesChart(), JSON_NUMERIC_CHECK); ?>
 			}]
-			
 		});
-
 		chart.render();
    });
-
-	
 </script>

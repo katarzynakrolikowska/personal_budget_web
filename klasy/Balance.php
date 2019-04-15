@@ -2,16 +2,15 @@
 
 class Balance
 {
-    private $dbo = null;
-    private $myDB = null;
-
     private $startDate = null;
     private $endDate = null;
+    private $incomeQueryGenerator = null;
+    private $expenseQueryGenerator = null;
 
-    public function __construct($dbo)
+    public function __construct($dbo, $user)
     {
-        $this -> dbo = $dbo;
-        $this -> myDB = new MyDB($this -> dbo);
+        $this -> incomeQueryGenerator = new IncomeQueryGenerator($dbo, $user);
+        $this -> expenseQueryGenerator = new ExpenseQueryGenerator($dbo, $user);
         $this -> initDefaultDateRangeOfBalance();
     }
 
@@ -43,18 +42,22 @@ class Balance
         $this -> setBalance();
     }
 
+    public function getMessageOfBalanceSettingsForCustomPeriod()
+    {
+        $datesFormValidation = new DatesFormValidation($_POST, SELECT_PERIOD_MODAL_FORM_FIELDS);
+
+         if ($datesFormValidation -> getMessageOfDatesFormValidation() === ACTION_OK) {
+            $this -> setBalanceForCustomPeriod();
+        }
+        return $datesFormValidation -> getMessageOfDatesFormValidation();
+    }
+
     public function setBalanceForCustomPeriod()
     {
-        $datesFormValidation = new DatesFormValidation($_POST, BALANCE_MODAL_FORM_FIELDS);
-
-        if ($datesFormValidation -> getMessageOfDatesFormValidation() === ACTION_OK) {
-            $this -> startDate = $_POST['startDate'];
-            $this -> endDate =  $_POST['endDate'];
-            $this -> setHeader('Twój bilans za wybrany okres <br />(od '.$this -> startDate.' do '.$this -> endDate.')');
-            $this -> setBalance();
-        }
-
-        return $datesFormValidation -> getMessageOfDatesFormValidation();
+        $this -> startDate = $_POST['startDate'];
+        $this -> endDate =  $_POST['endDate'];
+        $this -> setHeader('Twój bilans za wybrany okres <br />(od '.$this -> startDate.' do '.$this -> endDate.')');
+        $this -> setBalance();
     }
 
     public function setHeader($text)
@@ -66,7 +69,6 @@ class Balance
     {
         if (isset($_SESSION['balanceHeader'])) {
             $header = $_SESSION['balanceHeader'];
-            unset($_SESSION['balanceHeader']);
             return $header;
         } else {
             return null;
@@ -75,8 +77,33 @@ class Balance
 
     private function setBalance()
     {
+        $this -> setDatesOfBalance();
         $this -> setIncomes();
         $this -> setExpenses();
+    }
+
+    private function setDatesOfBalance()
+    {
+        $_SESSION['startDate'] = $this -> startDate;
+        $_SESSION['endDate'] = $this -> endDate;
+    }
+
+    private function getStartDate()
+    {
+        if (isset($_SESSION['startDate'])) {
+            return $_SESSION['startDate'];
+        } else {
+            return null;
+        }
+    }
+
+    private function getEndDate()
+    {
+        if (isset($_SESSION['endDate'])) {
+            return $_SESSION['endDate'];
+        } else {
+            return null;
+        }
     }
 
     private function setIncomes()
@@ -85,14 +112,8 @@ class Balance
     }
 
     private function getIncomesFromDatabase()
-    {
-        $query = 'SELECT icu.name, SUM(i.amount) as iSum FROM incomes as i, incomes_category_assigned_to_users as icu WHERE icu.user_id=i.user_id AND icu.id = i.income_category_assigned_to_user_id AND i.user_id=:userID AND i.date_of_income>=:startDate AND i.date_of_income<=:endDate GROUP BY icu.name ORDER BY iSUM DESC';
-
-        $parametersToBind = array(':userID' => $_SESSION['loggedInUser'] ->                                 getId(),
-                                    ':startDate' => $this -> startDate,
-                                    ':endDate' => $this -> endDate);
-        
-        return $this -> myDB -> getQueryResult($query, $parametersToBind);
+    {      
+        return $this -> incomeQueryGenerator -> getIncomesGroupedByCategoryForSelectedPeriod($this -> startDate, $this -> endDate);
     }
 
     private function setExpenses()
@@ -102,29 +123,44 @@ class Balance
 
     private function getExpensesFromDatabase()
     {
-        $query = 'SELECT ecu.name, SUM(e.amount) as eSum FROM expenses as e, expenses_category_assigned_to_users as ecu WHERE ecu.user_id=e.user_id AND ecu.id = e.expense_category_assigned_to_user_id AND e.user_id=:userID AND e.date_of_expense>=:startDate AND e.date_of_expense<=:endDate GROUP BY ecu.name ORDER BY eSUM DESC';
-
-        $parametersToBind = array(':userID' => $_SESSION['loggedInUser'] ->                                 getId(),
-                                    ':startDate' => $this -> startDate,
-                                    ':endDate' => $this -> endDate);
-        
-        return $this -> myDB -> getQueryResult($query, $parametersToBind);
+        return $this -> expenseQueryGenerator -> getExpensesGroupedByCategoryForSelectedPeriod($this -> startDate, $this -> endDate);
     }
 
-    public function getHtmlOfIncomesTable()
+    public function getHtmlOfIncomesTableRows()
     {
+        $incomes = $this -> getIncomes();
         $html = '';
-        if ($_SESSION['incomes']) {
-            foreach ($_SESSION['incomes'] as $income) {
-                $incomeAmount = AmountModifier::getNumberFormatWithSpace($income['iSum']);
-                $html .= '<tr><td>'.$income['name'].'</td><td class="text-right"><b>'.$incomeAmount.'</b></td></tr>';
-            }
+        $index = 1;
+
+        if ($incomes) {
             $sum = AmountModifier::getNumberFormatWithSpace($this -> getSumOfIncomes());
-            $html .= '<tr><td><b>RAZEM</b></td><td class="text-right"><b>'.$sum.'</b></td></tr>';
-            return $html;
+
+            foreach ($incomes as $income) {
+                $html .= HtmlGenerator::getHtmlOfSummedIncomesTableRow($income, $index);
+
+                $deteiledIncomes = $this -> getDetailedIncomesOfSelectedCategory($income['name']);
+
+                $html .= HtmlGenerator::getHtmlOfDetailedIncomesRows($deteiledIncomes, $index);
+
+                $index ++;
+            }
+            $html .= HtmlGenerator::getHtmlOfSummaryRow($sum);
+        }
+        return $html;
+    }
+
+    private function getIncomes()
+    {
+        if (isset($_SESSION['incomes'])) {
+            return $_SESSION['incomes'];
         } else {
             return null;
         }
+    }
+
+    private function getDetailedIncomesOfSelectedCategory($category)
+    {
+        return $this -> incomeQueryGenerator -> getDetailedIncomesOfSelectedCategoryAndPeriod($category, $this -> getStartDate(), $this -> getEndDate());
     }
 
     private function getSumOfIncomes()
@@ -138,18 +174,33 @@ class Balance
         return $sum;
     }
 
-
-    public function getHtmlOfExpensesTable()
+    public function getHtmlOfExpensesTableRows()
     {
+        $expenses = $this -> getExpenses();
         $html = '';
-        if (isset($_SESSION['expenses']) && (!empty($_SESSION['expenses']))) {
-            foreach ($_SESSION['expenses'] as $expense) {
-                $expenseAmount = AmountModifier::getNumberFormatWithSpace($expense['eSum']);
-                $html .= '<tr><td>'.$expense['name'].'</td><td class="text-right"><b>'.$expenseAmount.'</b></td></tr>';
-            }
+        $index = 1;
 
-            $html .= '<tr><td><b>RAZEM</b></td><td class="text-right"><b>'.$this -> getSumOfExpenses().'</b></td></tr>';
-            return $html;
+        if ($expenses) {
+            $sum = AmountModifier::getNumberFormatWithSpace($this -> getSumOfExpenses());
+
+            foreach ($expenses as $expense) {
+                $html .= HtmlGenerator::getHtmlOfSummedExpensesTableRow($expense, $index);
+
+                $deteiledExpenses = $this -> getDetailedExpensesOfSelectedCategory($expense['name']);
+
+                $html .= HtmlGenerator::getHtmlOfDetailedExpensesRows($deteiledExpenses, $index);
+
+                $index ++;
+            }
+            $html .= HtmlGenerator::getHtmlOfSummaryRow($sum);
+        }
+        return $html;
+    }
+
+    private function getExpenses()
+    {
+        if (isset($_SESSION['expenses'])) {
+            return $_SESSION['expenses'];
         } else {
             return null;
         }
@@ -163,13 +214,18 @@ class Balance
                 $sum += $expense['eSum'];
             }
         }
-        return AmountModifier::getNumberFormatWithSpace($sum);
+        return $sum;
+    }
+
+    private function getDetailedExpensesOfSelectedCategory($category)
+    {
+        return $this -> expenseQueryGenerator -> getDetailedExpensesOfSelectedCategoryAndPeriod($category, $this -> getStartDate(), $this -> getEndDate());
     }
 
     public function getDifference()
     {
-        $incomes = (float)$this -> getSumOfIncomes();
-        $expenses = (float)$this -> getSumOfExpenses();
+        $incomes = $this -> getSumOfIncomes();
+        $expenses = $this -> getSumOfExpenses();
 
         return AmountModifier::getNumberFormatWithSpace($incomes - $expenses);
     }
@@ -185,7 +241,6 @@ class Balance
                 $chartGenerator -> setDataPoint($point);
             }
         }
-        
         return $chartGenerator -> getDataPoints();
     }
 }

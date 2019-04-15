@@ -23,9 +23,12 @@
                         unset($_SESSION['amount']);
                     } 
                 ?>>
-                <div class="input-group-prepend ">
-                    <span class="input-group-text" id="amountExpense"><i class="fas fa-pen-alt" ></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz liczbę większą od zera.">
+                    
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
            						
             <div class="input-group 
@@ -44,9 +47,12 @@
                         echo date('Y-m-d');
                     }
                 ?>>
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                </div>
+                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
+                    
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
            	
             <div class="input-group 
@@ -59,19 +65,15 @@
                 <select class="custom-select" id="paymentMethod" name="paymentMethod">
                     <option disabled selected value="n">Wybierz metodę płatności</option>
                     <?php
-                        foreach ($_SESSION['paymentMethods'] as $method) {
-                            if (isset($_SESSION['paymentMethod']) && ($_SESSION['paymentMethod'] == $method['id'])) {
-                                echo '<option value='.$method['id'].' selected>'.$method['name'].'</option>';
-                                unset($_SESSION['paymentMethod']);
-                            } else {
-                                echo '<option value='.$method['id'].'>'.$method['name'].'</option>';
-                            }
-                        }
+                        echo $portal -> getHtmlOfOptionsForPaymentMethods();
                     ?>
                 </select>
-                <div class="input-group-prepend ">
-                    <span class="input-group-text " id="paymentMethods"><i class="fas fa-pen-alt "></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz metodę płatności.">
+                
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
             
             <div class="input-group 
@@ -84,19 +86,15 @@
                 <select class="custom-select" id="category" name="category">
                     <option disabled selected>Wybierz kategorię</option>
                     <?php
-                        foreach ($_SESSION['expenseCategories'] as $category) {
-                            if (isset($_SESSION['category']) && ($_SESSION['category'] == $category['id'])) {
-                                echo '<option value='.$category['id'].' selected>'.$category['name'].'</option>';
-                                unset($_SESSION['category']);
-                            } else {
-                                echo '<option value='.$category['id'].'>'.$category['name'].'</option>';
-                            }
-                        }
+                        echo $portal -> getHtmlOfOptionsForExpenseCategories();
                     ?>
                 </select>
-                <div class="input-group-prepend ">
-                    <span class="input-group-text " id="categoriesExpense"><i class="fas fa-pen-alt "></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">
+                
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
             					
             <div class="input-group ">
@@ -107,15 +105,17 @@
                         unset($_SESSION['comment']);
                     } 
                 ?>>
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
-                </div>
+                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest opcjonalne.">
+                
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
-            
             
             <div class="row mx-0">
                 <div class="col px-0">
-                    <a href="#" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
+                    <a href="index.php?action=showExpenseAddForm" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
                 </div>
             
                 <div class="col px-0">
@@ -123,7 +123,5 @@
                 </div>
             </div>
         </form>
-        
     </div>
-    
 </div>

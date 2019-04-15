@@ -11,7 +11,11 @@ try {
 		$action = $_GET['action'];
 	}
 
-	if (isset($_GET['msg'])) {
+	if ($portal -> loggedInUser) {
+		$username = $portal -> loggedInUser -> getName();
+	}
+
+	if (isset($_GET['result'])) {
 		$messageOK = $portal -> getMessage();
 	} else {
 		$messageError = $portal -> getMessage();
@@ -21,9 +25,31 @@ try {
 		$period = $_GET['period'];
 	}
 	
+		
+	if (isset($_GET['editedItem'])) {
+		$editedItem = $_GET['editedItem'];
+	}
 
-	if ($portal -> loggedInUser) {
-		$username = $portal -> loggedInUser -> getName();
+	if (isset($_GET['editionContent'])) {
+		$editionContent = $_GET['editionContent'];
+	} else {
+		$editionContent = 'userData';
+	}
+	
+	if (isset($_GET['modal'])) {
+		$modal = $_GET['modal'];
+	}
+
+	if (isset($_GET['id'])) {
+		$optionIdToRemove = $_GET['id'];
+	}
+
+	if (isset($_GET['category'])) {
+		$category = $_GET['category'];
+	}
+
+	if (isset($_GET['itemId'])) {
+		$itemId = $_GET['itemId'];
 	}
 
 	if (($action == 'showLoginForm' || $action == 'showRegistrationForm' || $action == 'showMain') && $portal -> loggedInUser){
@@ -31,7 +57,7 @@ try {
 		return;
 	}
 
-	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalance' || $action == 'showMainForLoginUser') && !($portal -> loggedInUser)){
+	if (($action == 'showIncomeAddForm' || $action == 'showExpenseAddForm' || $action == 'showBalanceForSelectedPeriod' || $action == 'showMainForLoginUser' || $action == 'showSettings') && !($portal -> loggedInUser)){
 		header('Location:index.php?action=showMain');
 		return;
 	}
@@ -61,7 +87,7 @@ try {
 			switch ($portal -> registerUser()):
 				case ACTION_OK:
 					$portal -> setMessage('Konto zostało założone!');
-					header('Location:index.php?action=showLoginForm&msg=OK');
+					header('Location:index.php?action=showLoginForm&result=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wszystkie dane!');
@@ -82,7 +108,7 @@ try {
 			switch ($portal -> addIncome()):
 				case ACTION_OK:
 					$portal -> setMessage('Przychód został dodany!');
-					header('Location:index.php?action=showIncomeAddForm&msg=OK');
+					header('Location:index.php?action=showIncomeAddForm&result=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wymagane dane!');
@@ -97,7 +123,7 @@ try {
 			switch ($portal -> addExpense()):
 				case ACTION_OK:
 					$portal -> setMessage('Wydatek został dodany!');
-					header('Location:index.php?action=showExpenseAddForm&msg=OK');
+					header('Location:index.php?action=showExpenseAddForm&result=OK');
 					return;
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wymagane dane!');
@@ -108,7 +134,7 @@ try {
 			endswitch;
 			header('Location:index.php?action=showExpenseAddForm');
 			break;
-		case 'showBalance':
+		case 'setBalance':
 			switch ($period):
 				case 'previousMonth':
 					$portal -> setBalanceForPreviousMonth();
@@ -117,31 +143,158 @@ try {
 					$portal -> setBalanceForCurrentYear();
 					break;
 				case 'customPeriod':
-					switch ($portal -> setBalanceForCustomPeriod()):
+					switch ($portal -> getMessageOfBalanceSettingsForCustomPeriod()):
 						case ACTION_OK:
 							header('Location:index.php?action=showBalanceForSelectedPeriod');
 							return;
 						case FORM_DATA_MISSING:
-							$portal -> setMessage('Uzupełnij wymagane dane!');
+							$portal -> setMessage('Wszystkie pola są obowiązkowe!');
 							break;
 						case INVALID_DATA:
-							$portal -> setMessage('Nieprawidłowe dane!');
+							$portal -> setMessage('Wpisano nieprawidłowe dane!');
+							break;
 					endswitch;
 				default:
 					$portal -> setBalanceForCurrentMonth();
 			endswitch;
 			header('Location:index.php?action=showBalanceForSelectedPeriod');
-			break;			
+			break;
+		case 'editIncome':
+			switch($portal -> editIncome($itemId)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showBalanceForSelectedPeriod');
+			break;
+		case 'deleteIncome':
+			$portal -> deleteIncome($itemId);
+			$portal -> setMessage('Dane zostały zmienione!');
+			header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+			return;
+		case 'editExpense':
+			switch($portal -> editExpense($itemId)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showBalanceForSelectedPeriod');
+			break;
+		case 'deleteExpense':
+			$portal -> deleteExpense($itemId);
+			$portal -> setMessage('Dane zostały zmienione!');
+			header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
+			return;
+		case 'editUserData':
+			switch ($portal -> editUserData($editedItem)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					header('Location:index.php?action=showSettings&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+					break;
+				case LOGIN_ALREADY_EXISTS:
+					$portal -> setMessage('Operacja nie powiodła się! Podany login jest zajęty!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'editOption':
+			switch ($portal -> editOption($editionContent)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				default:
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się!');
+					break;
+				break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'addOption':
+			switch ($portal -> addOption($editionContent)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				default:
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się!');
+					break;
+				break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'deleteOption':
+			switch ($portal -> deleteOption($editionContent)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case INVALID_DATA:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				case OPTION_USED:
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&modal=show');
+					return;
+				default:
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Operacja nie powiodła się!');
+					break;
+				break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'deleteOptionUsed':
+			$portal -> deleteOptionWithoutValidation($editionContent, $optionIdToRemove);
+			$portal -> setMessage('Dane zostały zaktualizowane!');
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+			return;
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;
 } catch (PDOException $error) {
-	//echo 'Błąd: '.$error -> getMessage().'<br />';
-	//echo $error -> getTraceAsString().'<br />';
+	echo 'Błąd: '.$error -> getMessage().'<br />';
+	echo $error -> getTraceAsString().'<br />';
 	echo 'Błąd serwera!';
 } catch (Exception $error) {
 	echo $error -> getMessage().'<br />';
-	//echo $error -> getTraceAsString().'<br />';
+	echo $error -> getTraceAsString().'<br />';
 }
 
 function classLoader($name)
@@ -152,4 +305,3 @@ function classLoader($name)
 		throw new Exception("Brak pliku z definicją klasy.");
 	  }
 }
-?>

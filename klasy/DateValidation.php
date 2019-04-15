@@ -3,12 +3,11 @@
 
 class DateValidation extends DataValidation
 {
-   
     private $dateModifier = null;
 
-    public function __construct($data = '')
+    public function __construct($data = '', $fieldName = '')
     {
-        parent:: __construct($data);
+        parent:: __construct($data, $fieldName);
         $this -> dateModifier = new DateModifier($data);
     }
 
@@ -21,7 +20,6 @@ class DateValidation extends DataValidation
     public function isValid()
     {
         if ($this -> isEmpty()) {
-            
             return false;
         }
 
@@ -68,7 +66,6 @@ class DateValidation extends DataValidation
         $endDate = DateModifier::getLastDateOfCurrentMonth();
         
         if ($this -> isEarlierThanStartDate($startDate) || $this -> isLatterThanEndDate($endDate)) {
-            
             return true;
         } else {
             return false;
@@ -104,5 +101,4 @@ class DateValidation extends DataValidation
             return false;
         }
     }
-
 }

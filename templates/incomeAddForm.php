@@ -28,7 +28,7 @@
                 >
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz liczbę większą od zera.">
                 
-                    <span class="input-group-text" id="userName">
+                    <span class="input-group-text">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
@@ -50,10 +50,10 @@
                 ?>>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
                 
-                <span class="input-group-text" id="userName">
-                    <i class="fas fa-info-circle"></i>
-                </span>
-            </a>
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
                 
             <div class="input-group
@@ -66,21 +66,12 @@
                 <select class="custom-select" id="category" name="category">
                     <option disabled selected value='0'>Wybierz kategorię</option>
                     <?php
-                        foreach($_SESSION['incomeCategories'] as $category) {
-                            
-                            if (isset($_SESSION['category']) && 
-                            ($_SESSION['category'] == $category['id'])) {
-                                echo '<option value='.$category['id'].' selected>'.$category['name'].'</option>';
-                                unset($_SESSION['category']);
-                            } else {
-                                echo '<option value='.$category['id'].'>'.$category['name'].'</option>';
-                            }
-                        }
+                        echo $portal -> getHtmlOfOptionsForIncomeCategories();
                     ?>
                 </select>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">
                 
-                    <span class="input-group-text" id="userName">
+                    <span class="input-group-text">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
@@ -96,15 +87,15 @@
                 ?>>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest opcjonalne.">
                 
-                <span class="input-group-text" id="userName">
-                    <i class="fas fa-info-circle"></i>
-                </span>
-            </a>
+                    <span class="input-group-text">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </a>
             </div>
             
             <div class="row mx-0 mt-4">
                 <div class="col px-0">
-                    <a href="#" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
+                    <a href="index.php?action=showIncomeAddForm" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
                 </div>
             
                 <div class="col px-0">
@@ -113,5 +104,4 @@
             </div>
         </form>
     </div>
-    
 </div>
