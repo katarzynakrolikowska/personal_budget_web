@@ -52,7 +52,7 @@ body {
 }
 
 .footer {
-	display: table-row;
+	display: table-footer-group;
 	height: 60px;
 	background: #F2F2F2;
 	color: #6E6E6E;
@@ -139,6 +139,12 @@ img {
 		display: none;
 	}
 
+	.login,
+	.registration {
+		padding-left:0;
+		padding-right:0;
+	}
+
 	.containerHeader header a,
 	header a {
 		font-size: 22px;		
@@ -152,14 +158,22 @@ img {
 	.textR {
 		font-size: 21px;
 	}
+
+	.contentText header {
+		font-size: 18px !important;
+	}
+
+	.contentText article {
+		font-size: 13px !important;
+	}
+
+	.contentText nav a {
+		font-size: 11px !important;
+		margin-top: 3% !important;
+	}
 	
 	.rowTables table {
 		font-size: 15px;
-	}
-	
-	.contentText {
-		font-size: 22px !important;
-		padding-top: 20px !important;
 	}
 	
 	.resultText {
@@ -171,6 +185,20 @@ img {
 	#resultComment {
 		font-size: 24px !important;
 	}	
+}
+
+@media (min-width: 575.98px) {
+	.contentText header {
+		font-size: 32px !important;
+	}
+
+	.contentText article {
+		font-size: 16px;
+	}
+
+	.contentText nav a {
+		font-size: 20px !important;
+	}
 }
 
 @media (min-width: 767.98px) {
@@ -185,6 +213,18 @@ img {
 	
 	#logOutItemNav {
 		display:none;
+	}
+
+	.contentText header {
+		font-size: 38px !important;
+	}
+	
+	.contentText article {
+		font-size: 20px !important;
+	}
+	
+	.contentText nav a {
+		font-size: 22px !important;
 	}
 	
 	.settingsNav .iconPenExpense,
@@ -432,27 +472,58 @@ label {
 .contentBg {
 	position: absolute;
 	background: #FE2E2E;
-	opacity: 0.86;
+	opacity: 0.92;
 	border-radius: 3px;
-	top: 15%;
-	left: 15%;
-	height: 70%;
-	width: 70%;	
+	top: 10%;
+	left: 10%;
+	height: 80%;
+	width: 80%;	
+}
+
+.contentCarousel {
+	top: 10%;
+	left: 10%;
+	height: 80%;
+	width: 80%;	
+	position: absolute;
+	color: white;
+	z-index: 10;
+	padding-top: 5%;	
 }
 
 .contentText {
-	top: 15%;
-	left: 15%;
-	height: 70%;
-	width: 70%;
-	position: absolute;
-	color: white;
-	text-align: center;
-	font-weight: bold;
-	font-size: 28px;
-	z-index: 10;
-	padding: 20px;
-	padding-top: 50px;	
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.carousel-item {
+	margin-top: auto !important;
+	margin-bottom: auto !important;
+}
+
+#carouselMainContent,
+.carousel-inner {
+	height: 100%;
+}
+
+.contentText header {
+	font-weight: 900;
+}
+
+
+.contentText nav a {
+	margin-top: 5%;
+	padding: 3px;
+	color: white !important;
+	text-transform: uppercase;
+	border: solid 3px white;
+	transition: all 0.2s ease-out;
+}
+
+.contentText nav a:hover{
+	text-decoration: none;
+	border-color: #ec9396;
+	transition: all 0.2s ease-out;
 }
 
 .modal-footer {
@@ -581,7 +652,7 @@ tbody tr:last-child {
 	font-size: 28px !important;
 }
 
-#resultBg {
+#colResultBg {
 	background: #F5F5F5;
 	height: 300px;
 	margin-bottom: 10%;
@@ -609,12 +680,15 @@ tbody tr:last-child {
 	height: 400px !important;
 }
 
-#chartPieContainer {
-	height: 300px;
+#chart {
+	position: relative;
+	margin: auto;
+	height: 60vh;
+	width: 60vw;
 }
 
 .rowChart {
-	margin-bottom: 100px;
+	margin-bottom: 8%;
 }
 
 .colSettingsMain {
@@ -624,7 +698,7 @@ tbody tr:last-child {
 }
 
 .hideItem {
-	display: none;
+	display: none !important;
 }
 
 .colSettingsMain .btnSave {
@@ -716,6 +790,10 @@ tbody tr:last-child {
 	background: #b9deb9;
 }
 
+.limitList {
+	font-size: 14px;
+}
+
 .error {
 	color: #F44336 !important;
 	text-align: center;
@@ -741,8 +819,7 @@ tbody tr:last-child {
 }
 
 .cellArrowsIcon {
-	font-size: 18px;
-	width: 55px !important;
+	width: 65px !important;
 	text-align: center;
 }
 
@@ -752,15 +829,59 @@ tbody tr:last-child {
 
 .menuDotsBalance,
 .cellArrowsIcon span {
+	font-size: 20px;
+	padding: 4px;
 	cursor: pointer;
 }
 
-#settingsIncomeModal {
-	right: 0;
-	padding: 0;
+.row {
+	margin-right: 0;
+	margin-left: 0;
 }
 
+#settingsIncomeModal .btnSave,
+#settingsExpenseModal .btnSave {
+	width: 40%;
+}
 
+.rotation {
+	-ms-transform: rotate(180deg);
+  	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+	transition: all 0.3s ease-out;
+}
 
+.fa-angle-down {
+	transition: all 0.3s ease-out;
+}
 
+.limitInfo {
+	font-size: 12px;
+	background: #00CC00;
+}
 
+.limitOut {
+	background: #f61d1d;
+}
+
+.limitInfo header {
+	font-weight: 700;
+}
+
+.modalResultOkBody i {
+	border-radius: 100px;
+	color: #00CC00;
+	background: #deffde;
+}
+.resultMessage {
+	z-index: 10;
+}
+
+.resultMessageIconClose {
+	cursor: pointer;
+	color: #cfcfcf;
+}
+
+.rowButtonSubmit {
+	border-top: 1px solid #e9ecef;
+}

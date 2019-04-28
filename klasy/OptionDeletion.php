@@ -21,10 +21,10 @@ class OptionDeletion
         return $message;
     }
 
-    public function deleteOptionWithoutValidation($optionQueryGenerator)
+    /*public function deleteOptionWithoutValidation($optionQueryGenerator)
     {
         $this -> updateData($optionQueryGenerator);
-    }
+    }*/
 
     private function updateData($optionQueryGenerator)
     {

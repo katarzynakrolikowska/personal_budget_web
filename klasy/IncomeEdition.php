@@ -4,9 +4,7 @@ class IncomeEdition extends IncomeOperations
 {
     public function editIncome($incomeId)
     {
-        $incomeFormValidation = new IncomeFormValidation($_POST, INCOME_FORM_FIELDS, $this -> personalisedOptions);
-
-        $message = $incomeFormValidation -> getMessageOfEditFormValidation();
+        $message = $this -> incomeFormValidation -> getMessageOfFormValidation();
 
         if ($message === ACTION_OK) {
             $income = new Income($_POST['amount'], $_POST['date'], $_POST['category'], $_POST['comment']);

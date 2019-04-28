@@ -1,5 +1,5 @@
 <div id="containerMain">
-    <div class="row pl-1 mx-0 containerHeader">
+    <div class="row pl-1 containerHeader">
         <div class="col py-3 my-2">
             <header><h2><b><a href="index.php?action=showMain" ><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2></header>
         </div>

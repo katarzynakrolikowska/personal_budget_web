@@ -1,14 +1,28 @@
-<div class="row pb-5 justify-content-center addDataRow mx-0">
+<div class="row pb-5 addDataRow addExpenseRow justify-content-center mx-0">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-8 pt-2 limitInfo hideItem">
+        <div class="row">
+            <div class="col-6 col-md-3 mb-2">
+                <header>Limit:</header>
+                <span class="limitValue"></span>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <header>Zapisane wydatki:</header>
+                <span class="sumExpenses"></span>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <header>Wolne środki:</header>
+                <span class="difference"></span>
+            </div>
+            <div class="col-6 col-md-3 mb-2">
+                <header>Wydatki + wpisana kwota:</header>
+                <span class="actualSum"></span>
+            </div>
+        </div>
+    </div>
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 containerAddData">
         <form class="formAddData" action="index.php?action=addExpense" method="post">
             <h3>Wprowadź wydatek</h3>
-
-            <?php
-                if (isset($messageError)) {
-                    echo '<h6 class="error">'.$messageError.'</h6>';
-                }
-            ?>
-
+            <div class="messageError error"></div>
             <div class="input-group 
             <?php
                 if (isset($_SESSION['errorAmount'])) {
@@ -16,12 +30,12 @@
                     unset($_SESSION['errorAmount']);
                 }
             ?>">
-                <input type="number" class="form-control" step="0.01" placeholder="Kwota" name="amount" value=
+                <input type="number" class="form-control expenseAmount" step="0.01" placeholder="Kwota" name="amount" value=
                 <?php
                     if(isset($_SESSION['amount'])) {
                         echo $_SESSION['amount'];
                         unset($_SESSION['amount']);
-                    } 
+                    }
                 ?>>
                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz liczbę większą od zera.">
                     
@@ -38,7 +52,7 @@
                     unset($_SESSION['errorDate']);
                 }
             ?>">	
-                <input type="date" class="form-control" id="date" name="date" placeholder="Data" value=
+                <input type="date" class="form-control date expenseDate" name="date" placeholder="Data" value=
                 <?php
                     if(isset($_SESSION['date'])) {
                         echo $_SESSION['date'];
@@ -62,8 +76,8 @@
                     unset($_SESSION['errorPaymentMethod']);
                 }
             ?>">
-                <select class="custom-select" id="paymentMethod" name="paymentMethod">
-                    <option disabled selected value="n">Wybierz metodę płatności</option>
+                <select class="custom-select" name="paymentMethod">
+                    <option disabled selected value="0">Wybierz metodę płatności</option>
                     <?php
                         echo $portal -> getHtmlOfOptionsForPaymentMethods();
                     ?>
@@ -83,7 +97,7 @@
                     unset($_SESSION['errorCategory']);
                 }
             ?>">
-                <select class="custom-select" id="category" name="category">
+                <select class="custom-select expenseCatSelect" name="category">
                     <option disabled selected>Wybierz kategorię</option>
                     <?php
                         echo $portal -> getHtmlOfOptionsForExpenseCategories();
@@ -119,7 +133,7 @@
                 </div>
             
                 <div class="col px-0">
-                    <button type="submit" class="btn btn-default mt-4 text-white"><i class="fas fa-plus"></i> Dodaj </button>
+                    <button type="submit" class="btn btn-default mt-4 text-white"><i class="fas fa-plus"></i> Dodaj</button>
                 </div>
             </div>
         </form>

@@ -9,15 +9,6 @@ class OptionFormValidation extends DataArrayValidation
         parent:: __construct($sendedFieldsFromForm, $namesOfRequiredFields);
         $this -> optionsAssignedToUser = $optionsAssignedToUser;
     }
-  
-    public function isValidDataFromOptionForm($validationObjects)
-    {
-        if ($this -> isValidDataFromForm($validationObjects)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public function isNewOptionAlreadyAssignedToUser()
     {
@@ -26,6 +17,17 @@ class OptionFormValidation extends DataArrayValidation
         $optionValidation = new InputSelectValidation($this -> sendedFieldsFromForm['newOption'], 'newOption', $this -> optionsAssignedToUser);
 
         if ($optionValidation -> isSelectedOptionExistsInArrayOptions()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isOptionUsed($optionId, $optionQueryGenerator)
+    {
+        $results = $optionQueryGenerator -> getDataAssignedToOption($optionId);
+
+        if (sizeof($results) > 0) {
             return true;
         } else {
             return false;

@@ -1,7 +1,7 @@
     <div id="containerMyIncomes">
         <div class="row headerMyIncomes mx-0 py-2 pl-3">
             <div class="col-10" >
-                <header>Moje kategorie przychodu</header>
+                <header>Kategorie przychodu</header>
             </div>
             <div class="col-2">
                 <div class="dropdown mr-1">
@@ -33,10 +33,11 @@
             </div>
             
             <div class="modal-body mx-4">
-                <div id="info"></div>
+                
                 <form method="post">
-                    <div class="input-group mb-3" id="settingsIncomeSelect">
+                    <div class="input-group mb-3" id="settingsIncomeSelectDiv">
                         <select class="custom-select" name="selectedOption">
+                            <option disabled selected value="0">Wybierz kategorię przychodu</option>
                         <?php
                             echo $htmlOfOptions;
                         ?>
@@ -56,10 +57,12 @@
                             </span>
                         </a>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-8 input-group my-3">
-                            <button type="submit" class="btn btn-primary max-width mt-4 text-white">Zapisz</button>
-                        </div>
+                    <div class='container-info'>
+                        <div class="info"></div>
+                    </div>
+                    <div class="modal-footer mt-4">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">Anuluj</a>
+                        <button type="submit" class="btn btnSave btn-primary text-white">Zapisz</button>
                     </div>
                 </form>     
             </div>

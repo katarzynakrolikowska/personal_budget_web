@@ -1,15 +1,10 @@
-<div class="row pb-sm-5 justify-content-center addDataRow mx-0">
+<div class="row pb-sm-5 justify-content-center addIncomeRow addDataRow mx-0">
     
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 containerAddData">
         <form class="formAddData" method="post" action="index.php?action=addIncome" >
             <h3>Wprowadź przychód</h3>
+            <div class="messageError error"></div>
             
-            <?php
-                if (isset($messageError)) {
-                    echo '<h6 class="error">'.$messageError.'</h6>';
-                }
-            ?>
-        
             <div class="input-group 
             <?php
                 if (isset($_SESSION['errorAmount'])) {
@@ -41,7 +36,7 @@
                     unset($_SESSION['errorDate']);
                 }
             ?>">	
-                <input type="date" class="form-control" id="date" name="date" value=
+                <input type="date" class="form-control date" name="date" value=
                 <?php
                     if(isset($_SESSION['date'])) {
                         echo $_SESSION['date'];
@@ -63,7 +58,7 @@
                     unset($_SESSION['errorCategory']);
                 }
             ?>">
-                <select class="custom-select" id="category" name="category">
+                <select class="custom-select" name="category">
                     <option disabled selected value='0'>Wybierz kategorię</option>
                     <?php
                         echo $portal -> getHtmlOfOptionsForIncomeCategories();

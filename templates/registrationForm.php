@@ -7,13 +7,6 @@
 			</div>
 			<div class="col-12 col-sm p-5 shadow-lg" style="height:100%">
 				<header><h3>Rejestracja</h3></header>
-
-				<?php
-					if (isset($messageError)) {
-						echo '<h6 class="error">'.$messageError.'</h6>';
-					}
-				?>
-
 				<form class="formRegister" method="post" action="index.php?action=register">
 					
 					<div class="input-group mb-1 

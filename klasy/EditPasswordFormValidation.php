@@ -5,12 +5,10 @@ class EditPasswordFormValidation extends DataArrayValidation
     public function getMessageOfFormValidation($userDataQueryGenerator)
     {
         if ($this ->  isRequiredFieldsFromFormMissing()) {
-            $_SESSION['errorOldPassword'] = '';
             return  FORM_DATA_MISSING;
         }
         
         if (!$this -> isValidDataFromEditPasswordForm($userDataQueryGenerator)) {
-            $_SESSION['errorOldPassword'] = '';
             return INVALID_DATA;
         }
         return ACTION_OK;

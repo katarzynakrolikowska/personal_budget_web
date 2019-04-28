@@ -1,10 +1,5 @@
-
 <?php
 require_once 'templates/selectPeriodModal.php';
-
-if (isset($messageError)) {
-    echo '<h6 class="error mt-4">'.$messageError.'</h6>';
-}
 ?>	
 <div class="row justify-content-center pt-5 mx-0">
     <div class="col-auto headerOption">
