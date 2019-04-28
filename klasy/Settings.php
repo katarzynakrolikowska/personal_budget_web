@@ -49,20 +49,17 @@ class Settings
 
         return $incomeCategoryAddition -> addOption($optionsAssignedToUser, $this -> incomeCategoryQueryGenerator);
     }
+
+    public function isIncomeCategoryUsed($optionId)
+    {
+        return OptionFormValidation::isOptionUsed($optionId, $this -> incomeCategoryQueryGenerator);
+    }
     
     public function deleteIncomeCategory($optionsAssignedToUser)
     {
         $incomeCategoryDeletion = new OptionDeletion($_POST);
         
         return $incomeCategoryDeletion -> deleteOption($optionsAssignedToUser, $this -> incomeCategoryQueryGenerator);
-    }
-
-    public function deleteIncomeCategoryWithoutValidation($optionIdToRemove)
-    {
-        $dataFromForm['selectedOption'] = $optionIdToRemove;
-        $incomeCategoryDeletion = new OptionDeletion($dataFromForm);
-        
-        return $incomeCategoryDeletion -> deleteOptionWithoutValidation($this -> incomeCategoryQueryGenerator);
     }
 
     public function editPaymentMethod($optionsAssignedToUser)
@@ -79,19 +76,16 @@ class Settings
         return $paymentMethodAddition -> addOption($optionsAssignedToUser, $this -> paymentMethodQueryGenerator);
     }
 
+    public function isPaymentMethodUsed($optionId)
+    {
+        return OptionFormValidation::isOptionUsed($optionId, $this -> paymentMethodQueryGenerator);
+    }
+
     public function deletePaymentMethod($optionsAssignedToUser)
     {
         $paymentMethodDeletion = new OptionDeletion($_POST);
         
         return $paymentMethodDeletion -> deleteOption($optionsAssignedToUser, $this -> paymentMethodQueryGenerator);
-    }
-
-    public function deletePaymentMethodWithoutValidation($optionIdToRemove)
-    {
-        $dataFromForm['selectedOption'] = $optionIdToRemove;
-        $paymentMethodDDeletion = new OptionDeletion($dataFromForm);
-        
-        return $paymentMethodDDeletion -> deleteOptionWithoutValidation($this -> paymentMethodQueryGenerator);
     }
 
     public function editExpenseCategory($optionsAssignedToUser)
@@ -115,11 +109,15 @@ class Settings
         return $expenseCategoryDeletion -> deleteOption($optionsAssignedToUser, $this -> expenseCategoryQueryGenerator);
     }
 
-    public function deleteExpenseCategoryWithoutValidation($optionIdToRemove)
+    public function isExpenseCategoryUsed($optionId)
     {
-        $dataFromForm['selectedOption'] = $optionIdToRemove;
-        $expenseCategoryDeletion = new OptionDeletion($dataFromForm);
-        
-        return $expenseCategoryDeletion -> deleteOptionWithoutValidation($this -> expenseCategoryQueryGenerator);
+        return OptionFormValidation::isOptionUsed($optionId, $this -> expenseCategoryQueryGenerator);
+    }
+
+    public function setLimitOfExpenseCategory($optionsAssignedToUser)
+    {
+        $expenseCategoryEdition = new OptionEdition($_POST);
+
+        return $expenseCategoryEdition -> setLimitOfCategory($optionsAssignedToUser, $this -> expenseCategoryQueryGenerator);
     }
 }

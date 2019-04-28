@@ -8,17 +8,8 @@
 			
 			<div class="col-12 col-sm p-5 shadow-lg" style="height:100%">
 				<header><h3>Logowanie</h3></header>
-
-				<?php
-					if (isset($messageError)) {
-						echo '<h6 class="error">'.$messageError.'</h6>';
-					}
-				?>
 			
-				<form class="formLogin" 
-					action = "index.php?action=login"
-					method = "post">
-				
+				<form class="loginUserForm" action="index.php?action=login" method="post">
 					<div class="input-group mb-1
 					<?php
 						if (isset($_SESSION['errorLogin'])) {
@@ -64,6 +55,7 @@
 					<button type="submit" class="btn btn-default mt-4 text-white">Zaloguj się</button>
 					
 				</form>
+				
 			</div>
 		</div>
 	</div>

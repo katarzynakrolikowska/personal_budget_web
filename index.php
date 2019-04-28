@@ -21,10 +21,17 @@ try {
 		$messageError = $portal -> getMessage();
 	}
 
+	if (isset($_GET['categoryId'])) {
+		$limitedCategoryId = $_GET['categoryId'];
+	}
+
+	if (isset($_GET['date'])) {
+		$inputDateOfExpense = $_GET['date'];
+	}
+
 	if (isset($_GET['period'])) {
 		$period = $_GET['period'];
 	}
-	
 		
 	if (isset($_GET['editedItem'])) {
 		$editedItem = $_GET['editedItem'];
@@ -64,7 +71,7 @@ try {
 
 	switch ($action):
 		case 'login':
-			switch ($portal -> login()):
+			switch ($portal -> logIn()):
 				case ACTION_OK:
 					header('Location:index.php?action=showMainForLoginUser');
 					return;
@@ -77,8 +84,24 @@ try {
 				default:
 					$portal -> setMessage('Błąd serwera! Proszę spróbować później.');
 			endswitch;
+			$portal -> setSessionOfInvalidForm();
 			header('Location:index.php?action=showLoginForm');
 			break;
+		case 'loginAjax':
+			switch ($result = $portal -> logIn()):
+				case ACTION_OK:
+					break;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Uzupełnij wszystkie dane!');
+					break;
+				case INVALID_DATA:
+					$portal -> setMessage('Nieprawidłowy login lub hasło!');
+					break;
+				default:
+					$portal -> setMessage('Błąd serwera! Proszę spróbować później.');
+			endswitch;
+			$portal -> setJsonFormMessage($result);
+			exit();
 		case 'logout':
 			$portal -> logout();
 			header('Location:index.php?action=showMain');
@@ -92,16 +115,18 @@ try {
 				case FORM_DATA_MISSING:
 					$portal -> setMessage('Uzupełnij wszystkie dane!');
 					break;
-				case INVALID_DATA:
-					$portal -> setMessage('Nieprawidłowe dane!');
-					break;
 				case PASSWORDS_DO_NOT_MATCH:
 					$portal -> setMessage('Podane hasła nie są identyczne!');
 					break;
 				case LOGIN_ALREADY_EXISTS:
 					$portal -> setMessage('Istnieje konto przypisane do podanego loginu!');
 					break;
+				case INVALID_DATA:
+				default:
+					$portal -> setMessage('Nieprawidłowe dane!');
+					break;
 			endswitch;
+			$portal -> setSessionOfInvalidForm();
 			header('Location:index.php?action=showRegistrationForm');
 			break;
 		case 'addIncome':
@@ -114,11 +139,28 @@ try {
 					$portal -> setMessage('Uzupełnij wymagane dane!');
 					break;
 				case INVALID_DATA:
+				default:
 					$portal -> setMessage('Nieprawidłowe dane!');
 					break;
 			endswitch;
+			$portal -> setSessionOfInvalidForm();
 			header('Location:index.php?action=showIncomeAddForm');
 			break;
+		case 'addIncomeAjax':
+			switch ($result = $portal -> addIncome()):
+				case ACTION_OK:
+					$portal -> setMessage('Przychód został dodany!'); 
+					break;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Uzupełnij wymagane dane!');
+					break;
+				case INVALID_DATA:
+				default:
+					$portal -> setMessage('Nieprawidłowe dane!');
+					break;
+			endswitch;
+			$portal -> setJsonFormMessage($result);
+			exit();
 		case 'addExpense':
 			switch ($portal -> addExpense()):
 				case ACTION_OK:
@@ -129,11 +171,31 @@ try {
 					$portal -> setMessage('Uzupełnij wymagane dane!');
 					break;
 				case INVALID_DATA:
+				default:
 					$portal -> setMessage('Nieprawidłowe dane!');
 					break;
 			endswitch;
+			$portal -> setSessionOfInvalidForm();
 			header('Location:index.php?action=showExpenseAddForm');
 			break;
+		case 'addExpenseAjax':
+			switch ($result = $portal -> addExpense()):
+				case ACTION_OK:
+					$portal -> setMessage('Wydatek został dodany!'); 
+					break;
+				case FORM_DATA_MISSING:
+					$portal -> setMessage('Uzupełnij wymagane dane!');
+					break;
+				case INVALID_DATA:
+				default:
+					$portal -> setMessage('Nieprawidłowe dane!');
+					break;
+			endswitch;
+			$portal -> setJsonFormMessage($result);
+			exit();
+		case 'getLimitInfo':
+			$portal -> setLimitValuesOfExpenseCategory($limitedCategoryId, $inputDateOfExpense);
+			exit();
 		case 'setBalance':
 			switch ($period):
 				case 'previousMonth':
@@ -147,11 +209,10 @@ try {
 						case ACTION_OK:
 							header('Location:index.php?action=showBalanceForSelectedPeriod');
 							return;
-						case FORM_DATA_MISSING:
-							$portal -> setMessage('Wszystkie pola są obowiązkowe!');
-							break;
 						case INVALID_DATA:
-							$portal -> setMessage('Wpisano nieprawidłowe dane!');
+						case FORM_DATA_MISSING:
+						default:
+							$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
 							break;
 					endswitch;
 				default:
@@ -160,19 +221,32 @@ try {
 			header('Location:index.php?action=showBalanceForSelectedPeriod');
 			break;
 		case 'editIncome':
-			switch($portal -> editIncome($itemId)):
+			switch ($portal -> editIncome($itemId)):
 				case ACTION_OK:
 					$portal -> setMessage('Dane zostały zmienione!');
 					header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
 					return;
-				case FORM_DATA_MISSING:
-					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
-					break;
 				case INVALID_DATA:
-					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
 					break;
 			endswitch;
 			header('Location:index.php?action=showBalanceForSelectedPeriod');
+			break;
+		case 'editIncomeAjax':
+			switch ($result = $portal -> editIncome($itemId)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					break;
+				case INVALID_DATA:
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+			endswitch;
+			
+			$portal -> setJsonFormMessage($result);
 			break;
 		case 'deleteIncome':
 			$portal -> deleteIncome($itemId);
@@ -185,11 +259,10 @@ try {
 					$portal -> setMessage('Dane zostały zmienione!');
 					header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
 					return;
-				case FORM_DATA_MISSING:
-					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
-					break;
 				case INVALID_DATA:
-					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
 					break;
 			endswitch;
 			header('Location:index.php?action=showBalanceForSelectedPeriod');
@@ -205,17 +278,34 @@ try {
 					$portal -> setMessage('Dane zostały zmienione!');
 					header('Location:index.php?action=showSettings&result=OK');
 					return;
-				case FORM_DATA_MISSING:
-					$portal -> setMessage('Operacja nie powiodła się! Wszystkie pola są obowiązkowe!');
+				case LOGIN_ALREADY_EXISTS:
+					$portal -> setMessage('Operacja nie powiodła się! Podany login jest zajęty!');
 					break;
 				case INVALID_DATA:
-					$portal -> setMessage('Operacja nie powiodła się! Wpisano nieprawidłowe dane!');
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'editUserDataAjax':
+		$_SESSION['test'] .= $editedItem.'<br />';
+			switch ($portal -> editUserData($editedItem)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
 					break;
 				case LOGIN_ALREADY_EXISTS:
 					$portal -> setMessage('Operacja nie powiodła się! Podany login jest zajęty!');
 					break;
+				case INVALID_DATA:
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
 			endswitch;
-			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			echo $portal -> getMessage();
+			//$portal -> setJsonFormMessage();
 			break;
 		case 'editOption':
 			switch ($portal -> editOption($editionContent)):
@@ -223,15 +313,13 @@ try {
 					$portal -> setMessage('Dane zostały zaktualizowane!');
 					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
 					return;
-				case INVALID_DATA:
-					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
-					break;
 				case REPEATED_OPTION:
 					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
 					break;
-				default:
+				case INVALID_DATA:
 				case FORM_DATA_MISSING:
-					$portal -> setMessage('Operacja nie powiodła się!');
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
 					break;
 				break;
 			endswitch;
@@ -243,15 +331,13 @@ try {
 					$portal -> setMessage('Dane zostały zaktualizowane!');
 					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
 					return;
-				case INVALID_DATA:
-					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
-					break;
 				case REPEATED_OPTION:
 					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
 					break;
-				default:
+				case INVALID_DATA:
 				case FORM_DATA_MISSING:
-					$portal -> setMessage('Operacja nie powiodła się!');
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
 					break;
 				break;
 			endswitch;
@@ -264,27 +350,32 @@ try {
 					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
 					return;
 				case INVALID_DATA:
-					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
-					break;
-				case REPEATED_OPTION:
-					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
-					break;
-				case OPTION_USED:
-					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&modal=show');
-					return;
-				default:
 				case FORM_DATA_MISSING:
-					$portal -> setMessage('Operacja nie powiodła się!');
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
 					break;
 				break;
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
 			break;
-		case 'deleteOptionUsed':
-			$portal -> deleteOptionWithoutValidation($editionContent, $optionIdToRemove);
-			$portal -> setMessage('Dane zostały zaktualizowane!');
-			header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
-			return;
+		case 'checkOptionBeforeDeletion':
+			$result = $portal -> isOptionUsed($editionContent, $optionIdToRemove);
+			$portal -> setJsonMsgIsOptionUsed($result);
+			exit();
+		case 'setLimit':
+			switch ($portal -> setLimitOfExpenseCategory()):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					header('Location:index.php?action=showSettings&editionContent='.$editionContent.'&result=OK');
+					return;
+				case FORM_DATA_MISSING:
+				case INVALID_DATA:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+			endswitch;
+			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;

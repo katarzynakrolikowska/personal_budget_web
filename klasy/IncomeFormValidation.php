@@ -10,16 +10,6 @@ class IncomeFormValidation extends DataArrayValidation
         $this -> categoriesAssignedToUser = $personalisedOptions -> getIncomeCategoriesAssignedToUser();
     }
 
-    public function getMessageOfEditFormValidation()
-    {
-        $message = $this -> getMessageOfFormValidation();
-
-        $this -> unsetSessionFieldsFromForm();
-        $this -> unsetSessionErrorsOfFieldsFromForm();
-
-        return $message;
-    }
-
     public function getMessageOfFormValidation()
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {
@@ -29,7 +19,7 @@ class IncomeFormValidation extends DataArrayValidation
         if (!$this -> isValidIncomeData()) {
            return INVALID_DATA;
         }
-        $this -> unsetSessionFieldsFromForm();
+        
         return ACTION_OK;
     }
 

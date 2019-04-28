@@ -57,7 +57,12 @@ class HtmlGenerator
     {
         $html = '<ul>';
         foreach($dataArray as $item) {
-            $html .= '<li>'.$item['name'].'</li>';
+            $html .= '<li>'.$item['name'];
+            if (isset($item['monthly_limit'])) {
+                $html .= '<span class="limitList"> (limit: '.$item['monthly_limit'].' PLN)</span>';
+            }
+            $html .= '</li>';
+            
         }
         $html .= '</ul>';
         return $html;
@@ -68,8 +73,8 @@ class HtmlGenerator
         $incomeAmount = AmountModifier::getNumberFormatWithSpace($income['iSum']);
         $html = '<tr class="incomeSumRow">
                     <td class="category"><b>'.$income['name'].'</b></td>
-                    <td class="text-right"><b>'.$incomeAmount.' PLN</b></td>
-                    <td class="cellArrowsIcon text-center" title="Pokaż szczegóły"><span class="arrow" id="arrowI'.$index.'"><i class=" fas fa-angle-double-down" ></i></span>
+                    <td class="text-right nowrap" id="sumRow'.$index.'"><b>'.$incomeAmount.' PLN</b></td>
+                    <td class="cellArrowsIcon text-center" title="Pokaż szczegóły"><span class="arrow" id="arrowI'.$index.'"><i class="fas fa-angle-down"></i></span>
                     </td>
                 </tr>';
         return $html;
@@ -81,7 +86,7 @@ class HtmlGenerator
         if ($detailedIncomes) {
             foreach ($detailedIncomes as $income) {
                 $incomeAmount = AmountModifier::getNumberFormatWithSpace($income['amount']);
-                $html .= '<tr class="incomeDetailedRow arrowI'.$index.'">
+                $html .= '<tr class="incomeDetailedRow hideItem arrowI'.$index.'">
                             <td colspan="2">
                                 <span class="date">'.$income['date'].'</span> | 
                                 <span class="amount">'.$incomeAmount.'</span> PLN | 
@@ -100,8 +105,7 @@ class HtmlGenerator
     {
         $html = '<tr>
                     <td><b>RAZEM</b></td>
-                    <td class="text-right"><b>'.$sum.' PLN</b></td>
-                    <td class="cellArrowsIcon"></td>
+                    <td colspan=2 class="text-center"><b>'.$sum.' PLN</b></td>
                 </tr>';
         return $html;
     }
@@ -111,7 +115,7 @@ class HtmlGenerator
         $html = '<div class="dropdown">
                     <i class="fas fa-ellipsis-h menuDotsBalance" data-toggle="dropdown"></i>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item edit'.$actionContent.'Link" id="'.$id.'" href="#" data-toggle="modal" data-target="#balanceModal">Edytuj</a>
+                        <a class="dropdown-item edit'.$actionContent.'Link" id="'.$id.'" href="#" data-toggle="modal" data-target="#balanceEditionModal">Edytuj</a>
                         <a class="dropdown-item" href="index.php?action=delete'.$actionContent.'&itemId='.$id.'">Usuń</a>
                     </div>
                 </div>';
@@ -124,8 +128,8 @@ class HtmlGenerator
         $expenseAmount = AmountModifier::getNumberFormatWithSpace($expense['eSum']);
         $html = '<tr class="expenseSumRow">
                     <td class="category"><b>'.$expense['name'].'</b></td>
-                    <td class="text-right"><b>'.$expenseAmount.' PLN</b></td>
-                    <td class="cellArrowsIcon text-center" title="Pokaż szczegóły"><span class="arrow" id="arrowE'.$index.'"><i class=" fas fa-angle-double-down" ></i></span>
+                    <td class="text-right nowrap"><b>'.$expenseAmount.' PLN</b></td>
+                    <td class="cellArrowsIcon text-center" title="Pokaż szczegóły"><span class="arrow" id="arrowE'.$index.'"><i class="fas fa-angle-down"></i></span>
                     </td>
                 </tr>';
         return $html;
@@ -137,7 +141,7 @@ class HtmlGenerator
         if ($detailedExpenses) {
             foreach ($detailedExpenses as $expense) {
                 $expenseAmount = AmountModifier::getNumberFormatWithSpace($expense['amount']);
-                $html .= '<tr class="expenseDetailedRow arrowE'.$index.'">
+                $html .= '<tr class="expenseDetailedRow hideItem arrowE'.$index.'">
                             <td colspan="2">
                                 <span class="date">'.$expense['date'].'</span> |
                                 <span class="amount">'.$expenseAmount.'</span> PLN | 

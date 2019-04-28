@@ -14,17 +14,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php
-				if ($portal -> getHtmlOfIncomesTableRows()) {
-					echo $portal -> getHtmlOfIncomesTableRows();
-				} else {
-					echo '<tr>
-						<td><b>RAZEM</b></td>
-						<td class="text-right"><b>0.00</b></td>
-						<td class="cellArrowsIcon"></td>
-					</tr>';
-				}
-				?>
+				
+					<?php
+					if ($portal -> getHtmlOfIncomesTableRows()) {
+						echo $portal -> getHtmlOfIncomesTableRows();
+					} else {
+						echo '<tr>
+							<td><b>RAZEM</b></td>
+							<td class="text-right"><b>0.00</b></td>
+							<td class="cellArrowsIcon"></td>
+						</tr>';
+					}
+					?>
+				
 			</tbody>
 		</table>
 	</div>
@@ -54,8 +56,8 @@
 <?php
 
 ?>
-<div class="row justify-content-center mr-0">
-	<div class="col-12 col-md-10 col-lg-8 " id="resultBg">
+<div class="row justify-content-center mr-0" id="rowResultBg">
+	<div class="col-12 col-md-10 col-lg-8 " id="colResultBg">
 		<div class="resultText shadow "<?=$portal -> getDifference() < 0 ? 'style="background:#EF5350"' : 'style="background:#4CAF50"'?>>
 			TWÓJ BILANS: <span class="nowrap">
 			<?php
@@ -79,7 +81,7 @@ if ($portal -> getHtmlOfExpensesTableRows()) {
 }
 ?>
 
-<div class="modal fade" id="balanceModal" tabindex="-1" role="dialog" aria-labelledby="balanceModal" aria-hidden="true">
+<div class="modal fade" id="balanceEditionModal" tabindex="-1" role="dialog" aria-labelledby="balanceEditionModal" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header ">
@@ -90,7 +92,9 @@ if ($portal -> getHtmlOfExpensesTableRows()) {
             </div>
             
             <div class="modal-body mx-4">
+			
 				<form class="balanceEditForm" method="post">
+				<div class="messageError error"></div>
 					<div class="input-group mb-3">
 						<input type="number" class="form-control" id="amount" step="0.01" lang="en" min="0.00" placeholder="Kwota" name="amount">
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wpisz liczbę większą od zera.">

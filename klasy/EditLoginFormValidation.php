@@ -5,18 +5,19 @@ class EditLoginFormValidation extends DataArrayValidation
     public function getMessageOfFormValidation($userDataQueryGenerator)
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {
-            return FORM_DATA_MISSING;
-        }
-
-        if (!$this -> isValidDataFromEditLoginForm($userDataQueryGenerator)) {
-			return INVALID_DATA;
-        }
-
-        if ($this -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
-            return LOGIN_ALREADY_EXISTS;
+            $r= FORM_DATA_MISSING;
+        }else if (!$this -> isValidDataFromEditLoginForm($userDataQueryGenerator)) {
+			$r= INVALID_DATA;
+        }else if ($this -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
+            $r= LOGIN_ALREADY_EXISTS;
+        } else {
+            $r= ACTION_OK;
         }
         
-        return ACTION_OK;
+        
+
+
+        return $r;
     }
 
     private function isValidDataFromEditLoginForm($userDataQueryGenerator)
@@ -33,8 +34,10 @@ class EditLoginFormValidation extends DataArrayValidation
         $loginValidation = new LoginValidation($this -> sendedFieldsFromForm['login'], 'login');
 
         if ($loginValidation -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
+            //$_SESSION['test1'] =$this -> sendedFieldsFromForm['login'].'<br />, login istnieje w bazie';
             return true;
         } else {
+            //$_SESSION['test1'] =$this -> sendedFieldsFromForm['login'].'<br />, login  nie istnieje w bazie';
             return false;
         }
     }

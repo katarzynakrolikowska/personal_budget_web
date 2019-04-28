@@ -230,17 +230,32 @@ class Balance
         return AmountModifier::getNumberFormatWithSpace($incomes - $expenses);
     }
 
-    public function getDataPointsOfExpensesChart()
+    public function getLabelsOfExpensesChart()
     {
+        $labels = array();
         $sum = $this -> getSumOfExpenses();
         
-        $chartGenerator = new ChartGenerator();
         if (isset($_SESSION['expenses'])) {
             foreach ($_SESSION['expenses'] as $row) {
-                $point = array("y" => $row['eSum']/ $sum * 100, "label" => $row['name']);
-                $chartGenerator -> setDataPoint($point);
+                $value = AmountModifier::getNumberFormatWithoutSpace($row['eSum']/ $sum * 100);
+                $label = $row['name'].' - '.$value.'%';
+                array_push($labels, $label);
             }
         }
-        return $chartGenerator -> getDataPoints();
+        return $labels;
+    }
+
+    public function getDataOfExpensesChart()
+    {
+        $data = array();
+        $sum = $this -> getSumOfExpenses();
+
+        if (isset($_SESSION['expenses'])) {
+            foreach ($_SESSION['expenses'] as $row) {
+                $value = AmountModifier::getNumberFormatWithoutSpace($row['eSum']/ $sum * 100);
+                array_push($data, $value);
+            }
+        }
+        return $data;
     }
 }

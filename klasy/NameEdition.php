@@ -24,7 +24,7 @@ class NameEdition
 
     private function updateUserDataInDatabase($userDataQueryGenerator)
     {
-        $userDataQueryGenerator -> updateUserNameInDatabase($this -> dataFromForm);
+        $userDataQueryGenerator -> updateUsernameInDatabase($this -> dataFromForm);
     }
 
     private function setUserDataAfterEdition()

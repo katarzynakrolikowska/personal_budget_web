@@ -22,13 +22,17 @@ class LoginValidation extends DataValidation
 
     public function isLoginAlreadyExistsInDatabase($userDataQueryGenerator)
     {
-        $results = $this -> getUserDataAssignedToLogin($userDataQueryGenerator);
-
-        if (sizeof($results) > 0) {
-            $_SESSION['errorLogin'] = true;
+        $userDataFromDatabase = $this -> getUserDataAssignedToLogin($userDataQueryGenerator);
+        $count = count($userDataFromDatabase);
+        //$_SESSION['test1'] ='<br /> ilość: '.$count;
+        if ($count > 0) {
+            //$_SESSION['test1'] .='<br /> imię: '.$userDataFromDatabase[0]['username'].'<br />'.$this -> data;
+            //$_SESSION['test'] .= 'login istnieje';
             return true;
         } else {
+            //$_SESSION['test'] .= 'login  nie istnieje';
             return false;
+            
         }
     }
 
