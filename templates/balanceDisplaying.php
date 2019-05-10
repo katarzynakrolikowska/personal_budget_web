@@ -1,85 +1,87 @@
+<article>
+	<section class="row mx-0 my-5 justify-content-around">
 
-<div class="row mx-0 my-5 rowTables justify-content-around">
-
-	<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-	
-		<header><h4><b>Przychody</b></h4></header>
-		<table class="table" id="tableIncomes">
-			<thead>
-				<tr>
-					<th>Kategoria</th>
-					
-					<th class="text-right">Kwota</th>
-					<th class="cellArrowsIcon"></th>
-				</tr>
-			</thead>
-			<tbody>
-				
+		<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+		
+			<h4 class="pl-1"><b>Przychody</b></h4>
+			<table class="table tabel-balance--font-size" id="tableIncomes">
+				<thead>
+					<tr>
+						<th class="table-balance__th">Kategoria</th>
+						<th class="text-right table-balance__th">Kwota</th>
+						<th class="table-balance__th"></th>
+					</tr>
+				</thead>
+				<tbody class="table-balance__tbody">
+						<?php
+						if ($portal -> getHtmlOfIncomesTableRows()) {
+							echo $portal -> getHtmlOfIncomesTableRows();
+						} else {
+							echo '<tr>
+									<td class="border-top-green"><b>RAZEM</b></td>
+									<td class="text-right border-top-green"><b>0.00</b></td>
+									<td class="border-top-green"></td>
+								</tr>';
+						}
+						?>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+			<h4 class="pl-1"><b>Wydatki</b></h4>
+			<table class="table" id="tableExpenses">
+				<thead>
+					<tr>
+						<th class="table-balance__th">Kategoria</th>
+						<th class="text-right table-balance__th">Kwota</th>
+						<th class="table-balance__th"></th>
+					</tr>
+				</thead>
+				<tbody class="table-balance__tbody">
 					<?php
-					if ($portal -> getHtmlOfIncomesTableRows()) {
-						echo $portal -> getHtmlOfIncomesTableRows();
+					if ($portal -> getHtmlOfExpensesTableRows()) {
+						echo $portal -> getHtmlOfExpensesTableRows();
 					} else {
 						echo '<tr>
-							<td><b>RAZEM</b></td>
-							<td class="text-right"><b>0.00</b></td>
-							<td class="cellArrowsIcon"></td>
-						</tr>';
+								<td class="border-top-green"><b>RAZEM</b></td>
+								<td class="text-right border-top-green"><b>0.00</b></td>
+								<td class="border-top-green"></td>
+							</tr>';
 					}
 					?>
-				
-			</tbody>
-		</table>
-	</div>
-	
-	<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-		<header><h4><b>Wydatki</b></h4></header>
-		<table class="table" id="tableExpenses">
-			<thead>
-				<tr>
-					<th scope="col"  id="test" >Kategoria</th>
-					<th scope="col" class="text-right">Kwota</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				if ($portal -> getHtmlOfExpensesTableRows()) {
-					echo $portal -> getHtmlOfExpensesTableRows();
-				} else {
-					echo '<tr><td><b>RAZEM</b></td><td class="text-right"><b>0.00</b></td><td class="cellMenuDots"></td></tr>';
-				}
-				?>
-			</tbody>
-		</table>
-	</div>
-</div>
-<?php
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<?php
 
-?>
-<div class="row justify-content-center mr-0" id="rowResultBg">
-	<div class="col-12 col-md-10 col-lg-8 " id="colResultBg">
-		<div class="resultText shadow "<?=$portal -> getDifference() < 0 ? 'style="background:#EF5350"' : 'style="background:#4CAF50"'?>>
-			TWÓJ BILANS: <span class="nowrap">
-			<?php
-				echo $portal -> getDifference();
-			?>
-			PLN</span> 
+	?>
+	<section class="row justify-content-center mr-0">
+		<div class="col-12 col-md-10 col-lg-8 mb-5 py-3 container-balance-comment">
+			<h2 class="py-5 mt-3 mb-4 mx-3 rounded text-center text-white shadow"<?=$portal -> getDifference() < 0 ? 'style="background:#EF5350"' : 'style="background:#4CAF50"'?>>
+				<b>TWÓJ BILANS: <span class="nowrap">
+				<?php
+					echo $portal -> getDifference();
+				?>
+				PLN</span></b> 
+			</h2>
+			<h3 class="col text-center text-gray">
+			<?php 
+			if ($portal -> getDifference() < 0) {
+				echo 'Uważaj, wpadasz w długi!';
+			} else {
+				echo 'Gratulacje! Świetnie zarządzasz finansami!';
+			}?>
+			</h3>
 		</div>
-		<div class="col text-center my-4" id="resultComment">
-		<?php 
-		if ($portal -> getDifference() < 0) {
-			echo 'Uważaj, wpadasz w długi!';
-		} else {
-			echo 'Gratulacje! Świetnie zarządzasz finansami!';
-		}?>
-		</div>
-	</div>
-</div>
-<?php
-if ($portal -> getHtmlOfExpensesTableRows()) {
-	require_once('templates/displayChart.php');
-}
-?>
+	</section>
+	<?php
+	if ($portal -> getHtmlOfExpensesTableRows()) {
+		require_once('templates/displayChart.php');
+	}
+	?>
+</article>
 
 <div class="modal fade" id="balanceEditionModal" tabindex="-1" role="dialog" aria-labelledby="balanceEditionModal" aria-hidden="true">
     <div class="modal-dialog " role="document">
@@ -93,28 +95,27 @@ if ($portal -> getHtmlOfExpensesTableRows()) {
             
             <div class="modal-body mx-4">
 			
-				<form class="balanceEditForm" method="post">
-				<div class="messageError error"></div>
+				<form method="post">
 					<div class="input-group mb-3">
-						<input type="number" class="form-control" id="amount" step="0.01" lang="en" min="0.00" placeholder="Kwota" name="amount">
+						<input type="number" class="form-control js-modal-edition__input-amount" step="0.01" lang="en" min="0.00" placeholder="Kwota" name="amount">
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wpisz liczbę większą od zera.">
-							<span class="input-group-text">
+							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
 						</a>
 					</div>
 											
 					<div class="input-group mb-3">
-						<input type="date" class="form-control" id="date" name="date">
+						<input type="date" class="form-control js-modal-edition__input-date" name="date">
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
 						
-							<span class="input-group-text">
+							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
 						</a>
 					</div>
-					<div class="input-group mb-3" id="divSelectPayment">
-						<select class="custom-select" id="paymentMethod" name="paymentMethod">
+					<div class="input-group mb-3 js-container-select-payment">
+						<select class="custom-select js-modal-edition__input-payment" name="paymentMethod">
 							<option disabled selected value="n">Wybierz metodę płatności</option>
 							<?php
 								echo $portal -> getHtmlOfOptionsForPaymentMethods();
@@ -122,20 +123,20 @@ if ($portal -> getHtmlOfExpensesTableRows()) {
 						</select>
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wybierz metodę płatności.">
 						
-							<span class="input-group-text">
+							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
 						</a>
 					</div>	
 					<div class="input-group mb-3">
-						<select class="custom-select" id="incomeCategory" name="category">
+						<select class="custom-select js-modal-edition__input-income-cat" name="category">
 							<option disabled selected value='0'>Wybierz kategorię</option>
 							<?php
 								echo $portal -> getHtmlOfOptionsForIncomeCategories();
 							?>
 						</select>
 
-						<select class="custom-select" id="expenseCategory" name="category">
+						<select class="custom-select js-modal-edition__input-expense-cat" name="category">
 							<option disabled selected value='0'>Wybierz kategorię</option>
 							<?php
 								echo $portal -> getHtmlOfOptionsForExpenseCategories();
@@ -143,16 +144,16 @@ if ($portal -> getHtmlOfExpensesTableRows()) {
 						</select>
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wybierz kategorię.">
 						
-							<span class="input-group-text">
+							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
 						</a>
 					</div>
 											
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="comment" placeholder="Komentarz (opcjonalnie)" name="comment">
+						<input type="text" class="form-control js-modal-edition__input-comment" placeholder="Komentarz (opcjonalnie)" name="comment">
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole jest opcjonalne.">
-							<span class="input-group-text">
+							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
 						</a>
@@ -160,7 +161,7 @@ if ($portal -> getHtmlOfExpensesTableRows()) {
 					
 					<div class="row mx-0 my-3">
 						<div class="col-12 px-0">
-							<button type="submit" class="btn btn-default mt-4 text-white"><i class="fas fa-plus"></i> Zapisz</button>
+							<button type="submit" class="btn btn-default form-edit__btn--submit mt-4 py-2 text-white max-width rounded"><i class="fas fa-plus"></i> Zapisz</button>
 						</div>
 					</div>
 				</form>

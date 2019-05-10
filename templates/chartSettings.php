@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	
 	$(document).ready(function () {
-		var pieChart = $('#chartPieContainer');
+		var pieChart = $('#chartPie');
 		
 		var myPieChart = new Chart(pieChart, {
 			type: 'pie',

@@ -13,10 +13,6 @@ class EditLoginFormValidation extends DataArrayValidation
         } else {
             $r= ACTION_OK;
         }
-        
-        
-
-
         return $r;
     }
 
@@ -34,10 +30,8 @@ class EditLoginFormValidation extends DataArrayValidation
         $loginValidation = new LoginValidation($this -> sendedFieldsFromForm['login'], 'login');
 
         if ($loginValidation -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
-            //$_SESSION['test1'] =$this -> sendedFieldsFromForm['login'].'<br />, login istnieje w bazie';
             return true;
         } else {
-            //$_SESSION['test1'] =$this -> sendedFieldsFromForm['login'].'<br />, login  nie istnieje w bazie';
             return false;
         }
     }

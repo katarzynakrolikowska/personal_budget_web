@@ -290,7 +290,6 @@ try {
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
 			break;
 		case 'editUserDataAjax':
-		$_SESSION['test'] .= $editedItem.'<br />';
 			switch ($portal -> editUserData($editedItem)):
 				case ACTION_OK:
 					$portal -> setMessage('Dane zostały zmienione!');
@@ -305,7 +304,6 @@ try {
 					break;
 			endswitch;
 			echo $portal -> getMessage();
-			//$portal -> setJsonFormMessage();
 			break;
 		case 'editOption':
 			switch ($portal -> editOption($editionContent)):

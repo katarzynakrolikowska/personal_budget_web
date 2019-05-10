@@ -1,58 +1,58 @@
-<div class="row pb-5 addDataRow addExpenseRow justify-content-center mx-0">
-    <div class="col-12 col-sm-11 col-md-9 col-lg-8 pt-2 limitInfo hideItem">
+<div class="row pb-5 js-container--add-expense justify-content-center p-0 mx-0">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-8 pt-2 bg-lightgreen container-limit--font-size js-container-limit item-hide">
         <div class="row">
             <div class="col-6 col-md-3 mb-2">
-                <header>Limit:</header>
+                <b>Limit:</b><br />
                 <span class="limitValue"></span>
             </div>
             <div class="col-6 col-md-3 mb-2">
-                <header>Zapisane wydatki:</header>
+                <b>Zapisane wydatki:</b><br />
                 <span class="sumExpenses"></span>
             </div>
             <div class="col-6 col-md-3 mb-2">
-                <header>Wolne środki:</header>
+                <b>Wolne środki:</b><br />
                 <span class="difference"></span>
             </div>
             <div class="col-6 col-md-3 mb-2">
-                <header>Wydatki + wpisana kwota:</header>
+                <b>Wydatki + wpisana kwota:</b><br />
                 <span class="actualSum"></span>
             </div>
         </div>
     </div>
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6 containerAddData">
-        <form class="formAddData" action="index.php?action=addExpense" method="post">
-            <h3>Wprowadź wydatek</h3>
-            <div class="messageError error"></div>
-            <div class="input-group 
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-0 js-col--add-data">
+        <form class="pt-5 form--add-data js-form--add-data" action="index.php?action=addExpense" method="post">
+            <h3 class="px-5 ml-2 text-gray">Wprowadź wydatek</h3>
+            <div class="js-message-error text-center text-red"></div>
+            <div class="input-group my-4 mx-auto form-add__input-group
             <?php
                 if (isset($_SESSION['errorAmount'])) {
-                    echo 'errorBorder';
+                    echo 'border-red';
                     unset($_SESSION['errorAmount']);
                 }
             ?>">
-                <input type="number" class="form-control expenseAmount" step="0.01" placeholder="Kwota" name="amount" value=
+                <input type="number" class="form-control input-border js-amount-expense" step="0.01" placeholder="Kwota" name="amount" value=
                 <?php
                     if(isset($_SESSION['amount'])) {
                         echo $_SESSION['amount'];
                         unset($_SESSION['amount']);
                     }
                 ?>>
-                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz liczbę większą od zera.">
+                <a class="input-group-prepend cursor-pointer" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz liczbę większą od zera.">
                     
-                    <span class="input-group-text">
+                    <span class="input-group-text input-border bg-white">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
             </div>
            						
-            <div class="input-group 
+            <div class="input-group my-4 mx-auto form-add__input-group
             <?php
                 if (isset($_SESSION['errorDate'])) {
-                    echo 'errorBorder';
+                    echo 'border-red';
                     unset($_SESSION['errorDate']);
                 }
             ?>">	
-                <input type="date" class="form-control date expenseDate" name="date" placeholder="Data" value=
+                <input type="date" class="form-control input-border js-date js-date-expense" name="date" placeholder="Data" value=
                 <?php
                     if(isset($_SESSION['date'])) {
                         echo $_SESSION['date'];
@@ -61,67 +61,67 @@
                         echo date('Y-m-d');
                     }
                 ?>>
-                 <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
+                 <a class="input-group-prepend cursor-pointer" data-toggle="popover" data-content="To pole jest obowiązkowe. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
                     
-                    <span class="input-group-text">
+                    <span class="input-group-text input-border bg-white">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
             </div>
            	
-            <div class="input-group 
+            <div class="input-group my-4 mx-auto form-add__input-group
             <?php
                 if (isset($_SESSION['errorPaymentMethod'])) {
-                    echo 'errorBorder';
+                    echo 'border-red';
                     unset($_SESSION['errorPaymentMethod']);
                 }
             ?>">
-                <select class="custom-select" name="paymentMethod">
+                <select class="custom-select input-border" name="paymentMethod">
                     <option disabled selected value="0">Wybierz metodę płatności</option>
                     <?php
                         echo $portal -> getHtmlOfOptionsForPaymentMethods();
                     ?>
                 </select>
-                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz metodę płatności.">
+                <a class="input-group-prepend cursor-pointer" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz metodę płatności.">
                 
-                    <span class="input-group-text">
+                    <span class="input-group-text input-border bg-white">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
             </div>
             
-            <div class="input-group 
+            <div class="input-group my-4 mx-auto form-add__input-group
             <?php
                 if (isset($_SESSION['errorCategory'])) {
-                    echo 'errorBorder';
+                    echo 'border-red';
                     unset($_SESSION['errorCategory']);
                 }
             ?>">
-                <select class="custom-select expenseCatSelect" name="category">
+                <select class="custom-select input-border js-category-expense" name="category">
                     <option disabled selected>Wybierz kategorię</option>
                     <?php
                         echo $portal -> getHtmlOfOptionsForExpenseCategories();
                     ?>
                 </select>
-                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">
+                <a class="input-group-prepend cursor-pointer" data-toggle="popover" data-content="To pole jest obowiązkowe. Wybierz kategorię przychodu.">
                 
-                    <span class="input-group-text">
+                    <span class="input-group-text input-border bg-white">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
             </div>
             					
-            <div class="input-group ">
-                <input type="text" class="form-control" placeholder="Komentarz (opcjonalnie)" name="comment" value=
+            <div class="input-group my-4 mx-auto form-add__input-group">
+                <input type="text" class="form-control input-border" placeholder="Komentarz (opcjonalnie)" name="comment" value=
                 <?php
                     if(isset($_SESSION['comment'])) {
                         echo '"'.$_SESSION['comment'].'"';
                         unset($_SESSION['comment']);
                     } 
                 ?>>
-                <a class="input-group-prepend" data-toggle="popover" data-content="To pole jest opcjonalne.">
+                <a class="input-group-prepend cursor-pointer" data-toggle="popover" data-content="To pole jest opcjonalne.">
                 
-                    <span class="input-group-text">
+                    <span class="input-group-text input-border bg-white">
                         <i class="fas fa-info-circle"></i>
                     </span>
                 </a>
@@ -129,11 +129,11 @@
             
             <div class="row mx-0">
                 <div class="col px-0">
-                    <a href="index.php?action=showExpenseAddForm" class="btn mt-4 text-white reset"><i class="fas fa-times"></i> Anuluj</a>
+                    <a href="index.php?action=showExpenseAddForm" class="btn mt-4 text-white form-add__btn--reset reset max-width"><i class="fas fa-times"></i> Anuluj</a>
                 </div>
             
                 <div class="col px-0">
-                    <button type="submit" class="btn btn-default mt-4 text-white"><i class="fas fa-plus"></i> Dodaj</button>
+                    <button type="submit" class="btn form-add__btn--submit btn-default mt-4 text-white max-width"><i class="fas fa-plus"></i> Dodaj</button>
                 </div>
             </div>
         </form>

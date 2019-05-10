@@ -14,7 +14,7 @@ class LoginEdition
         $editLoginFormValidation = new EditLoginFormValidation($_POST, LOGIN_EDITION_FORM_FIELD);
 
         $msg = $editLoginFormValidation -> getMessageOfFormValidation($userDataQueryGenerator);
-        //$_SESSION['test'] ='kod błędu: '.$msg;
+       
         if ($msg == ACTION_OK) {
             $this -> updateUserDataInDatabase($userDataQueryGenerator);
             $this -> setUserDataAfterEdition();
