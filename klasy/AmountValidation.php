@@ -16,7 +16,6 @@ class AmountValidation extends DataValidation
             return false;
         }
         
-        $_SESSION['amount'] = AmountModifier::getNumberFormatWithoutSpace($this -> data);
         return true;
     }
 
@@ -37,8 +36,4 @@ class AmountValidation extends DataValidation
             return false;
         }
     }
-
-    
-
-    
 }

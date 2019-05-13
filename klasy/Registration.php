@@ -3,17 +3,17 @@
 class Registration
 {
     private $userDataQueryGenerator = null;
+    private $registrationFormValidation = null;
 
     public function __construct($dbo)
     {
         $this -> userDataQueryGenerator = new UserDataQueryGenerator($dbo);
+        $this -> registrationFormValidation = new RegistrationFormValidation($_POST, REGISTRATION_FORM_FIELDS);
     }
 
     public function registerUser()
     {
-        $registrationFormValidation = new RegistrationFormValidation($_POST, REGISTRATION_FORM_FIELDS);
-
-        $message = $registrationFormValidation -> getMessageOfFormValidation($this -> userDataQueryGenerator);
+        $message = $this -> registrationFormValidation -> getMessageOfFormValidation($this -> userDataQueryGenerator);
 
         if ($message === ACTION_OK) {
             $this -> addNewUserToDatabase();
@@ -38,5 +38,15 @@ class Registration
     private function setDefaultOptionsForNewUser()
     {
         $this -> userDataQueryGenerator -> setDefaultOptionsForNewUser($_POST['login']);                        
+    }
+
+    public function getValidFields()
+    {
+        return $this -> registrationFormValidation -> getValidFields();
+    }
+
+    public function getInputValues()
+    {
+        return $this -> registrationFormValidation -> getInputValues();
     }
 }

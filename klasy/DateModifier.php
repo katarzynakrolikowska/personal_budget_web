@@ -60,6 +60,24 @@ class DateModifier
         }
     }
 
+    public function getFirstDateOfSelectedMonthAsString()
+    {
+        $year = $this -> getYear();
+        $month = $this -> getMonth();
+        $day = '01';
+
+        return $year.'-'.$month.'-'.$day;
+    }
+
+    public function getLastDateOfSelectedMonthAsString()
+    {
+        $year = $this -> getYear();
+        $month = $this -> getMonth();
+        $day = self::getDaysCountOfSelectedMonth($month, $year);
+
+        return $year.'-'.$month.'-'.$day;
+    }
+
     public static function getLastDateOfCurrentMonthAsString()
     {
         return self::getDateAsString(self::getLastDateOfCurrentMonth());
@@ -74,7 +92,12 @@ class DateModifier
 
     private static function getDaysCountOfCurrentMonth()
     {
-        return cal_days_in_month(CAL_GREGORIAN, self::getCurrentMonth(), self::getCurrentYear());
+        return self::getDaysCountOfSelectedMonth(self::getCurrentMonth(), self::getCurrentYear());
+    }
+
+    private static function getDaysCountOfSelectedMonth($selectedMonth, $selectedYear)
+    {
+        return cal_days_in_month(CAL_GREGORIAN, $selectedMonth, $selectedYear);
     }
 
     public static function getFirstDateOfCurrentMonthAsString()

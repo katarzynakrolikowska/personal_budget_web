@@ -5,18 +5,19 @@ class EditLoginFormValidation extends DataArrayValidation
     public function getMessageOfFormValidation($userDataQueryGenerator)
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {
-            return FORM_DATA_MISSING;
+           return FORM_DATA_MISSING;
         }
-
+        
         if (!$this -> isValidDataFromEditLoginForm($userDataQueryGenerator)) {
-			return INVALID_DATA;
+            return INVALID_DATA;
         }
 
         if ($this -> isLoginAlreadyExistsInDatabase($userDataQueryGenerator)) {
             return LOGIN_ALREADY_EXISTS;
         }
-        
+
         return ACTION_OK;
+
     }
 
     private function isValidDataFromEditLoginForm($userDataQueryGenerator)

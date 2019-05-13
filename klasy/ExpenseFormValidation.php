@@ -12,16 +12,6 @@ class ExpenseFormValidation extends DataArrayValidation
         $this -> payMethodsAssignedToUser = $personalisedOptions -> getPaymentMethodsAssignedToUser();
     }
 
-    public function getMessageOfEditFormValidation()
-    {
-        $message = $this -> getMessageOfFormValidation();
-
-        $this -> unsetSessionErrorsOfFieldsFromForm();
-        $this -> unsetSessionFieldsFromForm();
-        
-        return $message;
-    }
-
     public function getMessageOfFormValidation()
     {
         if ($this -> isRequiredFieldsFromFormMissing()) {
@@ -32,7 +22,6 @@ class ExpenseFormValidation extends DataArrayValidation
             return INVALID_DATA;
         }
 
-        $this -> unsetSessionFieldsFromForm();
         return ACTION_OK;
     }
 

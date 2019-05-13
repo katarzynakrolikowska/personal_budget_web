@@ -1,11 +1,11 @@
-<div class="row mr-0 mb-5">
+<div class="row mr-0 my-5">
 	<div class="col-12 text-center">
-		<header><h2><b>Spójrz jeszcze raz, na co wydałeś w wybranym okresie</b></h2></header>	
+		<h2><b>Spójrz jeszcze raz, na co wydałeś w wybranym okresie</b></h2>	
 	</div>
 </div>
 
-<div class="row justify-content-center rowChart mr-0 ">
-	<div class="col-10 col-sm col-lg-10" id="chart">
-		<div id="chartPieContainer"></div>
+<div class="row justify-content-center mb-5 mx-0 p-0">
+	<div class="col-12 col-lg-10 chart-pie">
+		<canvas id="chartPie"></canvas>
 	</div>
 </div>

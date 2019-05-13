@@ -3,6 +3,8 @@
 class PortalFront extends Portal
 {
     public $loggedInUser = null;
+    private $validFormFields = null;
+    private $inputValues = null;
     private $balance = null;
     private $personalisedOptions = null;
     private $settings = null;
@@ -11,7 +13,7 @@ class PortalFront extends Portal
     {
         $this -> dbo = $this -> connect($host, $user, $pass, $db);
         $this -> loggedInUser = $this -> getActualUser();
-        $this -> initiateForLogInUser();
+        $this -> initiationOfLoggedInUser();
     }
 
     public function getActualUser()
@@ -23,7 +25,7 @@ class PortalFront extends Portal
         }
     }
 
-    private function initiateForLogInUser()
+    private function initiationOfLoggedInUser()
     {
         if (isset($this -> loggedInUser)) {
             $this -> balance = new Balance($this -> dbo, $this -> loggedInUser);
@@ -32,17 +34,17 @@ class PortalFront extends Portal
         }
     }
 
-    public function setMessage($message)
+    public function setMessage($msg)
     {
-        $_SESSION['message'] = $message;
+        $_SESSION['message'] = $msg;
     }
 
     public function getMessage()
     {
         if (isset($_SESSION['message'])) {
-            $message = $_SESSION['message'];
+            $msg = $_SESSION['message'];
             unset($_SESSION['message']);
-            return $message;
+            return $msg;
         } else {
             return null;
         }
@@ -51,7 +53,39 @@ class PortalFront extends Portal
     public function logIn()
     {
         $logOperation = new LogOperation($this -> dbo);
-        return $logOperation -> login();
+        $msg = $logOperation -> logIn();
+        $this -> setValuesOfInvalidForm($logOperation);
+
+        return $msg;
+    }
+
+    public function setValuesOfInvalidForm($objAction)
+    {
+        $this -> inputValues = $objAction -> getInputValues();
+        $this -> validFormFields = $objAction -> getValidFields();
+    }
+
+    public function setSessionOfInvalidForm()
+    {
+        $this -> setSessionOfInputValues();
+        $this -> setSessionErrorsOfInvalidFormFields();
+    }
+
+    public function setSessionOfInputValues()
+    {
+        foreach ($this -> inputValues as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+    }
+
+    public function setSessionErrorsOfInvalidFormFields()
+    {
+        foreach ($this -> validFormFields as $key => $value) {
+            if (!$value) {
+                $key = ucfirst($key);
+                $_SESSION['error'.$key] = '';
+            }
+        }
     }
 
     public function logOut()
@@ -63,7 +97,10 @@ class PortalFront extends Portal
     public function registerUser()
     {
         $registration = new Registration($this -> dbo);
-        return $registration -> registerUser();
+        $msg = $registration -> registerUser();
+        $this -> setValuesOfInvalidForm($registration);
+
+        return $msg;
     }
 
     public function getHtmlOfOptionsForIncomeCategories()
@@ -123,13 +160,53 @@ class PortalFront extends Portal
     public function addIncome()
     {
         $incomeAddition = new IncomeAddition($this -> dbo, $this -> loggedInUser);
-        return $incomeAddition -> addIncome();
+        $msg = $incomeAddition -> addIncome();
+        $this -> setValuesOfInvalidForm($incomeAddition);
+
+        return $msg;
     }
 
     public function addExpense()
     {
         $expenseAddition = new ExpenseAddition($this -> dbo, $this -> loggedInUser);
-        return $expenseAddition -> addExpense();
+        $msg = $expenseAddition -> addExpense();
+        $this -> setValuesOfInvalidForm($expenseAddition);
+
+        return $msg;
+    }
+
+    public function setJsonFormMessage($result)
+    {
+        header('Content-type: application/json');
+
+        $showModal = false;
+        $msg = $this -> getMessage();
+        if ($result === ACTION_OK) {
+            $showModal = true;
+            
+        }   
+        echo json_encode([
+			'success' => true,
+            'modal' => $showModal,
+            'msg' => $msg,
+            'validFields' => $this -> validFormFields
+           
+		]);
+    }
+
+    public function setJsonMsgIsOptionUsed($result)
+    {
+        header('Content-type: application/json');
+        echo json_encode([
+			'success' => true,
+            'optionUsed' => $result
+		]);
+    }
+
+    public function setLimitValuesOfExpenseCategory($categoryId, $inputDateOfExpense)
+    {
+        $limitInfo = new ExpenseCategoryLimit($this -> dbo, $this -> loggedInUser);
+        $limitInfo -> setLimitValuesOfExpenseCategory($categoryId, $inputDateOfExpense);
     }
 
     public function setBalanceForCurrentMonth()
@@ -172,9 +249,14 @@ class PortalFront extends Portal
         return $this -> balance -> getHeader();
     }
 
-    public function getDataPointsForExpensesChart()
+    public function getLabelsOfExpensesChart()
     {
-        return $this -> balance -> getDataPointsOfExpensesChart();
+        return $this -> balance -> getLabelsOfExpensesChart();
+    }
+
+    public function getDataOfExpensesChart()
+    {
+        return $this -> balance -> getDataOfExpensesChart();
     }
 
     public function editIncome($incomeId)
@@ -192,7 +274,10 @@ class PortalFront extends Portal
     public function editExpense($expenseId)
     {
         $expenseEdition = new ExpenseEdition($this -> dbo, $this -> loggedInUser);
-        return $expenseEdition -> editExpense($expenseId);
+        $msg = $expenseEdition -> editExpense($expenseId);
+        $this -> setValuesOfInvalidForm($expenseEdition);
+
+        return $msg;
     }
 
     public function deleteExpense($expenseId)
@@ -205,11 +290,11 @@ class PortalFront extends Portal
     {
         switch ($editedItem):
             case 'name':
-                return $this -> settings -> editUserName();
+               return $this -> settings -> editUserName();
             case 'login':
-                return $this -> settings -> editUserLogin();
+               return $this -> settings -> editUserLogin();
             case 'password':
-                return $this -> settings -> editUserPassword();
+               return $this -> settings -> editUserPassword();
         endswitch;
     }
 
@@ -267,15 +352,20 @@ class PortalFront extends Portal
         endswitch;
     }
 
-    public function deleteOptionWithoutValidation($editionContent, $optionIdToRemove)
+    public function isOptionUsed($editionContent, $optionId)
     {
         switch ($editionContent):
             case 'income':
-                return $this -> settings -> deleteIncomeCategoryWithoutValidation($optionIdToRemove);
+                return $this -> settings -> isIncomeCategoryUsed($optionId);
             case 'expense':
-                return $this -> settings -> deleteExpenseCategoryWithoutValidation($optionIdToRemove);
+                return $this -> settings -> isExpenseCategoryUsed($optionId);
             case 'paymentMethod':
-                return $this -> settings -> deletePaymentMethodWithoutValidation($optionIdToRemove);
+                return $this -> settings -> isPaymentMethodUsed($optionId);
         endswitch;
+    }
+
+    public function setLimitOfExpenseCategory()
+    {
+        return $this -> settings -> setLimitOfExpenseCategory($this -> getExpenseCategoriesAssignedToUser());
     }
 }

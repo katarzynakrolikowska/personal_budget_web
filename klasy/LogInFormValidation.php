@@ -7,7 +7,7 @@ class LogInFormValidation extends DataArrayValidation
         if ($this -> isRequiredFieldsFromFormMissing()) {
             return FORM_DATA_MISSING;
         }
-
+        
         if (!$this -> isValidDataFromLoginForm($userDataQueryGenerator)) {
             return INVALID_DATA;
         }
@@ -18,23 +18,23 @@ class LogInFormValidation extends DataArrayValidation
     private function isValidDataFromLoginForm($userDataQueryGenerator)
     {
         $passwordAssignedToLogin = $this -> getPasswordAssignedToLogin($userDataQueryGenerator);
-
+        
         if ($this -> isUserExists($passwordAssignedToLogin) && $this -> isCorrectPassword($passwordAssignedToLogin)) {
             return true;
         } else {
-            $this -> setSessionErrorForRequiredFields();
+            $this -> setInvalidAllRequiredFields();
             return false;
         }
     }
 
     private function getPasswordAssignedToLogin($userDataQueryGenerator)
     {
-        return $userDataQueryGenerator -> gePasswordAssignedToLogin($this -> sendedFieldsFromForm['login']);
+        return $userDataQueryGenerator -> getPasswordAssignedToLogin($this -> sendedFieldsFromForm['login']);
     }
 
     private function isUserExists($passwordAssignedToLogin)
     {
-        if (sizeof($passwordAssignedToLogin) === 1 ) {
+        if ($passwordAssignedToLogin) {
             return true;
         } else {
             return false;

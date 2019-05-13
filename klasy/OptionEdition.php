@@ -28,4 +28,24 @@ class OptionEdition
         
         $optionQueryGenerator -> editOptionInDatabase($this -> dataFromForm['selectedOption'], $newName);
     }
+
+    public function setLimitOfCategory($optionsAssignedToUser, $optionQueryGenerator)
+    {
+        $setLimitFormValidation = new SetLimitFormValidation($this -> dataFromForm, SETTINGS_LIMIT_FORM_FIELDS, $optionsAssignedToUser);
+
+        $message = $setLimitFormValidation -> getMessageOfFormValidation();
+
+        if ($message === ACTION_OK) {
+           $this -> updateLimitOfCategory($optionQueryGenerator);
+        }
+
+        return $message;
+    }
+
+    public function updateLimitOfCategory($optionQueryGenerator)
+    {
+        $limitAmount = $this -> dataFromForm['limitAmount'];
+        $categoryId = $this -> dataFromForm['selectedOption'];
+        $optionQueryGenerator -> updateLimitOfCategoryInDatabase($limitAmount, $categoryId);
+    }
 }

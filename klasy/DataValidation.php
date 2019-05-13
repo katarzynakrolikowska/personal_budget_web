@@ -21,6 +21,11 @@ class DataValidation
         $this -> fieldName = $fieldName;
     }
 
+    public function getFieldName()
+    {
+        return $this -> fieldName;
+    }
+
     public function isValidLength($minLength, $maxLength)
     {
         if ($this -> isValidMinLength($minLength) && $this -> isValidMaxLength($maxLength)) {
@@ -52,24 +57,13 @@ class DataValidation
 
     public function isFieldFromFormMissing()
     {
-        if ($this -> isExist() && !$this -> isEmpty()) {
-            $this -> unsetSessionErrorOfFormField();
+        if (!$this -> isEmpty()) {
             return false;
         } else {
-            $this -> setSessionErrorForFormField();
             return  true;
         }
     }
     
-    protected function isExist()
-    {
-        if (isset($this -> data)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     protected function isEmpty()
     {
         if (empty(trim($this -> data))) {
@@ -77,23 +71,6 @@ class DataValidation
         } else {
             return false;
         }
-    }
-
-    public function unsetSessionErrorOfFormField()
-    {
-        $this -> fieldName = ucfirst($this -> fieldName);
-        unset($_SESSION['error'.$this -> fieldName]);
-    }
-
-    public function setSessionErrorForFormField()
-    {
-        $this -> fieldName = ucfirst($this -> fieldName);
-        $_SESSION['error'.$this -> fieldName] = '';
-    }
-
-    public function setSessionData()
-    {
-        $_SESSION[$this -> fieldName] = $this -> getSanitizedValue();
     }
 
     public function getSanitizedValue()

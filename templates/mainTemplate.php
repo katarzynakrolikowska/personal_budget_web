@@ -13,22 +13,28 @@
     <link rel="shortcut icon" href="img/wallet.ico" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round:400&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700&amp;subset=latin-ext" rel="stylesheet">
 </head>
 
 <body class="container-fluid p-0">
     <?php
-    if (isset($_SESSION['loggedInUser'])) {
+    if (isset($portal -> loggedInUser)) {
         require_once 'headerForLogInUser.php';
     } else {
         require_once 'headerForLogOutUser.php';
     }
     
     if (isset($messageOK)) {
-        echo '<h4 class="my-4 text-center">'.$messageOK.'</h4>';
+        echo '<h4 class="my-4 text-center js-message--result">'.$messageOK.'<i class="fas fa-times-circle ml-4 message--result__icon--close js-message--result__icon--close"></i></h4>';
     }
+   
+    if (isset($messageError)) {
+        echo '<h6 class="text-center text-red my-4 js-message--result">'.$messageError.'<i class="fas fa-times-circle ml-4 message--result__icon--close js-message--result__icon--close"></i></h6>';
+    }           
+   
 
+    
     switch ($action):
         case 'showLoginForm':
             require_once 'templates/loginForm.php';
@@ -37,7 +43,7 @@
             require_once 'templates/registrationForm.php';
             break;
         case 'showMainForLoginUser':
-            require_once 'templates/logInUserMainContent.php';
+            require_once 'templates/mainSiteForLoggedInUser.php';
             break;
         case 'showIncomeAddForm':
             require_once 'templates/incomeAddForm.php';
@@ -71,39 +77,35 @@
         default:
             require_once 'templates/startContent.php';
     endswitch;
+    
     ?>
     </div>
     <div class="row mx-0 footer mb-0">
-        <footer class="col text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
+        <footer class="col text-center text-lightgray pt-3">
             <p class="text-muted">2018 &copy; fullWallet.pl</p>	
         </footer>	
     </div>
-
+    <?php
+    require_once 'templates/modalActionResult.php';
+    ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <?php
-	if (($action === 'showBalanceForSelectedPeriod') && ($portal -> getHtmlOfExpensesTableRows())) {
-        echo '<script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>';
-        require_once('chartSettings.php');
-    }
-    
-    if (isset($modal) && $modal === 'show') {
-        switch ($editionContent):
-            case 'income':
-                require_once('templates/modalCautionIncomeCat.php');
-                break;
-            case 'expense':
-                require_once('templates/modalCautionExpenseCat.php');
-                break;
-            case 'paymentMethod':
-                require_once('templates/modalCautionPayMethod.php');
-                break;
-        endswitch;     
-    }    
+    switch ($action):
+        case 'showBalanceForSelectedPeriod':
+            if ($portal -> getHtmlOfExpensesTableRows()) {
+                echo '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>';
+                echo '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@latest/dist/chartjs-plugin-colorschemes.min.js"></script>';
+                require_once('chartSettings.php');
+            }
+            break;
+        case 'showExpenseAddForm':
+            require_once('templates/limitInfo.php');
+            break;
+    endswitch;
 ?>
-
 <script type="text/javascript" src="js/personalBudget.js"></script>
 </body>
 

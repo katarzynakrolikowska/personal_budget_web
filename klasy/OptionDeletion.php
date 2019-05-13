@@ -21,11 +21,6 @@ class OptionDeletion
         return $message;
     }
 
-    public function deleteOptionWithoutValidation($optionQueryGenerator)
-    {
-        $this -> updateData($optionQueryGenerator);
-    }
-
     private function updateData($optionQueryGenerator)
     {
         $optionQueryGenerator -> removeOptionFromDatabase($this -> dataFromForm['selectedOption']);

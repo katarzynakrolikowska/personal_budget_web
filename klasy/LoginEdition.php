@@ -13,13 +13,12 @@ class LoginEdition
     {
         $editLoginFormValidation = new EditLoginFormValidation($_POST, LOGIN_EDITION_FORM_FIELD);
 
-        $message = $editLoginFormValidation -> getMessageOfFormValidation($userDataQueryGenerator);
-
-        if ($message === ACTION_OK) {
+        $msg = $editLoginFormValidation -> getMessageOfFormValidation($userDataQueryGenerator);
+        if ($msg == ACTION_OK) {
             $this -> updateUserDataInDatabase($userDataQueryGenerator);
             $this -> setUserDataAfterEdition();
         }
-        return $message;
+        return $msg;
     }
 
     private function updateUserDataInDatabase($userDataQueryGenerator)

@@ -31,3 +31,4 @@ define('PASSWORD_EDITION_FORM_FIELDS', array('oldPassword', 'newPassword', 'newP
 define('OPTION_EDITION_FORM_FIELDS', array('selectedOption', 'newOption'));
 define('OPTION_ADDITION_FORM_FIELD', array('newOption'));
 define('OPTION_DELETION_FORM_FIELD', array('selectedOption'));
+define('SETTINGS_LIMIT_FORM_FIELDS', array('selectedOption', 'limitAmount'));

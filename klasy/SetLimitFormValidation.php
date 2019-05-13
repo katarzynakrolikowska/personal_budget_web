@@ -1,6 +1,6 @@
 <?php
 
-class DeleteOptionFormValidation extends DataArrayValidation
+class SetLimitFormValidation extends DataArrayValidation
 {
     private $optionsAssignedToUser = null;
 
@@ -10,7 +10,7 @@ class DeleteOptionFormValidation extends DataArrayValidation
         $this -> optionsAssignedToUser = $optionsAssignedToUser;
     }
 
-    public function getMessageOfDeleteFormValidation($optionQueryGenerator)
+    public function getMessageOfFormValidation()
     {
         $validationObjects = $this -> getValidationObjects();
         
@@ -21,14 +21,15 @@ class DeleteOptionFormValidation extends DataArrayValidation
         if (!$this -> isValidDataFromForm($validationObjects)) {
 			return INVALID_DATA;
         }
-
         return ACTION_OK;
     }
 
     private function getValidationObjects()
     {
         $optionValidation = new InputSelectValidation($this -> sendedFieldsFromForm['selectedOption'], 'selectedOption', $this -> optionsAssignedToUser);
+
+        $limitValidation = new AmountValidation($this -> sendedFieldsFromForm['limitAmount'], 'limitAmount');
         
-        return $validationObjects = array($optionValidation);
+        return $validationObjects = array($optionValidation, $limitValidation);
     }
 }

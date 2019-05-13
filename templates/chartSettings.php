@@ -1,26 +1,31 @@
 <script type="text/javascript">
 	
 	$(document).ready(function () {
-		var chart = new CanvasJS.Chart("chartPieContainer", {
-			legend:{
-				fontSize: 13
+		var pieChart = $('#chartPie');
+		
+		var myPieChart = new Chart(pieChart, {
+			type: 'pie',
+			data: {
+				labels: <?php echo json_encode($portal -> getLabelsOfExpensesChart(), JSON_NUMERIC_CHECK); ?>,
+				datasets: [{
+					data: <?php echo json_encode($portal -> getDataOfExpensesChart(), JSON_NUMERIC_CHECK); ?>
+				}]
 			},
-			animationEnabled: true,
-			
-			data: [{
-				type: "pie",
-				showInLegend: true,
-				legendText: "{label} {y}",
-				startAngle: 300,
-				yValueFormatString: "##0.##\"%\"",
-				indexLabel: "{label} {y}",
-				toolTipContent: "{label}",
-				indexLabelFontSize: 15,
-				
-				indexLabelWrap: false,
-				dataPoints: <?php echo json_encode($portal -> getDataPointsForExpensesChart(), JSON_NUMERIC_CHECK); ?>
-			}]
+			options: {
+				plugins: {
+					colorschemes: {
+						scheme: 'tableau.ClassicBlueRed12'
+					}
+				},
+				maintainAspectRatio: false,
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItem, data) {
+							return data.labels[tooltipItem.index];
+						}
+					}
+				}
+			}
 		});
-		chart.render();
-   });
+	});
 </script>

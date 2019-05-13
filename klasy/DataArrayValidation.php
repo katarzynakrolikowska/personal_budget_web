@@ -5,20 +5,28 @@ class DataArrayValidation
     protected $sendedFieldsFromForm = array();
     private $namesOfRequiredFields = array();
     private $dataValidation = null;
+    private $validFields = array();
+    private $inputValues = array();
    
     public function __construct($sendedFieldsFromForm, $namesOfRequiredFields)
     {
         $this -> sendedFieldsFromForm = $sendedFieldsFromForm;
         $this -> namesOfRequiredFields = $namesOfRequiredFields;
-        $this -> setSessionValueOfFieldsFromForm();
+        $this -> setInputValues();
     }
 
-    private function setSessionValueOfFieldsFromForm()
+    private function setInputValues()
     {
         foreach ($this -> sendedFieldsFromForm as $key => $value) {
             $this -> dataValidation = new DataValidation($value, $key);
-            $this -> dataValidation -> setSessionData();
+            $value = $this -> dataValidation -> getSanitizedValue();
+            $this -> inputValues[$key] = $value;
         }
+    }
+
+    public function getInputValues()
+    {
+        return $this -> inputValues;
     }
 
     public function isRequiredFieldsFromFormMissing()
@@ -26,8 +34,19 @@ class DataArrayValidation
         $isMissing = false;
 
         foreach ($this -> namesOfRequiredFields as $name) {
-            $this -> dataValidation = new DataValidation($this -> sendedFieldsFromForm[$name], $name);
-            if ($this -> dataValidation -> isFieldFromFormMissing()) {
+            $this -> dataValidation = new DataValidation();
+
+            if ($this -> isExist($name)) {
+                $this -> setDataValidation($name);
+
+                if ($this -> dataValidation -> isFieldFromFormMissing()) {
+                    $this -> validFields[$name] = false;
+                    $isMissing = true;
+                } else {
+                    $this -> validFields[$name] = true;
+                }
+            } else {
+                $this -> validFields[$name] = false;
                 $isMissing = true;
             }
         }
@@ -38,11 +57,26 @@ class DataArrayValidation
         }
     }
 
-    public function setSessionErrorForRequiredFields()
+    private function isExist($name)
+    {
+        if (isset($this -> sendedFieldsFromForm[$name])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function setDataValidation($name)
+    {
+        $data = $this -> sendedFieldsFromForm[$name];
+        $this -> dataValidation -> setData($data);
+        $this -> dataValidation -> setFieldName($name);
+    }
+
+    public function setInvalidAllRequiredFields()
     {
         foreach ($this -> namesOfRequiredFields as $name) {
-            $this -> dataValidation -> setFieldName($name);
-            $this -> dataValidation -> setSessionErrorForFormField();
+            $this -> validFields[$name] = false;
         }
     }
 
@@ -51,28 +85,19 @@ class DataArrayValidation
         $userDataOk = true;
 
         foreach ($validationObjects as $validationObj) {
+            $name = $validationObj -> getFieldName();
             if (!$validationObj -> isValid()) {
-                $validationObj -> setSessionErrorForFormField();
+                $this -> validFields[$name] = false;
                 $userDataOk = false;
             } else {
-                $validationObj -> unsetSessionErrorOfFormField();
+                $this -> validFields[$name] = true;
             }
         }
         return $userDataOk;
     }
 
-    public function unsetSessionFieldsFromForm()
+    public function getValidFields()
     {
-        foreach ($this -> sendedFieldsFromForm as $name => $value) {
-            unset($_SESSION[$name]);
-        }
+        return $this -> validFields;
     }
-
-    public function unsetSessionErrorsOfFieldsFromForm()
-    {
-        foreach ($this -> sendedFieldsFromForm as $name => $value) {
-            $this -> dataValidation -> setFieldName($name);
-            $this -> dataValidation -> unsetSessionErrorOfFormField();
-        }
-    }   
 }
