@@ -6,7 +6,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body modalResultBody text-center mx-4">
+			<div class="modal-body js-modal--result__body text-center mx-4">
 				<h5 class="modal-title">Dane zostały zaktualizowane!</h5>
 			</div>
 			<div class="modal-footer">

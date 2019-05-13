@@ -29,7 +29,6 @@ class LoginValidation extends DataValidation
             return true;
         } else {
             return false;
-            
         }
     }
 

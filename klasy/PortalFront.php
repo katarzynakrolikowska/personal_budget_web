@@ -290,23 +290,13 @@ class PortalFront extends Portal
     {
         switch ($editedItem):
             case 'name':
-                $result = $this -> settings -> editUserName();
-                break;
+               return $this -> settings -> editUserName();
             case 'login':
-                $result = $this -> settings -> editUserLogin();
-                break;
+               return $this -> settings -> editUserLogin();
             case 'password':
-                $result = $this -> settings -> editUserPassword();
-                break;
+               return $this -> settings -> editUserPassword();
         endswitch;
-
-        return $result;
     }
-
-    /*public function editUserLogin()
-    {
-        return $this -> settings -> editUserLogin();
-    }*/
 
     public function getHtmlOfIncomeCategoriesList()
     {

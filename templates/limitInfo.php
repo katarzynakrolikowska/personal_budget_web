@@ -1,8 +1,8 @@
 <script type="text/javascript">
-    var $limitInfo = $('.limitInfo');
-    var $inputAmount = $('.expenseAmount');
-    var $inputDate = $('.expenseDate');
-    var $inputCategory = $('.expenseCatSelect');
+    var $limitInfo = $('.js-container-limit');
+    var $inputAmount = $('.js-amount-expense');
+    var $inputDate = $('.js-date-expense');
+    var $inputCategory = $('.js-category-expense');
     var catId;
     var dateOfExpense;
     $(function() {
@@ -13,7 +13,7 @@
         });
 
         $inputAmount.on('input', function() {
-            if (!$limitInfo.is('.hideItem')) {
+            if (!$limitInfo.is('.item-hide')) {
                 var amount = $(this).val();
                 setActualSum(amount);
             }
@@ -37,13 +37,13 @@
                         actualSum = getFloatSum(amount, data.sum);
                     }
                     setColor(actualSum, data.limit);
-                    $limitInfo.removeClass('hideItem');
+                    $limitInfo.removeClass('item-hide');
                     $limitInfo.find('.limitValue').text(data.limit);
                     $limitInfo.find('.sumExpenses').text(data.sum);
                     $limitInfo.find('.difference').text(data.diff.toFixed(2));
                     $limitInfo.find('.actualSum').text(actualSum.toFixed(2));
                 } else {
-                    $limitInfo.addClass('hideItem');
+                    $limitInfo.addClass('item-hide');
                 }
             }
         });
@@ -55,9 +55,9 @@
 
     function setColor(actualSum, limit) {
         if (actualSum > limit) {
-            $limitInfo.addClass('limitOut');
+            $limitInfo.addClass('bg-lightred').removeClass('bg-lightgreen');
         } else {
-            $limitInfo.removeClass('limitOut');
+            $limitInfo.removeClass('bg-lightred').addClass('bg-lightgreen');
         }
     }
 

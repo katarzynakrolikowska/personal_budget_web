@@ -26,15 +26,15 @@
     }
     
     if (isset($messageOK)) {
-        echo '<h4 class="my-4 text-center resultMessage">'.$messageOK.'<i class="fas fa-times-circle ml-4 resultMessageIconClose"></i></h4>';
+        echo '<h4 class="my-4 text-center js-message--result">'.$messageOK.'<i class="fas fa-times-circle ml-4 message--result__icon--close js-message--result__icon--close"></i></h4>';
     }
    
     if (isset($messageError)) {
-        echo '<h6 class="error my-4 resultMessage">'.$messageError.'<i class="fas fa-times-circle ml-4 resultMessageIconClose"></i></h6>';
+        echo '<h6 class="text-center text-red my-4 js-message--result">'.$messageError.'<i class="fas fa-times-circle ml-4 message--result__icon--close js-message--result__icon--close"></i></h6>';
     }           
    
 
-    echo '<article class="mainContainer"><div class="mainContent">';
+    
     switch ($action):
         case 'showLoginForm':
             require_once 'templates/loginForm.php';
@@ -43,7 +43,7 @@
             require_once 'templates/registrationForm.php';
             break;
         case 'showMainForLoginUser':
-            require_once 'templates/logInUserMainContent.php';
+            require_once 'templates/mainSiteForLoggedInUser.php';
             break;
         case 'showIncomeAddForm':
             require_once 'templates/incomeAddForm.php';
@@ -77,11 +77,11 @@
         default:
             require_once 'templates/startContent.php';
     endswitch;
-    echo '</div></article>';
+    
     ?>
     </div>
     <div class="row mx-0 footer mb-0">
-        <footer class="col text-center pt-2 <?=$action === 'showBalanceForSelectedPeriod' ? 'footerBalance' : ''?>">
+        <footer class="col text-center text-lightgray pt-3">
             <p class="text-muted">2018 &copy; fullWallet.pl</p>	
         </footer>	
     </div>
@@ -97,10 +97,8 @@
         case 'showBalanceForSelectedPeriod':
             if ($portal -> getHtmlOfExpensesTableRows()) {
                 echo '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>';
-                echo '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@latest/dist/chartjs-plugin-colorschemes.min.js"></script>
-                ';
+                echo '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@latest/dist/chartjs-plugin-colorschemes.min.js"></script>';
                 require_once('chartSettings.php');
-                require_once('templates/limitInfo.php');
             }
             break;
         case 'showExpenseAddForm':

@@ -62,7 +62,10 @@ class UserDataQueryGenerator extends QueryGenerator
        
         $parametersToBind = array(':login' => $login);
         
-        return $this -> myDB -> getQueryResult($query, $parametersToBind);
+        $res =  $this -> myDB -> getQueryResult($query, $parametersToBind);
+        $count = count($res);
+        $_SESSION['test1'] ='<br /> ilośćw: '.$count.'<br /> login  z zapytania '.$login;
+        return $res;
     }
 
     public function getPasswordAssignedToLogin($login)
