@@ -83,10 +83,10 @@
 	?>
 </article>
 
-<div class="modal fade" id="balanceEditionModal" tabindex="-1" role="dialog" aria-labelledby="balanceEditionModal" aria-hidden="true">
-    <div class="modal-dialog " role="document">
+<div class="modal fade" id="modalBalanceEdition" tabindex="-1" role="dialog" aria-labelledby="modalBalanceEditionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header ">
+            <div class="modal-header">
                 <h5 class="modal-title text-center"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -108,7 +108,6 @@
 					<div class="input-group mb-3">
 						<input type="date" class="form-control js-modal-edition__input-date" name="date">
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wpisz datę w formacie rrrr-mm-dd z przedziału od <?=START_DATE?> do końca bieżącego miesiąca.">
-						
 							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
@@ -122,7 +121,6 @@
 							?>
 						</select>
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wybierz metodę płatności.">
-						
 							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>
@@ -143,7 +141,6 @@
 							?>
 						</select>
 						<a class="input-group-prepend" data-toggle="popover" data-content="To pole nie może pozostać puste. Wybierz kategorię.">
-						
 							<span class="input-group-text rounded-right">
 								<i class="fas fa-info-circle"></i>
 							</span>

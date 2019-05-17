@@ -1,9 +1,9 @@
 <header class="row pl-3 header-site header-site--logged-in">
-	<div class="col py-3 my-2">
+	<div class="col py-3 mt-2 mb-0">
 		<h2><b><a href="index.php?action=showMainForLoginUser" class='header-site__main-link'><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2>
 	</div>
-	<div class="col-auto pt-4">
-		<a href="index.php?action=showSettings&editionContent=userData" class="header-site__link"><i class="fas fa-user"></i> <?=$username ? $username : 'Użytkownik' ?></a>
+	<div class="col-auto pt-4 js-container-link--username">
+		<a href="index.php?action=showSettings&editionContent=userData" class="header-site__link js-link--username"><i class="fas fa-user"></i> <?=$username ? $username : 'Użytkownik' ?></a>
 	</div>
 	<div class="col-auto pt-4 pr-4 pr-sm-4">
 		<a href="#" class="header-site__link" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Wyloguj się</a>
@@ -29,7 +29,7 @@
 
 <nav class="navbar navbar-expand-lg justify-content-between sticky-top shadow">
 			
-	<h2><a href="index.php?action=showMainForLoginUser" class="navbar__main-link"><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></h2>
+	<h2><b><a href="index.php?action=showMainForLoginUser" class="navbar__main-link transition--ease-out"><i class="fas fa-hand-holding-usd"></i> fullWallet.pl</a></b></h2>
 	
 	<button class="navbar-toggler mr-2 mr-sm-4 collapsed" type="button" data-toggle="collapse" data-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		 <span class="navbar-toggler-icon"><i class="fas fa-bars"></i><i class="fas fa-times item-hide"></i></span>

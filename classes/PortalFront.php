@@ -187,7 +187,7 @@ class PortalFront extends Portal
         }   
         echo json_encode([
 			'success' => true,
-            'modal' => $showModal,
+            'showModal' => $showModal,
             'msg' => $msg,
             'validFields' => $this -> validFormFields
            
@@ -286,9 +286,9 @@ class PortalFront extends Portal
         $expenseDeletion -> deleteExpense($expenseId);
     }
 
-    public function editUserData($editedItem)
+    public function editUserData($editedUserdata)
     {
-        switch ($editedItem):
+        switch ($editedUserdata):
             case 'name':
                return $this -> settings -> editUserName();
             case 'login':
@@ -315,6 +315,64 @@ class PortalFront extends Portal
         $this -> setExpenseCategoriesAssignedToUser();
         return HtmlGenerator::getHtmlOfDataArrayList($this -> getExpenseCategoriesAssignedToUser());
     }
+
+    public function getHtmlOfIncomeCategoryEditionModal()
+    {
+        $options = $this -> getHtmlOfOptionsForIncomeCategories();
+        return ModalGenerator::getHtmlOfIncomeCategoryEditionModal($options);
+    }
+
+    public function getHtmlOfIncomeCategoryAdditionModal()
+    {
+        return ModalGenerator::getHtmlOfIncomeCategoryAdditionModal();
+    }
+
+    public function getHtmlOfIncomeCategoryDeletionModal()
+    {
+        $options = $this -> getHtmlOfOptionsForIncomeCategories();
+        return ModalGenerator::getHtmlOfIncomeCategoryDeletionModal($options);
+    }
+
+    public function getHtmlOfPaymentMethodEditionModal()
+    {
+        $options = $this -> getHtmlOfOptionsForPaymentMethods();
+        return ModalGenerator::getHtmlOfPaymentMethodEditionModal($options);
+    }
+
+    public function getHtmlOfPaymentMethodAdditionModal()
+    {
+        return ModalGenerator::getHtmlOfPaymentMethodAdditionModal();
+    }
+
+    public function getHtmlOfPaymentMethodDeletionModal()
+    {
+        $options = $this -> getHtmlOfOptionsForPaymentMethods();
+        return ModalGenerator::getHtmlOfPaymentMethodDeletionModal($options);
+    }
+
+    public function getHtmlOfExpenseCategorySettingsLimitModal()
+    {
+        $options = $this -> getHtmlOfOptionsForExpenseCategories();
+        return ModalGenerator::getHtmlOfExpenseCategorySettingsLimitModal($options);
+    }
+
+    public function getHtmlOfExpenseCategoryEditionModal()
+    {
+        $options = $this -> getHtmlOfOptionsForExpenseCategories();
+        return ModalGenerator::getHtmlOfExpenseCategoryEditionModal($options);
+    }
+
+    public function getHtmlOfExpenseCategoryAdditionModal()
+    {
+        return ModalGenerator::getHtmlOfExpenseCategoryAdditionModal();
+    }
+
+    public function getHtmlOfExpenseCategoryDeletionModal()
+    {
+        $options = $this -> getHtmlOfOptionsForExpenseCategories();
+        return ModalGenerator::getHtmlOfExpenseCategoryDeletionModal($options);
+    }
+
 
     public function editOption($editionContent)
     {

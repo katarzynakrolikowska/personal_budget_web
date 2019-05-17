@@ -12,13 +12,13 @@ class AddOptionFormValidation
     }
 
     public function getMessageOfAddFormValidation()
-    {
-        $validationObjects = $this -> getValidationObjects();
-        
+    {   
         if ($this -> optionFormValidation ->  isRequiredFieldsFromFormMissing()) {
             return  FORM_DATA_MISSING;
         }
-        
+
+        $validationObjects = $this -> getValidationObjects();
+
         if (!$this -> optionFormValidation -> isValidDataFromForm($validationObjects)) {
 			return INVALID_DATA;
         }
@@ -32,7 +32,7 @@ class AddOptionFormValidation
 
     private function getValidationObjects()
     {
-        $optionTextValidation = new NameValidation($this -> dataFromForm['newOption'], 'newOption');
+        $optionTextValidation = new TextValidation($this -> dataFromForm['newOption'], 'newOption');
         
         return $validationObjects = array($optionTextValidation);
     }

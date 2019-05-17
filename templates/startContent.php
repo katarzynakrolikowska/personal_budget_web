@@ -35,11 +35,11 @@
     <section class="row py-4 mb-5 mx-0 text-lightgray" id="startButtons">
         <div class="col-12 col-md-6 mb-5 mb-md-2 text-center">
             <h4>Jesteś tutaj pierwszy raz?</h4>
-            <a class="btn btn-lg py-2 px-5 btn-blue text-white shadow" href="index.php?action=showRegistrationForm" role="button"><i class="fas fa-clipboard-list"></i> Zarejestruj się</a>
+            <a class="btn btn-lg py-2 px-5 btn-blue text-white shadow transition--ease-out" href="index.php?action=showRegistrationForm" role="button"><i class="fas fa-clipboard-list"></i> Zarejestruj się</a>
         </div>
         <div class="col-12 col-md-6 text-center">
             <h4>Masz już konto?</h4>
-            <a class="btn btn-lg py-2 px-5 btn-red text-white shadow" href="index.php?action=showLoginForm" role="button"><i class="fas fa-sign-in-alt"></i> Zaloguj się</a>
+            <a class="btn btn-lg py-2 px-5 btn-red text-white shadow transition--ease-out" href="index.php?action=showLoginForm" role="button"><i class="fas fa-sign-in-alt"></i> Zaloguj się</a>
         </div>
     </section>
 </article>

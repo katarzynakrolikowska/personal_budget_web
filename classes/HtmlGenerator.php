@@ -73,7 +73,10 @@ class HtmlGenerator
         $html = '<tr class="js-table-incomes__row-general">
                     <td class="js-table-balance__category-name border-top-green"><b>'.$income['name'].'</b></td>
                     <td class="text-right nowrap border-top-green" id="sumRow'.$index.'"><b>'.$incomeAmount.' PLN</b></td>
-                    <td class="text-center border-top-green" title="Pokaż szczegóły"><span class="table-balance__icon-arrow js-table-balance__icon-arrow" id="arrowI'.$index.'"><i class="fas fa-angle-down"></i></span>
+                    <td class="text-center border-top-green" title="Pokaż szczegóły">
+                        <button class="table-balance__icon-arrow js-table-balance__icon-arrow" id="arrowI'.$index.'">
+                            <i class="fas fa-angle-down"></i>
+                        </button>
                     </td>
                 </tr>';
         return $html;
@@ -112,9 +115,9 @@ class HtmlGenerator
     private static function getHtmlOfMenuDots($id, $actionContent)
     {
         $html = '<div class="dropdown">
-                    <i class="fas fa-ellipsis-h table-balance__icon-dots" data-toggle="dropdown"></i>
+                    <button class="fas fa-ellipsis-v table-balance__icon-dots px-2 py-1" data-toggle="dropdown"></button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item js-link-edit-'.$actionContent.'" id="'.$id.'" href="#" data-toggle="modal" data-target="#balanceEditionModal">Edytuj</a>
+                        <a class="dropdown-item js-link-edit-'.$actionContent.'" id="'.$id.'" href="#" data-toggle="modal" data-target="#modalBalanceEdition">Edytuj</a>
                         <a class="dropdown-item" href="index.php?action=delete'.$actionContent.'&itemId='.$id.'">Usuń</a>
                     </div>
                 </div>';
@@ -128,7 +131,10 @@ class HtmlGenerator
         $html = '<tr class="js-table-expenses__row-general">
                     <td class="js-table-balance__category-name border-top-green"><b>'.$expense['name'].'</b></td>
                     <td class="text-right nowrap border-top-green"><b>'.$expenseAmount.' PLN</b></td>
-                    <td class="text-center border-top-green" title="Pokaż szczegóły"><span class="table-balance__icon-arrow js-table-balance__icon-arrow" id="arrowE'.$index.'"><i class="fas fa-angle-down"></i></span>
+                    <td class="text-center border-top-green" title="Pokaż szczegóły">
+                        <button class="table-balance__icon-arrow js-table-balance__icon-arrow" id="arrowE'.$index.'">
+                            <i class="fas fa-angle-down"></i>
+                        </button>
                     </td>
                 </tr>';
         return $html;

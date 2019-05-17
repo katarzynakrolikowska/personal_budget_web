@@ -2,10 +2,10 @@
     
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-0 js-col--add-data">
         <form class="form--add-data js-form--add-data pt-5" method="post" action="index.php?action=addIncome" >
-            <h3 class="px-5 ml-2 text-gray">Wprowadź przychód</h3>
+            <h3 class="text-gray form-add--width mx-auto">Wprowadź przychód</h3>
             <div class="js-message-error text-center text-red"></div>
             
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorAmount'])) {
                     echo 'border-red';
@@ -13,7 +13,7 @@
                 }
             ?>">
                 
-                <input type="number" class="form-control input-border" step="0.01" lang="en" min="0.00" placeholder="Kwota" name="amount" value=
+                <input type="number" autocomplete="off" class="form-control input-border" step="0.01" lang="en" min="0.00" placeholder="Kwota" name="amount" value=
                 <?php
                     if(isset($_SESSION['amount'])) {
                         echo $_SESSION['amount'];
@@ -29,7 +29,7 @@
                 </a>
             </div>
                                     
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorDate'])) {
                     echo 'border-red';
@@ -51,7 +51,7 @@
                 </a>
             </div>
                 
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorCategory'])) {
                     echo 'border-red';
@@ -72,7 +72,7 @@
                 </a>
             </div>
                                     
-            <div class="input-group my-4 mx-auto form-add__input-group">
+            <div class="input-group my-4 mx-auto form-add--width">
                 <input type="text" class="form-control input-border" placeholder="Komentarz (opcjonalnie)" name="comment" value=
                 <?php
                     if(isset($_SESSION['comment'])) {

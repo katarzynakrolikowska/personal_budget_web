@@ -6,7 +6,7 @@
 						<div class="container-registration--bg-side"></div>
 					</div>
 					<div class="col-12 col-sm p-5 shadow-lg max-height">
-						<h3>Rejestracja</h3>
+						<h3 class="pb-2">Rejestracja</h3>
 						<form class="form-registration" method="post" action="index.php?action=register">
 							
 							<div class="input-group mb-1 
