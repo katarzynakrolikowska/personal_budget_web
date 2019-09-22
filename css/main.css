@@ -36,11 +36,11 @@ body {
 	padding: 10px;
 	border: 1px solid #F2F2F2;
 	border-radius: 5px;
-	font-family: 'Montserrat', sans-serif;
 }
 
 .header-site__main-link:hover {
-	color: #DF0101;
+	color: #fe1515;
+
 	text-decoration: none;
 }
 
@@ -145,18 +145,6 @@ body {
 	.nav-item--logout {
 		display:none;
 	}
-
-	.contentText header {
-		font-size: 38px !important;
-	}
-	
-	.contentText article {
-		font-size: 20px !important;
-	}
-	
-	.contentText nav a {
-		font-size: 22px !important;
-	}
 	
 	.nav-link-expense__icon-pen,
 	.nav-link-income__icon-pen {
@@ -208,8 +196,26 @@ body {
 	background: #FE2E2E;
 }
 
+.btn-red:focus,
 .btn-red:hover {
 	background: #FF0000;
+}
+
+.btn-blue {
+	background: #01A9DB;
+}
+
+.btn-blue:focus,
+.btn-blue:hover {
+	background: #0080FF;
+}
+
+.transition--ease-out {
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-ms-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
 
 .container-login {
@@ -257,14 +263,6 @@ body {
 	margin-right: 0;
 }
 
-.btn-blue {
-	background: #01A9DB;
-}
-
-.btn-blue:hover {
-	background: #0080FF;
-}
-
 .navbar {
 	opacity: 0.85;
 	background: #01A9DB;
@@ -301,14 +299,12 @@ body {
 }
 
 .navbar-toggler:focus {
-	outline: none;
+	background: #0489B1;
 }
 
 .navbar__main-link {
-	font-family: 'Montserrat', sans-serif;
 	font-size: 22px;
 	color: #FE2E2E;
-	transition: all 0.3s ease-out;
 	background: white;
 	padding: 5px;
 	border: 1px solid #F2F2F2;
@@ -318,7 +314,6 @@ body {
 .navbar__main-link:hover {
 	text-decoration: none;
 	font-size: 24px;
-	transition: all 0.3s ease-out;
 	color: #FE2E2E;
 }
 
@@ -333,6 +328,7 @@ body {
 }
 
 .dropdown-item:hover,
+.nav-link:focus,
 .nav-link:hover {
 	color: white;
 	background: #0489B1;
@@ -412,13 +408,11 @@ body {
 	color: white !important;
 	text-transform: uppercase;
 	border: solid 3px white;
-	transition: all 0.2s ease-out;
 }
 
-.carousel__button:hover{
+.carousel__button:hover {
 	text-decoration: none;
 	border-color: #ec9396;
-	transition: all 0.2s ease-out;
 }
 
 .modal-footer {
@@ -437,7 +431,7 @@ body {
 	background: #F7F9F9;
 }
 
-.form-add__input-group {
+.form-add--width {
 	width: 80%;
 }
 
@@ -592,7 +586,6 @@ body {
 .table-balance__icon-dots,
 .table-balance__icon-arrow {
 	font-size: 20px;
-	padding: 4px;
 	cursor: pointer;
 }
 
@@ -606,15 +599,26 @@ body {
 }
 
 .rotation {
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
-  	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-ms-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
 }
 
 .fa-angle-down {
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-ms-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
 }
+
 
 .container-limit--font-size {
 	font-size: 12px;
@@ -625,9 +629,8 @@ body {
 }
 
 .bg-lightred {
-	background: #f61d1d;
+	background: #f63333;
 }
-
 
 .message--result__icon--close {
 	cursor: pointer;

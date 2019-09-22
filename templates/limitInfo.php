@@ -38,10 +38,10 @@
                     }
                     setColor(actualSum, data.limit);
                     $limitInfo.removeClass('item-hide');
-                    $limitInfo.find('.limitValue').text(data.limit);
-                    $limitInfo.find('.sumExpenses').text(data.sum);
-                    $limitInfo.find('.difference').text(data.diff.toFixed(2));
-                    $limitInfo.find('.actualSum').text(actualSum.toFixed(2));
+                    $limitInfo.find('.js-limit-value').text(data.limit);
+                    $limitInfo.find('.js-expenses-sum').text(data.sum);
+                    $limitInfo.find('.js-difference').text(data.diff.toFixed(2));
+                    $limitInfo.find('.js-actual-sum').text(actualSum.toFixed(2));
                 } else {
                     $limitInfo.addClass('item-hide');
                 }
@@ -65,10 +65,10 @@
         if (!inputAmount) {
             inputAmount = 0;
         }
-        var expensesFromDb = $limitInfo.find('.sumExpenses').text();
-        var limit = $limitInfo.find('.limitValue').text();
+        var expensesFromDb = $limitInfo.find('.js-expenses-sum').text();
+        var limit = $limitInfo.find('.js-limit-value').text();
         var actualSum = getFloatSum(inputAmount, expensesFromDb);
         setColor(actualSum, limit);
-        $limitInfo.find('.actualSum').text(actualSum.toFixed(2));
+        $limitInfo.find('.js-actual-sum').text(actualSum.toFixed(2));
     }
 </script>

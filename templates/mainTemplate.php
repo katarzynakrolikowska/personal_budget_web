@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Varela+Round:400&amp;subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700&amp;subset=latin-ext" rel="stylesheet">
 </head>
 
 <body class="container-fluid p-0">
@@ -58,13 +57,10 @@
             require_once 'templates/settingsMenu.php';
             switch ($editionContent):
                 case 'income':
-                    $htmlOfOptions = $portal -> getHtmlOfOptionsForIncomeCategories();
                     require_once 'templates/incomeCategoriesSettingsForm.php';
                     break;
                 case 'paymentMethod':
                 case 'expense':
-                    $htmlOfPaymentMethods = $portal -> getHtmlOfOptionsForPaymentMethods();
-                    $htmlOfExpenseCategories = $portal -> getHtmlOfOptionsForExpenseCategories();
                     require_once 'templates/expenseOptionsSettingsForm.php';
                     break;
                 case 'userData':

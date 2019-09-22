@@ -12,10 +12,10 @@
 								<h1 class="carousel__header font-weight-bold">Dodaj przychody i wydatki.</h1>
 								<div class="carousel__content-text">Nastapiła zmiana środków na Twoim koncie? Nie czekaj, zaktualizuj stan swoich finansów.</div>
 								<div class="row justify-content-between">
-									<a class="col-auto carousel__button" href="index.php?action=showIncomeAddForm" role="button">
+									<a class="col-auto carousel__button transition--ease-out" href="index.php?action=showIncomeAddForm" role="button">
 										Dodaj przychód
 									</a>
-									<a class="col-auto carousel__button" href="index.php?action=showExpenseAddForm" role="button">
+									<a class="col-auto carousel__button transition--ease-out" href="index.php?action=showExpenseAddForm" role="button">
 										Dodaj wydatek
 									</a>
 								</div>
@@ -24,7 +24,7 @@
 								<h1 class="carousel__header font-weight-bold">Monitoruj finanse.</h1>
 								<div class="carousel__content-text">Wybierz interesujący Cię okres czasu <span class="nowrap">i sprawdź</span> czy jesteś na plusie, czy na minusie?</div>
 								<div class="row">
-									<a class="col-auto carousel__button" href="index.php?action=setBalance&period=currntMonth" role="button">
+									<a class="col-auto carousel__button transition--ease-out" href="index.php?action=setBalance&period=currntMonth" role="button">
 										Zobacz bilans
 									</a>
 								</div>
@@ -33,7 +33,7 @@
 								<h1 class="carousel__header font-weight-bold">Personalizuj aplikację.</h1>
 								<div class="carousel__content-text">Dowolnie edytuj, dodawaj i ususwaj kategorie bądź metody płatności według własnych preferencji.</div>
 								<div class="row">
-									<a class="col-auto carousel__button" href="index.php?action=showSettings&editionContent=income" role="button">
+									<a class="col-auto carousel__button transition--ease-out" href="index.php?action=showSettings&editionContent=income" role="button">
 										Pokaż ustawienia
 									</a>
 								</div>

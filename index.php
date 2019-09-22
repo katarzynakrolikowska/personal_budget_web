@@ -20,21 +20,9 @@ try {
 	} else {
 		$messageError = $portal -> getMessage();
 	}
-
-	if (isset($_GET['categoryId'])) {
-		$limitedCategoryId = $_GET['categoryId'];
-	}
-
-	if (isset($_GET['date'])) {
-		$inputDateOfExpense = $_GET['date'];
-	}
-
-	if (isset($_GET['period'])) {
-		$period = $_GET['period'];
-	}
 		
-	if (isset($_GET['editedItem'])) {
-		$editedItem = $_GET['editedItem'];
+	if (isset($_GET['editedUserdata'])) {
+		$editedUserData = $_GET['editedUserdata'];
 	}
 
 	if (isset($_GET['editionContent'])) {
@@ -179,9 +167,19 @@ try {
 			$portal -> setJsonFormMessage($result);
 			exit();
 		case 'getLimitInfo':
+			if (isset($_GET['categoryId'])) {
+				$limitedCategoryId = $_GET['categoryId'];
+			}
+
+			if (isset($_GET['date'])) {
+				$inputDateOfExpense = $_GET['date'];
+			}
 			$portal -> setLimitValuesOfExpenseCategory($limitedCategoryId, $inputDateOfExpense);
 			exit();
 		case 'setBalance':
+			if (isset($_GET['period'])) {
+				$period = $_GET['period'];
+			}
 			switch ($period):
 				case 'previousMonth':
 					$portal -> setBalanceForPreviousMonth();
@@ -244,7 +242,7 @@ try {
 			header('Location:index.php?action=showBalanceForSelectedPeriod&result=OK');
 			return;
 		case 'editUserData':
-			switch ($portal -> editUserData($editedItem)):
+			switch ($portal -> editUserData($editedUserData)):
 				case ACTION_OK:
 					$portal -> setMessage('Dane zostały zmienione!');
 					header('Location:index.php?action=showSettings&result=OK');
@@ -259,6 +257,22 @@ try {
 					break;
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
+			break;
+		case 'editUserDataAjax':
+			switch ($portal -> editUserData($editedUserData)):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zmienione!');
+					break;
+				case LOGIN_ALREADY_EXISTS:
+					$portal -> setMessage('Operacja nie powiodła się! Podany login jest zajęty!');
+					break;
+				case INVALID_DATA:
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+			endswitch;
+			echo $portal -> getMessage();
 			break;
 		case 'editOption':
 			switch ($portal -> editOption($editionContent)):
@@ -278,6 +292,38 @@ try {
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
 			break;
+		case 'setOptionAjax':
+			if (isset($_GET['actionSettings'])) {
+				$actionSettings = $_GET['actionSettings'];
+			}
+			switch($actionSettings):
+				case 'add':
+					$resultAction = $portal -> addOption($editionContent);
+					break;
+				case 'delete':
+					$resultAction = $portal -> deleteOption($editionContent);
+					break;
+				default:
+				case 'edit':
+					$resultAction = $portal -> editOption($editionContent);
+					break;
+			endswitch;
+			switch ($resultAction):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					break;
+				case REPEATED_OPTION:
+					$portal -> setMessage('Operacja nie powiodła się! Wpisana opcja już istnieje!');
+					break;
+				case INVALID_DATA:
+				case FORM_DATA_MISSING:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+				break;
+			endswitch;
+			echo $portal -> getMessage();
+			exit();	
 		case 'addOption':
 			switch ($portal -> addOption($editionContent)):
 				case ACTION_OK:
@@ -329,6 +375,20 @@ try {
 			endswitch;
 			header('Location:index.php?action=showSettings&editionContent='.$editionContent);
 			break;
+		case 'setLimitAjax':
+			switch ($portal -> setLimitOfExpenseCategory()):
+				case ACTION_OK:
+					$portal -> setMessage('Dane zostały zaktualizowane!');
+					break;
+				case FORM_DATA_MISSING:
+				case INVALID_DATA:
+				default:
+					$portal -> setMessage('Operacja nie powiodła się! Nieprawidłowe dane!');
+					break;
+			endswitch;
+			echo $portal -> getMessage();
+			exit();
+			break;
 		default:
 			require_once 'templates/mainTemplate.php';
 	endswitch;
@@ -343,8 +403,8 @@ try {
 
 function classLoader($name)
 {
-	if (file_exists("klasy/$name.php")){
-		require_once("klasy/$name.php");
+	if (file_exists("classes/$name.php")){
+		require_once("classes/$name.php");
 	  } else {
 		throw new Exception("Brak pliku z definicją klasy.");
 	  }

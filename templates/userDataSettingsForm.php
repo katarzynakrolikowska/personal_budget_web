@@ -19,9 +19,9 @@
                 
                 <div class="col-2">
                     <div class="dropdown mr-1">
-                        <i class="fas fa-ellipsis-h dropdown-settings__icon-dots" data-toggle="dropdown"></i>
+                        <button class="fas fa-ellipsis-h dropdown-settings__icon-dots" data-toggle="dropdown"></button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#usernameEditionModal" id="editUsernameLink">Edytuj</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalUsernameEdition" id="editUsernameLink">Edytuj</a>
                         </div>
                     </div>
                 </div>
@@ -41,9 +41,9 @@
                 </div>
                 <div class="col-2">
                     <div class="dropdown mr-1">
-                        <i class="fas fa-ellipsis-h dropdown-settings__icon-dots" data-toggle="dropdown"></i>
+                        <button class="fas fa-ellipsis-h dropdown-settings__icon-dots" data-toggle="dropdown"></button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#loginEditionModal" id="editLoginLink">Edytuj</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLoginEdition" id="editLoginLink">Edytuj</a>
                         </div>
                     </div>
                 </div>
@@ -61,9 +61,9 @@
             </div>
             <div class="col-2">
                 <div class="dropdown mr-1">
-                    <i class="fas fa-ellipsis-h dropdown-settings__icon-dots" data-toggle="dropdown"></i>
+                    <button class="fas fa-ellipsis-h dropdown-settings__icon-dots" data-toggle="dropdown"></button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#passwordEditionModal" id="editPasswordLink">Edytuj</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPasswordEdition" id="editPasswordLink">Edytuj</a>
                     </div>
                 </div>
             </div>
@@ -71,18 +71,18 @@
     
     </div>
 
-<div class="modal fade" id="usernameEditionModal" tabindex="-1" role="dialog" aria-labelledby="usernameEditionModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalUsernameEdition" tabindex="-1" role="dialog" aria-labelledby="modalUsernameEditionLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title text-center">Edytuj imię</h5>
+            <div class="modal-header pl-4 py-2">
+                <h4 class="modal-title">Edytuj imię</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             
-            <div class="modal-body px-0 px-4">
-                <form method="post" action='index.php?action=editUserData&editedItem=name'>
+            <div class="modal-body px-4">
+                <form method="post" action='index.php?action=editUserData&editedUserdata=name'>
                     <div class="input-group mb-4 mt-2 js-modal__input--name-edition">
 						<input type="text" class="form-control" placeholder="Wpisz nowe imię" name="username">
 						<a class="input-group-prepend" data-toggle="popover" data-content="Imię powinno składać się z samych liter (minimum 3 znaki).">
@@ -101,18 +101,17 @@
     </div>
 </div>
 
-<div class="modal fade" id="loginEditionModal" aria-labelledby="loginEditionModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalLoginEdition" aria-labelledby="modalLoginEditionLabel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title text-center">Edytuj login</h5>
+            <div class="modal-header pl-4 py-2">
+                <h4 class="modal-title">Edytuj login</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body px-0 px-4">
-                <form method="post" action="index.php?action=editUserData&editedItem=login">
-                    
+                <form method="post" action="index.php?action=editUserData&editedUserdata=login">
                     <div class="input-group mb-4 mt-2 js-modal__input--login-edition">
                         <input type="text" class="form-control" placeholder="Podaj nowy login" name="login">
                         <a class="input-group-prepend" data-toggle="popover" data-content="Login powinien składać sie z minimum 3 znaków, może zawierać litery (bez polskich znaków), cyfry oraz znaki _ lub .">
@@ -131,18 +130,18 @@
     </div>
 </div>
 
-<div class="modal fade" id="passwordEditionModal" aria-labelledby="passwordEditionModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalPasswordEdition" aria-labelledby="modalPasswordEditionLabel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title text-center">Edytuj hasło</h5>
+            <div class="modal-header pl-4 py-2">
+                <h4 class="modal-title">Edytuj hasło</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             
             <div class="modal-body px-0 px-4">
-                <form method="post" action="index.php?action=editUserData&editedItem=password">
+                <form method="post" action="index.php?action=editUserData&editedUserdata=password">
                     <div class="input-group mb-3 mt-2">
                         <input type="password" class="form-control password" id="oldPasword" name ="oldPassword" placeholder="Podaj stare hasło">
                         <a class="input-group-prepend" data-toggle="popover" data-content="Wpisz stare hasło.">

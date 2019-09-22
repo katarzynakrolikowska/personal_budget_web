@@ -7,7 +7,7 @@
 			</div>
 			
 			<div class="col-12 col-sm p-5 shadow-lg max-height">
-				<header><h3>Logowanie</h3></header>
+				<h3 class="pb-2">Logowanie</h3>
 			
 				<form class="js-form-login" action="index.php?action=login" method="post">
 					<div class="input-group mb-1
@@ -21,7 +21,7 @@
 							<span class="input-group-text"><i class="fas fa-user form__icon--width"></i></span>
 						</div>
 
-						<input type="text" class="form-control" placeholder="Login" name="login" value=
+						<input type="text" autocomplete="off" class="form-control" placeholder="Login" name="login" value=
 						<?php
 							if(isset($_SESSION['login'])) {
 								echo $_SESSION['login'];

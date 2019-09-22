@@ -3,34 +3,34 @@
         <div class="row">
             <div class="col-6 col-md-3 mb-2">
                 <b>Limit:</b><br />
-                <span class="limitValue"></span>
+                <span class="js-limit-value"></span>
             </div>
             <div class="col-6 col-md-3 mb-2">
                 <b>Zapisane wydatki:</b><br />
-                <span class="sumExpenses"></span>
+                <span class="js-expenses-sum"></span>
             </div>
             <div class="col-6 col-md-3 mb-2">
                 <b>Wolne środki:</b><br />
-                <span class="difference"></span>
+                <span class="js-difference"></span>
             </div>
             <div class="col-6 col-md-3 mb-2">
                 <b>Wydatki + wpisana kwota:</b><br />
-                <span class="actualSum"></span>
+                <span class="js-actual-sum"></span>
             </div>
         </div>
     </div>
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 p-0 js-col--add-data">
         <form class="pt-5 form--add-data js-form--add-data" action="index.php?action=addExpense" method="post">
-            <h3 class="px-5 ml-2 text-gray">Wprowadź wydatek</h3>
+            <h3 class="text-gray form-add--width mx-auto">Wprowadź wydatek</h3>
             <div class="js-message-error text-center text-red"></div>
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorAmount'])) {
                     echo 'border-red';
                     unset($_SESSION['errorAmount']);
                 }
             ?>">
-                <input type="number" class="form-control input-border js-amount-expense" step="0.01" placeholder="Kwota" name="amount" value=
+                <input type="number" autocomplete="off" class="form-control input-border js-amount-expense" step="0.01" placeholder="Kwota" name="amount" value=
                 <?php
                     if(isset($_SESSION['amount'])) {
                         echo $_SESSION['amount'];
@@ -45,7 +45,7 @@
                 </a>
             </div>
            						
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorDate'])) {
                     echo 'border-red';
@@ -69,7 +69,7 @@
                 </a>
             </div>
            	
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorPaymentMethod'])) {
                     echo 'border-red';
@@ -90,7 +90,7 @@
                 </a>
             </div>
             
-            <div class="input-group my-4 mx-auto form-add__input-group
+            <div class="input-group my-4 mx-auto form-add--width
             <?php
                 if (isset($_SESSION['errorCategory'])) {
                     echo 'border-red';
@@ -111,7 +111,7 @@
                 </a>
             </div>
             					
-            <div class="input-group my-4 mx-auto form-add__input-group">
+            <div class="input-group my-4 mx-auto form-add--width">
                 <input type="text" class="form-control input-border" placeholder="Komentarz (opcjonalnie)" name="comment" value=
                 <?php
                     if(isset($_SESSION['comment'])) {

@@ -15,11 +15,11 @@ class EditOptionFormValidation
 
     public function getMessageOfEditFormValidation()
     {
-        $validationObjects = $this -> getValidationObjects();
-        
         if ($this -> optionFormValidation ->  isRequiredFieldsFromFormMissing()) {
             return  FORM_DATA_MISSING;
         }
+
+         $validationObjects = $this -> getValidationObjects();
         
         if (!$this -> optionFormValidation -> isValidDataFromForm($validationObjects)) {
 			return INVALID_DATA;
@@ -36,7 +36,7 @@ class EditOptionFormValidation
     {
         $optionValidation = new InputSelectValidation($this -> dataFromForm['selectedOption'], 'selectedOption', $this -> optionsAssignedToUser);
 
-        $optionTextValidation = new NameValidation($this -> dataFromForm['newOption'], 'newOption');
+        $optionTextValidation = new TextValidation($this -> dataFromForm['newOption'], 'newOption');
         
         return $validationObjects = array($optionValidation, $optionTextValidation);
     }
